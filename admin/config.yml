@@ -30,7 +30,7 @@ collections:
               - { label: 主日編號, name: number, widget: number, value_type: int, required: false }
               - { label: 名稱, name: name, widget: string }
               - { label: 資料夾名稱, name: display_name, widget: string }
-              - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false }
+              - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
               - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
           - label: 平日資料夾
             name: weekdays
@@ -62,7 +62,7 @@ collections:
                         fields:
                           - { label: 日期代碼, name: id, widget: hidden }
                           - { label: 星期, name: label, widget: string }
-                          - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false }
+                          - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
                           - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
               - label: 雙數年平日
                 name: even
