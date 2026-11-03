@@ -14,7 +14,7 @@
     h1 { margin: 0 0 .25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
     .subtitle { color: #6d675e; margin: 0 0 1rem; }
     .current { padding: .8rem 1rem; margin-bottom: 1rem; border-left: 4px solid #9b762d; border-radius: 6px; background: #fff9e9; }
-    .toolbar { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
+    .toolbar { display: grid; grid-template-columns: repeat(3, minmax(140px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
     .toolbar label { font-weight: 650; }
     select, input[type="search"] { width: 100%; margin-top: .25rem; padding: .65rem .75rem; border: 1px solid #cfc7bb; border-radius: 8px; background: #fff; font: inherit; }
     .search { grid-column: 1 / -1; }
@@ -73,16 +73,6 @@
         <option value="even">雙數年</option>
       </select>
     </label>
-    <label>
-      道理類別
-      <select id="categorySelect">
-        <option value="">全部</option>
-        <option value="講道">講道</option>
-        <option value="道理">道理</option>
-        <option value="分享">分享</option>
-        <option value="其他">其他</option>
-      </select>
-    </label>
     <label class="search">
       搜尋資料夾或筆記
       <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
@@ -96,7 +86,6 @@
     const sectionSelect = document.getElementById('sectionSelect');
     const paritySelect = document.getElementById('paritySelect');
     const parityLabel = document.getElementById('parityLabel');
-    const categorySelect = document.getElementById('categorySelect');
     const searchInput = document.getElementById('searchInput');
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
@@ -127,20 +116,14 @@
     }
 
     function homilyBlock(item, title, cssClass = '') {
-      const homilies = (item.homilies || []).filter(homily =>
-        !categorySelect.value || homily.category === categorySelect.value
-      );
+      const homilies = item.homilies || [];
       return `
         <article class="day ${cssClass}">
           <h3>${escapeHtml(title)}</h3>
-          ${homilies.length ? homilies.map(homily => `
+          ${homilies.length ? homilies.map((homily, index) => `
             <section class="homily-card">
-              <h4>${escapeHtml(homily.title)}</h4>
-              <div class="homily-meta">${[homily.date, homily.category].filter(Boolean).map(escapeHtml).join(' · ')}</div>
+              <h4>${index + 1}. ${escapeHtml(homily.title)}</h4>
               <p class="notes">${escapeHtml(homily.content)}</p>
-              ${homily.keywords?.length ? `
-                <div class="keywords">${homily.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join('')}</div>
-              ` : ''}
             </section>
           `).join('') : '<p class="empty-note">尚未加入道理</p>'}
         </article>
@@ -172,13 +155,11 @@
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
         const days = item.days || [];
-        const allHomilies = [item, ...days].flatMap(entry => entry.homilies || []);
-        const categoryMatch = !categorySelect.value || allHomilies.some(homily => homily.category === categorySelect.value);
         const homilyText = entry => (entry.homilies || []).flatMap(homily => [
-          homily.title, homily.date, homily.category, homily.content, ...(homily.keywords || [])
+          homily.title, homily.content
         ]);
         const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
-        return categoryMatch && (!query || text.includes(query));
+        return !query || text.includes(query);
       });
 
       if (!items.length) {
@@ -224,7 +205,6 @@
     cycleSelect.addEventListener('change', loadData);
     sectionSelect.addEventListener('change', render);
     paritySelect.addEventListener('change', render);
-    categorySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
