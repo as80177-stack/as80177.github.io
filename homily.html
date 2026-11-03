@@ -31,9 +31,14 @@
     .day { padding: .85rem 1rem; border-left: 4px solid #c4a45c; border-radius: 7px; background: #faf8f4; }
     .weekday { border-left-color: #7d9a83; }
     .day h3 { margin: 0 0 .35rem; font-size: 1rem; }
-    .homily-card { padding: .8rem; margin-top: .6rem; border: 1px solid #ddd4c6; border-radius: 7px; background: #fff; }
-    .homily-card h4 { margin: 0 0 .2rem; font-size: 1.05rem; }
-    .homily-meta { margin-bottom: .5rem; color: #756d61; font-size: .85rem; }
+    .homily-card { overflow: hidden; margin-top: .6rem; border: 1px solid #ddd4c6; border-radius: 7px; background: #fff; }
+    .homily-toggle { display: flex; width: 100%; align-items: center; gap: .7rem; padding: .8rem; border: 0; color: inherit; background: #fff; text-align: left; cursor: pointer; font: inherit; }
+    .homily-toggle:hover { background: #fffaf0; }
+    .homily-title { flex: 1; font-weight: 750; }
+    .homily-meta { color: #756d61; font-size: .82rem; }
+    .homily-body { display: none; padding: 0 .8rem .9rem; border-top: 1px solid #eee7dd; }
+    .homily-card.open .homily-body { display: block; }
+    .homily-card.open .chevron { transform: rotate(90deg); }
     .notes { margin: 0; white-space: pre-wrap; }
     .empty-note { color: #8b857d; }
     .keywords { margin-top: .5rem; }
@@ -115,6 +120,16 @@
       })[char]);
     }
 
+    function formatUploadTime(value) {
+      if (!value) return '未記錄上傳時間';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat('zh-TW', {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit'
+      }).format(date);
+    }
+
     function homilyBlock(item, title, cssClass = '') {
       const homilies = item.homilies || [];
       return `
@@ -122,8 +137,14 @@
           <h3>${escapeHtml(title)}</h3>
           ${homilies.length ? homilies.map((homily, index) => `
             <section class="homily-card">
-              <h4>${index + 1}. ${escapeHtml(homily.title)}</h4>
-              <p class="notes">${escapeHtml(homily.content)}</p>
+              <button class="homily-toggle" type="button" aria-expanded="false">
+                <span class="homily-title">${index + 1}. ${escapeHtml(homily.title)}</span>
+                <span class="homily-meta">${escapeHtml(formatUploadTime(homily.uploaded_at))}</span>
+                <span class="chevron">›</span>
+              </button>
+              <div class="homily-body">
+                <p class="notes">${escapeHtml(homily.content)}</p>
+              </div>
             </section>
           `).join('') : '<p class="empty-note">尚未加入道理</p>'}
         </article>
@@ -156,7 +177,7 @@
       const items = selectedItems().filter(item => {
         const days = item.days || [];
         const homilyText = entry => (entry.homilies || []).flatMap(homily => [
-          homily.title, homily.content
+          homily.title, homily.uploaded_at, homily.content
         ]);
         const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
         return !query || text.includes(query);
@@ -178,6 +199,13 @@
         button.addEventListener('click', () => {
           const folder = button.closest('.folder');
           const open = folder.classList.toggle('open');
+          button.setAttribute('aria-expanded', String(open));
+        });
+      });
+      listEl.querySelectorAll('.homily-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+          const card = button.closest('.homily-card');
+          const open = card.classList.toggle('open');
           button.setAttribute('aria-expanded', String(open));
         });
       });
