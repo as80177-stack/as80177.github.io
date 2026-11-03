@@ -14,35 +14,47 @@ collections:
   - name: homilies
     label: 講道筆記
     files:
-      - label: 甲年講道筆記
+      - label: 甲年主日
         name: year-a
         file: data/year-a.json
-        fields: &homily_fields
-          - label: 主日與講道
-            name: items
+        fields: &cycle_fields
+          - { label: 週期代碼, name: cycle, widget: hidden }
+          - { label: 週期名稱, name: label, widget: hidden }
+          - { label: 資料類型, name: kind, widget: hidden }
+          - label: 禮儀週資料夾
+            name: weeks
             widget: list
-            label_singular: 一篇講道
-            summary: "{{fields.name}}"
+            label_singular: 一個禮儀週
+            summary: "{{fields.season}} · {{fields.name}}"
+            collapsed: true
             fields:
-              - { label: "識別碼 (id)", name: id, widget: string }
-              - { label: 主日名稱, name: name, widget: string }
-              - { label: 禮儀時期, name: season, widget: string }
-              - { label: 第幾主日, name: week, widget: number, required: false, value_type: int }
-              - label: 讀經
-                name: readings
-                widget: object
+              - { label: 識別碼, name: id, widget: string }
+              - { label: 資料夾名稱, name: name, widget: string }
+              - { label: 禮儀時期, name: season, widget: select, options: [將臨期, 聖誕期, 常年期, 四旬期, 復活期] }
+              - label: 每日筆記
+                name: days
+                widget: list
+                label_singular: 一天
+                summary: "{{fields.label}}"
+                collapsed: true
                 fields:
-                  - { label: 讀經一, name: first, widget: string }
-                  - { label: 答唱詠, name: psalm, widget: string }
-                  - { label: 讀經二, name: second, widget: string }
-                  - { label: 福音, name: gospel, widget: string }
-              - { label: 講道筆記, name: homily_notes, widget: text }
-              - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
-      - label: 乙年講道筆記
+                  - { label: 日期代碼, name: id, widget: hidden }
+                  - { label: 星期, name: label, widget: string }
+                  - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false }
+                  - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
+      - label: 乙年主日
         name: year-b
         file: data/year-b.json
-        fields: *homily_fields
-      - label: 丙年講道筆記
+        fields: *cycle_fields
+      - label: 丙年主日
         name: year-c
         file: data/year-c.json
-        fields: *homily_fields
+        fields: *cycle_fields
+      - label: 單數年平日
+        name: year-odd
+        file: data/year-odd.json
+        fields: *cycle_fields
+      - label: 雙數年平日
+        name: year-even
+        file: data/year-even.json
+        fields: *cycle_fields

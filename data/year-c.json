@@ -1,32 +1,753 @@
 {
-  "items": [
-  {
-    "id": "ordinary-5",
-    "name": "常年期第五主日",
-    "season": "常年期",
-    "week": 5,
-    "readings": {
-      "first": "依61:1-2,10-11",
-      "psalm": "詠19:8-11",
-      "second": "格前9:16-19,22-23",
-      "gospel": "谷1:29-39"
+  "cycle": "c",
+  "label": "丙年",
+  "kind": "sunday",
+  "weeks": [
+    {
+      "id": "advent-1",
+      "name": "將臨期第一主日",
+      "season": "將臨期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
     },
-    "homily_notes": "重點：耶穌治病與宣講天國。可從「耶穌的優先次序」切入：祂先尋求靜默祈禱，再去宣講。提醒我們服務與祈禱不可偏廢。",
-    "keywords": ["治病", "宣講", "祈禱", "優先次序"]
-  },
-  {
-    "id": "ordinary-6",
-    "name": "常年期第六主日",
-    "season": "常年期",
-    "week": 6,
-    "readings": {
-      "first": "（待補）",
-      "psalm": "（待補）",
-      "second": "（待補）",
-      "gospel": "（待補）"
+    {
+      "id": "advent-2",
+      "name": "將臨期第二主日",
+      "season": "將臨期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
     },
-    "homily_notes": "（待補）",
-    "keywords": []
-  }
+    {
+      "id": "advent-3",
+      "name": "將臨期第三主日",
+      "season": "將臨期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "advent-4",
+      "name": "將臨期第四主日",
+      "season": "將臨期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "holy-family",
+      "name": "聖家節主日",
+      "season": "聖誕期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "epiphany",
+      "name": "主顯節主日",
+      "season": "聖誕期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "baptism-of-the-lord",
+      "name": "主受洗節主日",
+      "season": "聖誕期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-2",
+      "name": "常年期第二主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-3",
+      "name": "常年期第三主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-4",
+      "name": "常年期第四主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-5",
+      "name": "常年期第五主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "重點：耶穌治病與宣講天國。可從「耶穌的優先次序」切入：祂先尋求靜默祈禱，再去宣講。提醒我們服務與祈禱不可偏廢。",
+          "keywords": [
+            "治病",
+            "宣講",
+            "祈禱",
+            "優先次序"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ordinary-6",
+      "name": "常年期第六主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "（待補）",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-7",
+      "name": "常年期第七主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "待補",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-8",
+      "name": "常年期第八主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-9",
+      "name": "常年期第九主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-10",
+      "name": "常年期第十主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-11",
+      "name": "常年期第十一主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-12",
+      "name": "常年期第十二主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-13",
+      "name": "常年期第十三主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-14",
+      "name": "常年期第十四主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-15",
+      "name": "常年期第十五主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-16",
+      "name": "常年期第十六主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-17",
+      "name": "常年期第十七主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-18",
+      "name": "常年期第十八主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-19",
+      "name": "常年期第十九主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-20",
+      "name": "常年期第二十主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-21",
+      "name": "常年期第二十一主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-22",
+      "name": "常年期第二十二主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-23",
+      "name": "常年期第二十三主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-24",
+      "name": "常年期第二十四主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-25",
+      "name": "常年期第二十五主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-26",
+      "name": "常年期第二十六主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-27",
+      "name": "常年期第二十七主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-28",
+      "name": "常年期第二十八主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-29",
+      "name": "常年期第二十九主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-30",
+      "name": "常年期第三十主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-31",
+      "name": "常年期第三十一主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-32",
+      "name": "常年期第三十二主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-33",
+      "name": "常年期第三十三主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ordinary-34",
+      "name": "常年期第三十四主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "lent-1",
+      "name": "四旬期第一主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "lent-2",
+      "name": "四旬期第二主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "lent-3",
+      "name": "四旬期第三主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "lent-4",
+      "name": "四旬期第四主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "lent-5",
+      "name": "四旬期第五主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "palm-sunday",
+      "name": "聖枝主日",
+      "season": "四旬期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-sunday",
+      "name": "復活主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-2",
+      "name": "復活期第二主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-3",
+      "name": "復活期第三主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-4",
+      "name": "復活期第四主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-5",
+      "name": "復活期第五主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-6",
+      "name": "復活期第六主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "easter-7",
+      "name": "復活期第七主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "ascension",
+      "name": "耶穌升天節主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "pentecost",
+      "name": "五旬節主日",
+      "season": "復活期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "holy-trinity",
+      "name": "天主聖三節主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    },
+    {
+      "id": "corpus-christi",
+      "name": "基督聖體聖血節主日",
+      "season": "常年期",
+      "days": [
+        {
+          "id": "sunday",
+          "label": "主日",
+          "homily_notes": "",
+          "keywords": []
+        }
+      ]
+    }
   ]
 }

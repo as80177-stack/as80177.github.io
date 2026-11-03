@@ -3,210 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>講道筆記 · 甲乙丙年</title>
+  <title>講道與道理筆記</title>
   <style>
     * { box-sizing: border-box; }
     body {
       font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      max-width: 800px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 1.5rem;
       line-height: 1.6;
-      color: #222;
-      background: #fafafa;
+      color: #24211d;
+      background: #f7f4ef;
     }
-    h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
-    .subtitle { color: #666; margin-bottom: 1.5rem; }
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      align-items: center;
-    }
-    select, input[type="search"] {
-      padding: 0.5rem 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    input[type="search"] { flex: 1; min-width: 180px; }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
+    a.back { display: inline-block; margin-bottom: 1rem; color: #72551f; text-decoration: none; }
+    h1 { margin: 0 0 0.25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+    .subtitle { color: #6d675e; margin: 0 0 1rem; }
+    .current {
+      padding: 0.8rem 1rem;
       margin-bottom: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      cursor: pointer;
-      transition: box-shadow 0.15s;
+      border-left: 4px solid #9b762d;
+      border-radius: 6px;
+      background: #fff9e9;
     }
-    .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-    .card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
-    .meta { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
-    .preview {
-      color: #444;
-      font-size: 0.95rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .detail {
-      display: none;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
-    }
-    .detail.open { display: block; }
-    .readings { margin: 0.8rem 0; }
-    .readings dt { font-weight: 600; margin-top: 0.4rem; }
-    .readings dd { margin: 0 0 0.3rem 1rem; color: #333; }
-    .notes {
-      background: #f0f7ff;
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+      gap: 0.8rem;
       padding: 1rem;
-      border-radius: 8px;
-      margin-top: 0.8rem;
-      white-space: pre-wrap;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgb(55 45 30 / 8%);
     }
-    .keywords { margin-top: 0.6rem; }
+    .toolbar label { font-weight: 650; }
+    select, input[type="search"] {
+      width: 100%;
+      margin-top: 0.25rem;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #cfc7bb;
+      border-radius: 8px;
+      background: #fff;
+      font: inherit;
+    }
+    .search { grid-column: 1 / -1; }
+    .folder {
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+      border: 1px solid #ded7cc;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 1px 4px rgb(55 45 30 / 6%);
+    }
+    .folder-button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 1.1rem;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+    .folder-button:hover { background: #fffaf0; }
+    .folder-icon { font-size: 1.35rem; }
+    .folder-title { flex: 1; font-weight: 750; }
+    .season { color: #756d61; font-size: 0.9rem; }
+    .chevron { transition: transform 0.18s; }
+    .folder.open .chevron { transform: rotate(90deg); }
+    .days { display: none; padding: 0 1rem 1rem; }
+    .folder.open .days { display: grid; gap: 0.65rem; }
+    .day {
+      padding: 0.85rem 1rem;
+      border-left: 4px solid #c4a45c;
+      border-radius: 7px;
+      background: #faf8f4;
+    }
+    .day.weekday { border-left-color: #7d9a83; }
+    .day h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+    .notes { margin: 0; white-space: pre-wrap; }
+    .empty-note { color: #8b857d; }
+    .keywords { margin-top: 0.5rem; }
     .keyword {
       display: inline-block;
-      background: #e8e8e8;
-      padding: 0.15rem 0.5rem;
+      padding: 0.1rem 0.5rem;
+      margin: 0.1rem 0.15rem 0 0;
       border-radius: 999px;
+      background: #e9e4da;
       font-size: 0.8rem;
-      margin: 0.15rem 0.2rem 0 0;
     }
-    .empty, .loading, .error {
-      text-align: center;
-      padding: 2rem;
-      color: #666;
+    .message { padding: 2rem; color: #6d675e; text-align: center; }
+    .error { color: #a32c2c; }
+    @media (max-width: 560px) {
+      body { padding: 1rem; }
+      .toolbar { grid-template-columns: 1fr; }
+      .search { grid-column: auto; }
     }
-    .error { color: #c00; }
-    a.back {
-      display: inline-block;
-      margin-bottom: 1rem;
-      color: #0b5ed7;
-      text-decoration: none;
-    }
-    a.back:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">← 回首頁</a>
+  <h1>講道與道理筆記</h1>
+  <p class="subtitle">主日採甲、乙、丙年；平日採單數年、雙數年</p>
 
-  <h1>講道筆記</h1>
-  <p class="subtitle">選擇禮儀年，瀏覽主日讀經與講道重點</p>
+  <div id="currentCycle" class="current"></div>
 
   <div class="toolbar">
     <label>
-      禮儀年：
-      <select id="yearSelect">
+      主日禮儀年
+      <select id="sundayCycle">
         <option value="a">甲年</option>
         <option value="b">乙年</option>
         <option value="c">丙年</option>
       </select>
     </label>
-    <input type="search" id="searchInput" placeholder="搜尋關鍵字或內容…">
+    <label>
+      平日讀經年
+      <select id="weekdayCycle">
+        <option value="odd">單數年</option>
+        <option value="even">雙數年</option>
+      </select>
+    </label>
+    <label class="search">
+      搜尋資料夾或筆記
+      <input type="search" id="searchInput" placeholder="例如：將臨期、祈禱、星期一">
+    </label>
   </div>
 
-  <div id="list">
-    <div class="loading">載入中…</div>
-  </div>
+  <main id="list"><div class="message">載入中…</div></main>
 
   <script>
-    const yearSelect = document.getElementById('yearSelect');
+    const sundayCycle = document.getElementById('sundayCycle');
+    const weekdayCycle = document.getElementById('weekdayCycle');
     const searchInput = document.getElementById('searchInput');
+    const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
+    let mergedWeeks = [];
 
-    let currentData = [];
-
-    // 簡易判斷目前禮儀年（之後可改更精準）
-    function guessCurrentYear() {
-      const y = new Date().getFullYear();
-      const mod = y % 3;
-      if (mod === 1) return 'a';
-      if (mod === 2) return 'b';
-      return 'c';
+    function firstSundayOfAdvent(year) {
+      const date = new Date(year, 10, 27);
+      date.setDate(date.getDate() + ((7 - date.getDay()) % 7));
+      date.setHours(0, 0, 0, 0);
+      return date;
     }
 
-    // 預設選目前猜測的年份
-    yearSelect.value = guessCurrentYear();
+    function liturgicalSettings(date = new Date()) {
+      const calendarYear = date.getFullYear();
+      const liturgicalYear = date >= firstSundayOfAdvent(calendarYear)
+        ? calendarYear + 1
+        : calendarYear;
+      const sunday = liturgicalYear % 3 === 1 ? 'a'
+        : liturgicalYear % 3 === 2 ? 'b'
+        : 'c';
+      const weekday = liturgicalYear % 2 === 1 ? 'odd' : 'even';
+      return { liturgicalYear, sunday, weekday };
+    }
 
-    async function loadYear(year) {
-      listEl.innerHTML = '<div class="loading">載入中…</div>';
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      })[char]);
+    }
+
+    function labels() {
+      return {
+        sunday: { a: '甲年', b: '乙年', c: '丙年' }[sundayCycle.value],
+        weekday: { odd: '單數年', even: '雙數年' }[weekdayCycle.value]
+      };
+    }
+
+    async function loadData() {
+      listEl.innerHTML = '<div class="message">載入中…</div>';
       try {
-        const res = await fetch(`data/year-${year}.json`);
-        if (!res.ok) throw new Error('找不到資料檔');
-        const payload = await res.json();
-        currentData = payload.items || [];
-        renderList();
-      } catch (err) {
-        listEl.innerHTML = `<div class="error">載入失敗：${err.message}<br>請確認 data/year-${year}.json 是否存在</div>`;
-        currentData = [];
+        const [sundayResponse, weekdayResponse] = await Promise.all([
+          fetch(`data/year-${sundayCycle.value}.json`),
+          fetch(`data/year-${weekdayCycle.value}.json`)
+        ]);
+        if (!sundayResponse.ok || !weekdayResponse.ok) throw new Error('找不到週期資料檔');
+        const [sundayData, weekdayData] = await Promise.all([
+          sundayResponse.json(), weekdayResponse.json()
+        ]);
+        const weekdaysById = new Map(weekdayData.weeks.map(week => [week.id, week.days]));
+        mergedWeeks = sundayData.weeks.map(week => ({
+          ...week,
+          days: [...week.days, ...(weekdaysById.get(week.id) || [])]
+        }));
+        render();
+      } catch (error) {
+        listEl.innerHTML = `<div class="message error">載入失敗：${escapeHtml(error.message)}</div>`;
       }
     }
 
-    function renderList() {
-      const keyword = searchInput.value.trim().toLowerCase();
+    function render() {
+      const query = searchInput.value.trim().toLowerCase();
+      const visible = mergedWeeks.filter(week => {
+        const text = [
+          week.name, week.season,
+          ...week.days.flatMap(day => [day.label, day.homily_notes, ...(day.keywords || [])])
+        ].join(' ').toLowerCase();
+        return !query || text.includes(query);
+      });
 
-      let filtered = currentData;
-      if (keyword) {
-        filtered = currentData.filter(item => {
-          const text = [
-            item.name,
-            item.homily_notes,
-            ...(item.keywords || []),
-            item.readings?.first,
-            item.readings?.gospel
-          ].join(' ').toLowerCase();
-          return text.includes(keyword);
-        });
-      }
-
-      if (filtered.length === 0) {
-        listEl.innerHTML = '<div class="empty">沒有符合的主日</div>';
+      if (!visible.length) {
+        listEl.innerHTML = '<div class="message">沒有符合的資料夾或筆記</div>';
         return;
       }
 
-      listEl.innerHTML = filtered.map((item, idx) => `
-        <div class="card" data-idx="${idx}">
-          <h3>${item.name || '未命名主日'}</h3>
-          <div class="meta">${item.season || ''} ${item.week ? '第' + item.week + '主日' : ''}</div>
-          <div class="preview">${item.homily_notes || '尚無講道筆記'}</div>
-          <div class="detail" id="detail-${idx}">
-            <div class="readings">
-              <dl>
-                <dt>讀經一</dt><dd>${item.readings?.first || '—'}</dd>
-                <dt>答唱詠</dt><dd>${item.readings?.psalm || '—'}</dd>
-                <dt>讀經二</dt><dd>${item.readings?.second || '—'}</dd>
-                <dt>福音</dt><dd>${item.readings?.gospel || '—'}</dd>
-              </dl>
-            </div>
-            <div class="notes">${item.homily_notes || '（尚無筆記）'}</div>
-            ${item.keywords && item.keywords.length ? `
-              <div class="keywords">
-                ${item.keywords.map(k => `<span class="keyword">${k}</span>`).join('')}
-              </div>
-            ` : ''}
+      const cycleLabels = labels();
+      listEl.innerHTML = visible.map(week => `
+        <section class="folder">
+          <button class="folder-button" type="button" aria-expanded="false">
+            <span class="folder-icon">📁</span>
+            <span class="folder-title">${escapeHtml(week.name)}</span>
+            <span class="season">${escapeHtml(week.season)}</span>
+            <span class="chevron">›</span>
+          </button>
+          <div class="days">
+            ${week.days.map(day => {
+              const isSunday = day.id === 'sunday';
+              const cycle = isSunday ? cycleLabels.sunday : cycleLabels.weekday;
+              const note = day.homily_notes?.trim();
+              return `
+                <article class="day ${isSunday ? '' : 'weekday'}">
+                  <h3>${escapeHtml(day.label)} · ${escapeHtml(cycle)}</h3>
+                  <p class="notes ${note ? '' : 'empty-note'}">${escapeHtml(note || '尚未加入筆記')}</p>
+                  ${day.keywords?.length ? `
+                    <div class="keywords">
+                      ${day.keywords.map(keyword => `<span class="keyword">${escapeHtml(keyword)}</span>`).join('')}
+                    </div>
+                  ` : ''}
+                </article>
+              `;
+            }).join('')}
           </div>
-        </div>
+        </section>
       `).join('');
 
-      // 點擊展開/收合
-      listEl.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', () => {
-          const detail = card.querySelector('.detail');
-          detail.classList.toggle('open');
+      listEl.querySelectorAll('.folder-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const folder = button.closest('.folder');
+          const open = folder.classList.toggle('open');
+          button.setAttribute('aria-expanded', String(open));
         });
       });
     }
 
-    yearSelect.addEventListener('change', () => loadYear(yearSelect.value));
-    searchInput.addEventListener('input', renderList);
+    const detected = liturgicalSettings();
+    sundayCycle.value = detected.sunday;
+    weekdayCycle.value = detected.weekday;
+    currentCycle.textContent =
+      `目前禮儀年度：${detected.liturgicalYear} 年 · ${labels().sunday}主日 · ${labels().weekday}平日`;
 
-    // 初始載入
-    loadYear(yearSelect.value);
+    sundayCycle.addEventListener('change', loadData);
+    weekdayCycle.addEventListener('change', loadData);
+    searchInput.addEventListener('input', render);
+    loadData();
   </script>
 </body>
 </html>
