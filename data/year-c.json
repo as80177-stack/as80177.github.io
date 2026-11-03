@@ -1,4 +1,5 @@
-[
+{
+  "items": [
   {
     "id": "ordinary-5",
     "name": "常年期第五主日",
@@ -27,4 +28,5 @@
     "homily_notes": "（待補）",
     "keywords": []
   }
-]
+  ]
+}

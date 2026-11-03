@@ -138,7 +138,8 @@
       try {
         const res = await fetch(`data/year-${year}.json`);
         if (!res.ok) throw new Error('找不到資料檔');
-        currentData = await res.json();
+        const payload = await res.json();
+        currentData = payload.items || [];
         renderList();
       } catch (err) {
         listEl.innerHTML = `<div class="error">載入失敗：${err.message}<br>請確認 data/year-${year}.json 是否存在</div>`;
