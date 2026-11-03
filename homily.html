@@ -11,47 +11,41 @@
     h1 { margin: 0 0 .25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
     .subtitle { color: #6d675e; margin: 0 0 1rem; }
     .current { padding: .8rem 1rem; margin-bottom: 1rem; border-left: 4px solid #9b762d; border-radius: 6px; background: #fff9e9; }
-    .toolbar { display: grid; grid-template-columns: minmax(150px, .5fr) 1fr; gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
+    .toolbar { display: grid; grid-template-columns: repeat(3, minmax(140px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
     .toolbar label { font-weight: 650; }
     select, input[type="search"] { width: 100%; margin-top: .25rem; padding: .65rem .75rem; border: 1px solid #cfc7bb; border-radius: 8px; background: #fff; font: inherit; }
+    .search { grid-column: 1 / -1; }
+    .hidden { display: none; }
     .folder { overflow: hidden; margin-bottom: .8rem; border: 1px solid #ded7cc; border-radius: 12px; background: #fff; box-shadow: 0 1px 4px rgb(55 45 30 / 6%); }
-    .folder-button, .subfolder-button { display: flex; width: 100%; align-items: center; gap: .7rem; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; font: inherit; }
-    .folder-button { padding: 1rem 1.1rem; }
-    .subfolder-button { padding: .8rem 1rem; background: #f3f7f3; }
-    .folder-button:hover, .subfolder-button:hover { filter: brightness(.98); }
+    .folder-button { display: flex; width: 100%; align-items: center; gap: .7rem; padding: 1rem 1.1rem; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; font: inherit; }
+    .folder-button:hover { background: #fffaf0; }
     .folder-icon { font-size: 1.3rem; }
     .folder-title { flex: 1; font-weight: 750; }
     .chevron { transition: transform .18s; }
-    .folder.open > .folder-button .chevron, .subfolder.open > .subfolder-button .chevron { transform: rotate(90deg); }
+    .folder.open .chevron { transform: rotate(90deg); }
     .folder-content { display: none; padding: 0 1rem 1rem; }
-    .folder.open > .folder-content { display: grid; gap: .7rem; }
+    .folder.open .folder-content { display: grid; gap: .6rem; }
     .day { padding: .85rem 1rem; border-left: 4px solid #c4a45c; border-radius: 7px; background: #faf8f4; }
+    .weekday { border-left-color: #7d9a83; }
     .day h3 { margin: 0 0 .35rem; font-size: 1rem; }
     .notes { margin: 0; white-space: pre-wrap; }
     .empty-note { color: #8b857d; }
-    .subfolder { overflow: hidden; border: 1px solid #d5ded6; border-radius: 9px; }
-    .subfolder.current-parity { border-color: #66866e; box-shadow: 0 0 0 2px rgb(102 134 110 / 12%); }
-    .days { display: none; padding: .7rem; background: #fff; }
-    .subfolder.open .days { display: grid; gap: .55rem; }
-    .weekday { border-left-color: #7d9a83; }
-    .badge { padding: .1rem .45rem; border-radius: 999px; color: #356040; background: #dfece2; font-size: .75rem; }
     .keywords { margin-top: .5rem; }
     .keyword { display: inline-block; padding: .1rem .5rem; margin: .1rem .15rem 0 0; border-radius: 999px; background: #e9e4da; font-size: .8rem; }
     .message { padding: 2rem; color: #6d675e; text-align: center; }
     .error { color: #a32c2c; }
-    @media (max-width: 560px) { body { padding: 1rem; } .toolbar { grid-template-columns: 1fr; } }
+    @media (max-width: 650px) { body { padding: 1rem; } .toolbar { grid-template-columns: 1fr; } .search { grid-column: auto; } }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">← 回首頁</a>
   <h1>講道與道理筆記</h1>
-  <p class="subtitle">甲、乙、丙年各有 34 個主日資料夾，每個主日包含單數年與雙數年平日</p>
-
+  <p class="subtitle">每個禮儀年分為主日、平日與其他節日資料夾</p>
   <div id="currentCycle" class="current"></div>
 
   <div class="toolbar">
     <label>
-      主日禮儀年
+      禮儀年
       <select id="cycleSelect">
         <option value="a">甲年</option>
         <option value="b">乙年</option>
@@ -59,8 +53,23 @@
       </select>
     </label>
     <label>
+      類別
+      <select id="sectionSelect">
+        <option value="sundays">主日</option>
+        <option value="weekdays">平日</option>
+        <option value="other">其他（各種節日）</option>
+      </select>
+    </label>
+    <label id="parityLabel" class="hidden">
+      平日週期
+      <select id="paritySelect">
+        <option value="odd">單數年</option>
+        <option value="even">雙數年</option>
+      </select>
+    </label>
+    <label class="search">
       搜尋資料夾或筆記
-      <input type="search" id="searchInput" placeholder="例如：第5主日、祈禱、星期一">
+      <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
     </label>
   </div>
 
@@ -68,10 +77,13 @@
 
   <script>
     const cycleSelect = document.getElementById('cycleSelect');
+    const sectionSelect = document.getElementById('sectionSelect');
+    const paritySelect = document.getElementById('paritySelect');
+    const parityLabel = document.getElementById('parityLabel');
     const searchInput = document.getElementById('searchInput');
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
-    let weeks = [];
+    let cycleData;
     let detected;
 
     function firstSundayOfAdvent(year) {
@@ -97,11 +109,11 @@
       })[char]);
     }
 
-    function noteHtml(item, cssClass = '') {
+    function noteBlock(item, title, cssClass = '') {
       const note = item.homily_notes?.trim();
       return `
         <article class="day ${cssClass}">
-          <h3>${escapeHtml(item.label)}</h3>
+          <h3>${escapeHtml(title)}</h3>
           <p class="notes ${note ? '' : 'empty-note'}">${escapeHtml(note || '尚未加入筆記')}</p>
           ${item.keywords?.length ? `
             <div class="keywords">${item.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join('')}</div>
@@ -110,21 +122,54 @@
       `;
     }
 
-    function weekdayFolderHtml(folder, parity) {
-      const isCurrent = detected.weekday === parity;
+    function folderHtml(title, body) {
       return `
-        <section class="subfolder ${isCurrent ? 'current-parity' : ''}">
-          <button class="subfolder-button" type="button" aria-expanded="false">
-            <span class="folder-icon">📂</span>
-            <span class="folder-title">${escapeHtml(folder.label)}</span>
-            ${isCurrent ? '<span class="badge">目前週期</span>' : ''}
+        <section class="folder">
+          <button class="folder-button" type="button" aria-expanded="false">
+            <span class="folder-icon">📁</span>
+            <span class="folder-title">${escapeHtml(title)}</span>
             <span class="chevron">›</span>
           </button>
-          <div class="days">
-            ${folder.days.map(day => noteHtml(day, 'weekday')).join('')}
-          </div>
+          <div class="folder-content">${body}</div>
         </section>
       `;
+    }
+
+    function selectedItems() {
+      if (!cycleData) return [];
+      if (sectionSelect.value === 'sundays') return cycleData.sundays;
+      if (sectionSelect.value === 'other') return cycleData.other;
+      return cycleData.weekdays[paritySelect.value].weeks;
+    }
+
+    function render() {
+      parityLabel.classList.toggle('hidden', sectionSelect.value !== 'weekdays');
+      const query = searchInput.value.trim().toLowerCase();
+      const items = selectedItems().filter(item => {
+        const days = item.days || [];
+        const text = [item.name, item.display_name, item.homily_notes, ...(item.keywords || []), ...days.flatMap(day => [day.label, day.homily_notes, ...(day.keywords || [])])].join(' ').toLowerCase();
+        return !query || text.includes(query);
+      });
+
+      if (!items.length) {
+        listEl.innerHTML = '<div class="message">沒有符合的資料夾或筆記</div>';
+        return;
+      }
+
+      listEl.innerHTML = items.map(item => {
+        if (sectionSelect.value === 'weekdays') {
+          return folderHtml(item.name, item.days.map(day => noteBlock(day, day.label, 'weekday')).join(''));
+        }
+        return folderHtml(item.display_name, noteBlock(item, item.name));
+      }).join('');
+
+      listEl.querySelectorAll('.folder-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const folder = button.closest('.folder');
+          const open = folder.classList.toggle('open');
+          button.setAttribute('aria-expanded', String(open));
+        });
+      });
     }
 
     async function loadData() {
@@ -132,58 +177,23 @@
       try {
         const response = await fetch(`data/year-${cycleSelect.value}.json`);
         if (!response.ok) throw new Error('找不到禮儀年資料');
-        const data = await response.json();
-        weeks = data.weeks;
+        cycleData = await response.json();
         render();
       } catch (error) {
         listEl.innerHTML = `<div class="message error">載入失敗：${escapeHtml(error.message)}</div>`;
       }
     }
 
-    function render() {
-      const query = searchInput.value.trim().toLowerCase();
-      const visible = weeks.filter(week => {
-        const allDays = [week.sunday, ...week.weekdays.odd.days, ...week.weekdays.even.days];
-        const text = [week.name, week.display_name, ...allDays.flatMap(day => [day.label, day.homily_notes, ...(day.keywords || [])])].join(' ').toLowerCase();
-        return !query || text.includes(query);
-      });
-
-      if (!visible.length) {
-        listEl.innerHTML = '<div class="message">沒有符合的資料夾或筆記</div>';
-        return;
-      }
-
-      listEl.innerHTML = visible.map(week => `
-        <section class="folder">
-          <button class="folder-button" type="button" aria-expanded="false">
-            <span class="folder-icon">📁</span>
-            <span class="folder-title">${escapeHtml(week.display_name)}</span>
-            <span class="chevron">›</span>
-          </button>
-          <div class="folder-content">
-            ${noteHtml(week.sunday)}
-            ${weekdayFolderHtml(week.weekdays.odd, 'odd')}
-            ${weekdayFolderHtml(week.weekdays.even, 'even')}
-          </div>
-        </section>
-      `).join('');
-
-      listEl.querySelectorAll('.folder-button, .subfolder-button').forEach(button => {
-        button.addEventListener('click', () => {
-          const container = button.parentElement;
-          const open = container.classList.toggle('open');
-          button.setAttribute('aria-expanded', String(open));
-        });
-      });
-    }
-
     detected = liturgicalSettings();
     cycleSelect.value = detected.sunday;
+    paritySelect.value = detected.weekday;
     const sundayLabel = { a: '甲年', b: '乙年', c: '丙年' }[detected.sunday];
     const weekdayLabel = detected.weekday === 'odd' ? '單數年' : '雙數年';
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日 · ${weekdayLabel}平日`;
 
     cycleSelect.addEventListener('change', loadData);
+    sectionSelect.addEventListener('change', render);
+    paritySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
     loadData();
   </script>
