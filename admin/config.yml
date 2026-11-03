@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: as80177-stack/as80177.github.io
   branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 locale: zh_Hant
 
