@@ -8,12 +8,23 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
   <style>
+    :root { --reading-font-size: 1.1rem; --reading-line-height: 1.8; }
     * { box-sizing: border-box; }
+    body[data-reading-size="small"] { --reading-font-size: .95rem; --reading-line-height: 1.7; }
+    body[data-reading-size="medium"] { --reading-font-size: 1.1rem; --reading-line-height: 1.8; }
+    body[data-reading-size="large"] { --reading-font-size: 1.35rem; --reading-line-height: 1.95; }
     body { font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif; max-width: 920px; margin: 0 auto; padding: 1.5rem; line-height: 1.6; color: #24211d; background: #f7f4ef; }
     a.back { display: inline-block; margin-bottom: 1rem; color: #72551f; text-decoration: none; }
     h1 { margin: 0 0 .25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
     .subtitle { color: #6d675e; margin: 0 0 1rem; }
     .current { padding: .8rem 1rem; margin-bottom: 1rem; border-left: 4px solid #9b762d; border-radius: 6px; background: #fff9e9; }
+    .reading-settings { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin-bottom: 1rem; padding: .7rem 1rem; border-radius: 10px; background: #fff; box-shadow: 0 1px 4px rgb(55 45 30 / 6%); }
+    .reading-label { margin-right: .25rem; color: #5f584e; font-weight: 700; }
+    .size-button { min-width: 4.2rem; padding: .45rem .7rem; border: 1px solid #cfc7bb; border-radius: 999px; color: #403a32; background: #fff; cursor: pointer; font: inherit; }
+    .size-button:hover { background: #fff8e8; }
+    .size-button[aria-pressed="true"] { border-color: #72551f; color: #fff; background: #72551f; }
+    .size-button[data-size="small"] { font-size: .85rem; }
+    .size-button[data-size="large"] { font-size: 1.12rem; }
     .toolbar { display: grid; grid-template-columns: repeat(3, minmax(140px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
     .toolbar label { font-weight: 650; }
     select, input[type="search"] { width: 100%; margin-top: .25rem; padding: .65rem .75rem; border: 1px solid #cfc7bb; border-radius: 8px; background: #fff; font: inherit; }
@@ -41,7 +52,7 @@
     .homily-card.open .chevron { transform: rotate(90deg); }
     .homily-collapse { display: block; width: 100%; margin-top: 1rem; padding: .6rem; border: 1px solid #cdbfAA; border-radius: 7px; color: #5c461d; background: #fff8e8; cursor: pointer; font: inherit; font-weight: 700; }
     .homily-collapse:hover { background: #f8edcf; }
-    .notes { margin: 0; white-space: pre-wrap; }
+    .notes { margin: 0; font-size: var(--reading-font-size); line-height: var(--reading-line-height); white-space: pre-wrap; }
     .empty-note { color: #8b857d; }
     .keywords { margin-top: .5rem; }
     .keyword { display: inline-block; padding: .1rem .5rem; margin: .1rem .15rem 0 0; border-radius: 999px; background: #e9e4da; font-size: .8rem; }
@@ -55,6 +66,12 @@
   <h1>講道與道理筆記</h1>
   <p class="subtitle">每個禮儀年分為主日、平日與其他節日資料夾</p>
   <div id="currentCycle" class="current"></div>
+  <div class="reading-settings" aria-label="閱讀字體大小">
+    <span class="reading-label">閱讀字體</span>
+    <button class="size-button" type="button" data-size="small" aria-pressed="false">小字</button>
+    <button class="size-button" type="button" data-size="medium" aria-pressed="true">標準</button>
+    <button class="size-button" type="button" data-size="large" aria-pressed="false">大字</button>
+  </div>
 
   <div class="toolbar">
     <label>
@@ -96,8 +113,19 @@
     const searchInput = document.getElementById('searchInput');
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
+    const sizeButtons = document.querySelectorAll('.size-button');
     let cycleData;
     let detected;
+
+    function setReadingSize(size) {
+      const allowed = ['small', 'medium', 'large'];
+      const selected = allowed.includes(size) ? size : 'medium';
+      document.body.dataset.readingSize = selected;
+      sizeButtons.forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.size === selected));
+      });
+      try { localStorage.setItem('homily-reading-size', selected); } catch (_) {}
+    }
 
     function firstSundayOfAdvent(year) {
       const date = new Date(year, 10, 27);
@@ -237,6 +265,12 @@
     }
 
     detected = liturgicalSettings();
+    let savedReadingSize = 'medium';
+    try { savedReadingSize = localStorage.getItem('homily-reading-size') || 'medium'; } catch (_) {}
+    setReadingSize(savedReadingSize);
+    sizeButtons.forEach(button => {
+      button.addEventListener('click', () => setReadingSize(button.dataset.size));
+    });
     cycleSelect.value = detected.sunday;
     paritySelect.value = detected.weekday;
     const sundayLabel = { a: '甲年', b: '乙年', c: '丙年' }[detected.sunday];
