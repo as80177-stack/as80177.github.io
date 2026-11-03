@@ -39,6 +39,8 @@
     .homily-body { display: none; padding: 0 .8rem .9rem; border-top: 1px solid #eee7dd; }
     .homily-card.open .homily-body { display: block; }
     .homily-card.open .chevron { transform: rotate(90deg); }
+    .homily-collapse { display: block; width: 100%; margin-top: 1rem; padding: .6rem; border: 1px solid #cdbfAA; border-radius: 7px; color: #5c461d; background: #fff8e8; cursor: pointer; font: inherit; font-weight: 700; }
+    .homily-collapse:hover { background: #f8edcf; }
     .notes { margin: 0; white-space: pre-wrap; }
     .empty-note { color: #8b857d; }
     .keywords { margin-top: .5rem; }
@@ -144,6 +146,7 @@
               </button>
               <div class="homily-body">
                 <p class="notes">${escapeHtml(homily.content)}</p>
+                <button class="homily-collapse" type="button">↑ 收合這篇道理</button>
               </div>
             </section>
           `).join('') : '<p class="empty-note">尚未加入道理</p>'}
@@ -207,6 +210,16 @@
           const card = button.closest('.homily-card');
           const open = card.classList.toggle('open');
           button.setAttribute('aria-expanded', String(open));
+        });
+      });
+      listEl.querySelectorAll('.homily-collapse').forEach(button => {
+        button.addEventListener('click', () => {
+          const card = button.closest('.homily-card');
+          const toggle = card.querySelector('.homily-toggle');
+          card.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          toggle.focus({ preventScroll: true });
         });
       });
     }
