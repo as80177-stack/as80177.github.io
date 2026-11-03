@@ -12,49 +12,65 @@ public_folder: /images
 
 collections:
   - name: homilies
-    label: 講道筆記
+    label: 講道與道理筆記
     files:
-      - label: 甲年主日
+      - label: 甲年
         name: year-a
         file: data/year-a.json
         fields: &cycle_fields
           - { label: 週期代碼, name: cycle, widget: hidden }
           - { label: 週期名稱, name: label, widget: hidden }
-          - { label: 資料類型, name: kind, widget: hidden }
-          - label: 禮儀週資料夾
+          - label: 34 個主日資料夾
             name: weeks
             widget: list
-            label_singular: 一個禮儀週
-            summary: "{{fields.season}} · {{fields.name}}"
+            label_singular: 一個主日資料夾
+            summary: "{{fields.display_name}}"
             collapsed: true
             fields:
-              - { label: 識別碼, name: id, widget: string }
-              - { label: 資料夾名稱, name: name, widget: string }
-              - { label: 禮儀時期, name: season, widget: select, options: [將臨期, 聖誕期, 常年期, 四旬期, 復活期] }
-              - label: 每日筆記
-                name: days
-                widget: list
-                label_singular: 一天
-                summary: "{{fields.label}}"
+              - { label: 識別碼, name: id, widget: hidden }
+              - { label: 主日編號, name: number, widget: number, value_type: int }
+              - { label: 主日名稱, name: name, widget: string }
+              - { label: 資料夾名稱, name: display_name, widget: string }
+              - label: 主日
+                name: sunday
+                widget: object
                 collapsed: true
                 fields:
-                  - { label: 日期代碼, name: id, widget: hidden }
-                  - { label: 星期, name: label, widget: string }
+                  - { label: 名稱, name: label, widget: hidden }
                   - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false }
                   - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
-      - label: 乙年主日
+              - label: 平日資料夾
+                name: weekdays
+                widget: object
+                collapsed: true
+                fields:
+                  - label: 單數年平日
+                    name: odd
+                    widget: object
+                    collapsed: true
+                    fields: &weekday_fields
+                      - { label: 名稱, name: label, widget: hidden }
+                      - label: 星期一至星期六
+                        name: days
+                        widget: list
+                        label_singular: 一天
+                        summary: "{{fields.label}}"
+                        collapsed: true
+                        fields:
+                          - { label: 日期代碼, name: id, widget: hidden }
+                          - { label: 星期, name: label, widget: string }
+                          - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false }
+                          - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
+                  - label: 雙數年平日
+                    name: even
+                    widget: object
+                    collapsed: true
+                    fields: *weekday_fields
+      - label: 乙年
         name: year-b
         file: data/year-b.json
         fields: *cycle_fields
-      - label: 丙年主日
+      - label: 丙年
         name: year-c
         file: data/year-c.json
-        fields: *cycle_fields
-      - label: 單數年平日
-        name: year-odd
-        file: data/year-odd.json
-        fields: *cycle_fields
-      - label: 雙數年平日
-        name: year-even
-        file: data/year-even.json
         fields: *cycle_fields
