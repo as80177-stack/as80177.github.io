@@ -14,7 +14,7 @@
     h1 { margin: 0 0 .25rem; font-size: clamp(1.6rem, 4vw, 2.2rem); }
     .subtitle { color: #6d675e; margin: 0 0 1rem; }
     .current { padding: .8rem 1rem; margin-bottom: 1rem; border-left: 4px solid #9b762d; border-radius: 6px; background: #fff9e9; }
-    .toolbar { display: grid; grid-template-columns: repeat(3, minmax(140px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
+    .toolbar { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: .8rem; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(55 45 30 / 8%); }
     .toolbar label { font-weight: 650; }
     select, input[type="search"] { width: 100%; margin-top: .25rem; padding: .65rem .75rem; border: 1px solid #cfc7bb; border-radius: 8px; background: #fff; font: inherit; }
     .search { grid-column: 1 / -1; }
@@ -31,6 +31,9 @@
     .day { padding: .85rem 1rem; border-left: 4px solid #c4a45c; border-radius: 7px; background: #faf8f4; }
     .weekday { border-left-color: #7d9a83; }
     .day h3 { margin: 0 0 .35rem; font-size: 1rem; }
+    .homily-card { padding: .8rem; margin-top: .6rem; border: 1px solid #ddd4c6; border-radius: 7px; background: #fff; }
+    .homily-card h4 { margin: 0 0 .2rem; font-size: 1.05rem; }
+    .homily-meta { margin-bottom: .5rem; color: #756d61; font-size: .85rem; }
     .notes { margin: 0; white-space: pre-wrap; }
     .empty-note { color: #8b857d; }
     .keywords { margin-top: .5rem; }
@@ -70,6 +73,16 @@
         <option value="even">雙數年</option>
       </select>
     </label>
+    <label>
+      道理類別
+      <select id="categorySelect">
+        <option value="">全部</option>
+        <option value="講道">講道</option>
+        <option value="道理">道理</option>
+        <option value="分享">分享</option>
+        <option value="其他">其他</option>
+      </select>
+    </label>
     <label class="search">
       搜尋資料夾或筆記
       <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
@@ -83,6 +96,7 @@
     const sectionSelect = document.getElementById('sectionSelect');
     const paritySelect = document.getElementById('paritySelect');
     const parityLabel = document.getElementById('parityLabel');
+    const categorySelect = document.getElementById('categorySelect');
     const searchInput = document.getElementById('searchInput');
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
@@ -112,15 +126,23 @@
       })[char]);
     }
 
-    function noteBlock(item, title, cssClass = '') {
-      const note = item.homily_notes?.trim();
+    function homilyBlock(item, title, cssClass = '') {
+      const homilies = (item.homilies || []).filter(homily =>
+        !categorySelect.value || homily.category === categorySelect.value
+      );
       return `
         <article class="day ${cssClass}">
           <h3>${escapeHtml(title)}</h3>
-          <p class="notes ${note ? '' : 'empty-note'}">${escapeHtml(note || '尚未加入筆記')}</p>
-          ${item.keywords?.length ? `
-            <div class="keywords">${item.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join('')}</div>
-          ` : ''}
+          ${homilies.length ? homilies.map(homily => `
+            <section class="homily-card">
+              <h4>${escapeHtml(homily.title)}</h4>
+              <div class="homily-meta">${[homily.date, homily.category].filter(Boolean).map(escapeHtml).join(' · ')}</div>
+              <p class="notes">${escapeHtml(homily.content)}</p>
+              ${homily.keywords?.length ? `
+                <div class="keywords">${homily.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join('')}</div>
+              ` : ''}
+            </section>
+          `).join('') : '<p class="empty-note">尚未加入道理</p>'}
         </article>
       `;
     }
@@ -150,8 +172,13 @@
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
         const days = item.days || [];
-        const text = [item.name, item.display_name, item.homily_notes, ...(item.keywords || []), ...days.flatMap(day => [day.label, day.homily_notes, ...(day.keywords || [])])].join(' ').toLowerCase();
-        return !query || text.includes(query);
+        const allHomilies = [item, ...days].flatMap(entry => entry.homilies || []);
+        const categoryMatch = !categorySelect.value || allHomilies.some(homily => homily.category === categorySelect.value);
+        const homilyText = entry => (entry.homilies || []).flatMap(homily => [
+          homily.title, homily.date, homily.category, homily.content, ...(homily.keywords || [])
+        ]);
+        const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
+        return categoryMatch && (!query || text.includes(query));
       });
 
       if (!items.length) {
@@ -161,9 +188,9 @@
 
       listEl.innerHTML = items.map(item => {
         if (sectionSelect.value === 'weekdays') {
-          return folderHtml(item.name, item.days.map(day => noteBlock(day, day.label, 'weekday')).join(''));
+          return folderHtml(item.name, item.days.map(day => homilyBlock(day, day.label, 'weekday')).join(''));
         }
-        return folderHtml(item.display_name, noteBlock(item, item.name));
+        return folderHtml(item.display_name, homilyBlock(item, item.name));
       }).join('');
 
       listEl.querySelectorAll('.folder-button').forEach(button => {
@@ -197,6 +224,7 @@
     cycleSelect.addEventListener('change', loadData);
     sectionSelect.addEventListener('change', render);
     paritySelect.addEventListener('change', render);
+    categorySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));

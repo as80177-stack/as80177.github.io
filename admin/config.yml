@@ -30,8 +30,20 @@ collections:
               - { label: 主日編號, name: number, widget: number, value_type: int, required: false }
               - { label: 名稱, name: name, widget: string }
               - { label: 資料夾名稱, name: display_name, widget: string }
-              - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
-              - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
+              - &homily_list
+                label: 多篇講道與道理
+                name: homilies
+                widget: list
+                label_singular: 一篇道理
+                summary: "{{fields.date}} · {{fields.category}} · {{fields.title}}"
+                collapsed: true
+                required: false
+                fields:
+                  - { label: 標題, name: title, widget: string }
+                  - { label: 日期, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+                  - { label: 類別, name: category, widget: select, options: [講道, 道理, 分享, 其他], default: 道理 }
+                  - { label: 正文, name: content, widget: text, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
+                  - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
           - label: 平日資料夾
             name: weekdays
             widget: object
@@ -62,8 +74,7 @@ collections:
                         fields:
                           - { label: 日期代碼, name: id, widget: hidden }
                           - { label: 星期, name: label, widget: string }
-                          - { label: 講道或道理筆記, name: homily_notes, widget: text, required: false, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
-                          - { label: 關鍵字, name: keywords, widget: list, required: false, default: [] }
+                          - *homily_list
               - label: 雙數年平日
                 name: even
                 widget: object

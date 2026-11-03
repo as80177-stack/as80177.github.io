@@ -7,44 +7,47 @@
       "number": 1,
       "name": "第1主日",
       "display_name": "第1主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-2",
       "number": 2,
       "name": "第2主日",
       "display_name": "第2主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-3",
       "number": 3,
       "name": "第3主日",
       "display_name": "第3主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-4",
       "number": 4,
       "name": "第4主日",
       "display_name": "第4主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-5",
       "number": 5,
       "name": "第5主日",
       "display_name": "第5主日資料夾",
-      "homily_notes": "重點：耶穌治病與宣講天國。可從「耶穌的優先次序」切入：祂先尋求靜默祈禱，再去宣講。提醒我們服務與祈禱不可偏廢。",
-      "keywords": [
-        "治病",
-        "宣講",
-        "祈禱",
-        "優先次序"
+      "homilies": [
+        {
+          "title": "第5主日道理",
+          "date": "",
+          "category": "道理",
+          "content": "重點：耶穌治病與宣講天國。可從「耶穌的優先次序」切入：祂先尋求靜默祈禱，再去宣講。提醒我們服務與祈禱不可偏廢。",
+          "keywords": [
+            "治病",
+            "宣講",
+            "祈禱",
+            "優先次序"
+          ]
+        }
       ]
     },
     {
@@ -52,232 +55,219 @@
       "number": 6,
       "name": "第6主日",
       "display_name": "第6主日資料夾",
-      "homily_notes": "（待補）",
-      "keywords": []
+      "homilies": [
+        {
+          "title": "第6主日道理",
+          "date": "",
+          "category": "道理",
+          "content": "（待補）",
+          "keywords": []
+        }
+      ]
     },
     {
       "id": "ordinary-7",
       "number": 7,
       "name": "第7主日",
       "display_name": "第7主日資料夾",
-      "homily_notes": "待補",
-      "keywords": []
+      "homilies": [
+        {
+          "title": "第7主日道理",
+          "date": "",
+          "category": "道理",
+          "content": "待補",
+          "keywords": []
+        }
+      ]
     },
     {
       "id": "ordinary-8",
       "number": 8,
       "name": "第8主日",
       "display_name": "第8主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-9",
       "number": 9,
       "name": "第9主日",
       "display_name": "第9主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-10",
       "number": 10,
       "name": "第10主日",
       "display_name": "第10主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-11",
       "number": 11,
       "name": "第11主日",
       "display_name": "第11主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-12",
       "number": 12,
       "name": "第12主日",
       "display_name": "第12主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-13",
       "number": 13,
       "name": "第13主日",
       "display_name": "第13主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-14",
       "number": 14,
       "name": "第14主日",
       "display_name": "第14主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-15",
       "number": 15,
       "name": "第15主日",
       "display_name": "第15主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-16",
       "number": 16,
       "name": "第16主日",
       "display_name": "第16主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-17",
       "number": 17,
       "name": "第17主日",
       "display_name": "第17主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-18",
       "number": 18,
       "name": "第18主日",
       "display_name": "第18主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-19",
       "number": 19,
       "name": "第19主日",
       "display_name": "第19主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-20",
       "number": 20,
       "name": "第20主日",
       "display_name": "第20主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-21",
       "number": 21,
       "name": "第21主日",
       "display_name": "第21主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-22",
       "number": 22,
       "name": "第22主日",
       "display_name": "第22主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-23",
       "number": 23,
       "name": "第23主日",
       "display_name": "第23主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-24",
       "number": 24,
       "name": "第24主日",
       "display_name": "第24主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-25",
       "number": 25,
       "name": "第25主日",
       "display_name": "第25主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-26",
       "number": 26,
       "name": "第26主日",
       "display_name": "第26主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-27",
       "number": 27,
       "name": "第27主日",
       "display_name": "第27主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-28",
       "number": 28,
       "name": "第28主日",
       "display_name": "第28主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-29",
       "number": 29,
       "name": "第29主日",
       "display_name": "第29主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-30",
       "number": 30,
       "name": "第30主日",
       "display_name": "第30主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-31",
       "number": 31,
       "name": "第31主日",
       "display_name": "第31主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-32",
       "number": 32,
       "name": "第32主日",
       "display_name": "第32主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-33",
       "number": 33,
       "name": "第33主日",
       "display_name": "第33主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ordinary-34",
       "number": 34,
       "name": "第34主日",
       "display_name": "第34主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     }
   ],
   "weekdays": {
@@ -292,38 +282,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -335,38 +319,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -378,38 +356,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -421,38 +393,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -464,38 +430,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -507,38 +467,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -550,38 +504,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -593,38 +541,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -636,38 +578,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -679,38 +615,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -722,38 +652,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -765,38 +689,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -808,38 +726,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -851,38 +763,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -894,38 +800,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -937,38 +837,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -980,38 +874,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1023,38 +911,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1066,38 +948,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1109,38 +985,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1152,38 +1022,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1195,38 +1059,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1238,38 +1096,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1281,38 +1133,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1324,38 +1170,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1367,38 +1207,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1410,38 +1244,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1453,38 +1281,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1496,38 +1318,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1539,38 +1355,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1582,38 +1392,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1625,38 +1429,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1668,38 +1466,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1711,38 +1503,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         }
@@ -1759,38 +1545,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1802,38 +1582,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1845,38 +1619,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1888,38 +1656,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1931,38 +1693,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -1974,38 +1730,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2017,38 +1767,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2060,38 +1804,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2103,38 +1841,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2146,38 +1878,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2189,38 +1915,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2232,38 +1952,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2275,38 +1989,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2318,38 +2026,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2361,38 +2063,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2404,38 +2100,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2447,38 +2137,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2490,38 +2174,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2533,38 +2211,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2576,38 +2248,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2619,38 +2285,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2662,38 +2322,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2705,38 +2359,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2748,38 +2396,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2791,38 +2433,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2834,38 +2470,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2877,38 +2507,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2920,38 +2544,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -2963,38 +2581,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -3006,38 +2618,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -3049,38 +2655,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -3092,38 +2692,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -3135,38 +2729,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         },
@@ -3178,38 +2766,32 @@
             {
               "id": "monday",
               "label": "星期一",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "tuesday",
               "label": "星期二",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "wednesday",
               "label": "星期三",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "thursday",
               "label": "星期四",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "friday",
               "label": "星期五",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             },
             {
               "id": "saturday",
               "label": "星期六",
-              "homily_notes": "",
-              "keywords": []
+              "homilies": []
             }
           ]
         }
@@ -3221,162 +2803,139 @@
       "id": "mary-mother-of-god",
       "name": "天主之母節",
       "display_name": "天主之母節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "epiphany",
       "name": "主顯節",
       "display_name": "主顯節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "baptism-of-the-lord",
       "name": "主受洗節",
       "display_name": "主受洗節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "saint-joseph",
       "name": "大聖若瑟節",
       "display_name": "大聖若瑟節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "annunciation",
       "name": "預報救主降生節",
       "display_name": "預報救主降生節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ash-wednesday",
       "name": "聖灰禮儀星期三",
       "display_name": "聖灰禮儀星期三資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "palm-sunday",
       "name": "聖枝主日",
       "display_name": "聖枝主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "holy-thursday",
       "name": "聖週四",
       "display_name": "聖週四資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "good-friday",
       "name": "主受難日",
       "display_name": "主受難日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "easter-vigil",
       "name": "復活前夕",
       "display_name": "復活前夕資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "easter-sunday",
       "name": "復活主日",
       "display_name": "復活主日資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "ascension",
       "name": "耶穌升天節",
       "display_name": "耶穌升天節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "pentecost",
       "name": "五旬節",
       "display_name": "五旬節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "holy-trinity",
       "name": "天主聖三節",
       "display_name": "天主聖三節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "corpus-christi",
       "name": "基督聖體聖血節",
       "display_name": "基督聖體聖血節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "sacred-heart",
       "name": "耶穌聖心節",
       "display_name": "耶穌聖心節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "saints-peter-paul",
       "name": "聖伯多祿及聖保祿宗徒節",
       "display_name": "聖伯多祿及聖保祿宗徒節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "assumption",
       "name": "聖母蒙召升天節",
       "display_name": "聖母蒙召升天節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "all-saints",
       "name": "諸聖節",
       "display_name": "諸聖節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "all-souls",
       "name": "追思已亡節",
       "display_name": "追思已亡節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "christ-the-king",
       "name": "基督普世君王節",
       "display_name": "基督普世君王節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "immaculate-conception",
       "name": "聖母始胎無原罪節",
       "display_name": "聖母始胎無原罪節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     },
     {
       "id": "christmas",
       "name": "聖誕節",
       "display_name": "聖誕節資料夾",
-      "homily_notes": "",
-      "keywords": []
+      "homilies": []
     }
   ]
 }
