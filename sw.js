@@ -1,10 +1,12 @@
-const CACHE_NAME = 'homily-notes-v1';
+const CACHE_NAME = 'homily-notes-v2';
 const APP_SHELL = [
   './',
   './index.html',
   './homily.html',
   './manifest.webmanifest',
   './icons/app-icon.svg',
+  './icons/app-icon-192.png',
+  './icons/app-icon-512.png',
   './data/year-a.json',
   './data/year-b.json',
   './data/year-c.json'
