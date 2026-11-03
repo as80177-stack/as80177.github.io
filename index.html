@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>天主教講道筆記</title>
+  <meta name="theme-color" content="#72551f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="講道筆記">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/app-icon.svg">
   <style>
     body {
       font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
@@ -34,6 +40,26 @@
     a:hover {
       text-decoration: underline;
     }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .button {
+      display: inline-block;
+      padding: 0.65rem 1rem;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: #72551f;
+      cursor: pointer;
+      font: inherit;
+      text-decoration: none;
+    }
+    .button.secondary { background: #657468; }
+    .button:hover { text-decoration: none; filter: brightness(1.08); }
+    .install-help { color: #666; font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -46,12 +72,18 @@
   </div>
 
   <div class="card">
-    <h2>功能（建置中）</h2>
+    <h2>講道與道理筆記</h2>
     <ul>
-      <li>甲年 / 乙年 / 丙年主日講道筆記</li>
-      <li>彌撒流程（普通禮）</li>
-      <li>依日期自動顯示當日內容</li>
+      <li>甲年、乙年、丙年主日筆記</li>
+      <li>單數年、雙數年平日筆記</li>
+      <li>主要節日與特殊禮儀日筆記</li>
     </ul>
+    <div class="actions">
+      <a class="button" href="homily.html">開啟講道筆記</a>
+      <a class="button secondary" href="admin/">管理後台</a>
+      <button class="button" id="installButton" type="button" hidden>安裝 App</button>
+    </div>
+    <p class="install-help">手機若沒有顯示安裝按鈕，可使用瀏覽器選單的「加入主畫面」。</p>
   </div>
 
   <p style="color:#888; font-size:0.9rem;">網站已成功部署於 GitHub Pages</p>
@@ -61,6 +93,28 @@
     const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
     document.getElementById('today').textContent =
       now.toLocaleDateString('zh-TW', options);
+
+    let installPrompt;
+    const installButton = document.getElementById('installButton');
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      installPrompt = event;
+      installButton.hidden = false;
+    });
+    installButton.addEventListener('click', async () => {
+      if (!installPrompt) return;
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      installButton.hidden = true;
+    });
+    window.addEventListener('appinstalled', () => {
+      installButton.hidden = true;
+      installPrompt = null;
+    });
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
   </script>
 </body>
 </html>

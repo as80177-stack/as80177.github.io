@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>講道與道理筆記</title>
+  <meta name="theme-color" content="#72551f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
   <style>
     * { box-sizing: border-box; }
     body { font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif; max-width: 920px; margin: 0 auto; padding: 1.5rem; line-height: 1.6; color: #24211d; background: #f7f4ef; }
@@ -195,6 +198,9 @@
     sectionSelect.addEventListener('change', render);
     paritySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
     loadData();
   </script>
 </body>

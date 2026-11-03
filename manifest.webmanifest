@@ -1,0 +1,19 @@
+{
+  "name": "天主教講道筆記",
+  "short_name": "講道筆記",
+  "description": "甲、乙、丙年主日、平日與節日講道筆記",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#72551f",
+  "icons": [
+    {
+      "src": "icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
