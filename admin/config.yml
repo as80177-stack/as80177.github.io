@@ -71,7 +71,7 @@ collections:
                     label_singular: 一週
                     summary: "{{fields.name}}"
                     collapsed: true
-                    fields:
+                    fields: &week_folder_fields
                       - { label: 識別碼, name: id, widget: hidden }
                       - { label: 週次, name: number, widget: number, value_type: int }
                       - { label: 資料夾名稱, name: name, widget: string }
@@ -90,6 +90,18 @@ collections:
                 widget: object
                 collapsed: true
                 fields: *parity_fields
+          - label: 將臨期平日
+            name: advent_weekdays
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: 分類名稱, name: label, widget: string }
+              - label: 第一至第四週
+                name: weeks
+                widget: list
+                summary: "{{fields.name}}"
+                fields: *week_folder_fields
           - label: 其他（各種節日）
             name: other
             widget: list

@@ -2985,5 +2985,171 @@
       "display_name": "傳教節資料夾",
       "homilies": []
     }
-  ]
+  ],
+  "advent_weekdays": {
+    "label": "將臨期平日",
+    "weeks": [
+      {
+        "id": "advent-week-1",
+        "number": 1,
+        "name": "將臨期第1週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "advent-week-2",
+        "number": 2,
+        "name": "將臨期第2週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "advent-week-3",
+        "number": 3,
+        "name": "將臨期第3週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "advent-week-4",
+        "number": 4,
+        "name": "將臨期第4週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": [
+              {
+                "title": "將臨期第四週星期四道理：聖依撒伯爾的德行與若翰的名字",
+                "content": "聖依撒伯爾是一位德行高尚的婦女。因為對一位婦女而言，最重要的是能夠生育，而不是不孕。但天主為麗莎安排了一個特別的計畫。她的不孕並不是因為天主在懲罰她，而是天主在幫助她磨練德行。\n\n到了第八天，他們來給孩子行割損禮，原想給他起名叫匝加利亞。為什麼是在行割損禮之後才給孩子命名呢？\n\n因為除非人先捨棄肉身的私慾——這正是割損禮所象徵的——否則就不配使自己的名字被記在生命冊上。\n\n天主沒有給他起名叫匝加利亞，是因為「匝加利亞」意指「記念天主」，而「若翰」意指「指出」。記念涉及不在眼前的事物，指出則涉及在眼前的事物。但若翰不是要使人記念一位不在眼前的天主；正如聖經所說，若翰將要宣告：「看，天主的羔羊！」\n\n我們的主說：好樹不結壞果子，壞樹也不結好果子。好樹和壞樹都會結果子，但只有義人的果實，才能為他人發出光明，就如今天的聖依撒伯爾一樣。\n\n義人與作惡的人都必須忍受磨難。然而，天主考驗義人，是為使他們更加聖善，從而獲得天上的賞報；作惡的人則受到提醒，不要再犯罪。若他們不悔改，就會走向永罰之地。\n\n願聖母幫助我們，時常按照正直的良心行事，並常常向上主祈求智慧。",
+                "original_language": "en",
+                "uploaded_at": "2026-11-11T22:17:08+08:00",
+                "translations": {
+                  "en": {
+                    "title": "Thursday of the Fourth Week of Advent: St. Elizabeth’s Virtue and the Name of John",
+                    "content": "St. Elizabeth is a woman of great virtue. For the most important thing for a woman is to be fruitful, not barren. But God had a special plan for Lisa. Her infertility was not because God was punishing her, but because God was helping her to sharpen her virtue.\n\nNow on the eighth day they came to circumcise the child; they were going to call him Zechariah.Why was the name given after the circumcise?\n\nbecause no man except he first cast aside his fleshly lusts, which circumcision signifies, is worthy to have his name written in the book of life.\n\nThe reason why God did not give him the name Zacharias becouse Zacharias means is “remembering God,” and John means is “pointing to.” Now “memory” relates to something absent, “pointing to,” to something present. But John was not about to set forth the memory of God as absent, As the Bible says, John would say: Behold the Lamb of God.\n\nOur lord said:a good tree does not bear bad fruit; a bad tree does not bear good fruit. Both good and bad trees bear fruit. But it is only the fruit of the righteous that shines for others, just as it does for the St. Elizabeth today.\n\nBoth the righteous and the evildoers must endure, but God tests the righteous in order to make them more holy and thus earn the rewards of heaven; but the evildoers are reminded not to sin again, and if they do not repent, they will go to the place of eternal punishment.\n\nMay Our Lady help us always to act in right conscience and always to ask the Lord for wisdom."
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      }
+    ]
+  }
 }

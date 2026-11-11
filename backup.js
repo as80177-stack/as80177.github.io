@@ -16,6 +16,10 @@
         return object(parity) && text(parity.label) && Array.isArray(parity.weeks) && parity.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
       });
     })) throw new Error('備份內容不完整或格式不正確，必須包含甲、乙、丙年資料。');
+    for (const c of cycles) {
+      const season = data[c].advent_weekdays;
+      if (season !== undefined && (!object(season) || !text(season.label) || !Array.isArray(season.weeks) || !season.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label))))) throw new Error('將臨期平日資料格式不正確');
+    }
     if (data.apostles !== undefined && (!object(data.apostles) || !text(data.apostles.label) || !Array.isArray(data.apostles.folders) || !data.apostles.folders.every(folder))) throw new Error('12宗徒資料格式不正確');
     // Migrate old backups without discarding any previously saved apostle notes.
     if (!data.apostles) data.apostles = {label:'12宗徒', folders:[{id:'twelve-apostles',name:'12宗徒',display_name:'12宗徒資料夾',homilies:[]}]};
@@ -114,6 +118,7 @@
     for (const c of cycles) {
       const d = data[c]; body += `<h2>${escape(d.label)} · 主日</h2>` + d.sundays.map(x => entry(x, x.display_name)).join('');
       for (const p of ['odd','even']) body += `<h2>${escape(d.label)} · ${escape(d.weekdays[p].label)}</h2>` + d.weekdays[p].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
+      if (d.advent_weekdays) body += `<h2>${escape(d.label)} · ${escape(d.advent_weekdays.label)}</h2>` + d.advent_weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }
     for (const key of ['apostles', 'marian']) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => entry(x, x.display_name)).join('');

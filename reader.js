@@ -44,7 +44,10 @@
     const language = source.dataset.readingLanguage || 'zh';
     document.getElementById('readerTitle').lang = document.getElementById('readerText').lang = language === 'en' ? 'en' : 'zh-Hant';
     document.getElementById('readerLanguageLabel').hidden = !source.querySelector('.homily-language');
-    document.getElementById('readerLanguage').value = language;
+    const languageSelect = document.getElementById('readerLanguage');
+    languageSelect.options[0].text = source.dataset.originalLanguage === 'en' ? '中文翻譯' : '中文原文';
+    languageSelect.options[1].text = source.dataset.originalLanguage === 'en' ? 'English（原文）' : 'English';
+    languageSelect.value = language;
     copyStatus.textContent = ''; manual.hidden = true;
   }
   document.getElementById('readerLanguage').addEventListener('change', event => {

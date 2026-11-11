@@ -92,6 +92,7 @@
       <select id="sectionSelect">
         <option value="sundays">主日</option>
         <option value="weekdays">平日</option>
+        <option value="advent-weekdays">將臨期平日</option>
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
         <option value="marian">聖母其他節日（獨立分類）</option>
@@ -176,7 +177,7 @@
         <article class="day ${cssClass}">
           <h3>${escapeHtml(title)}</h3>
           ${homilies.length ? homilies.map((homily, index) => `
-            <section class="homily-card" data-homily-title="${escapeHtml(homily.title)}" data-homily-index="${index + 1}" data-reading-language="zh">
+            <section class="homily-card" data-homily-title="${escapeHtml(homily.title)}" data-homily-index="${index + 1}" data-reading-language="zh" data-original-language="${escapeHtml(homily.original_language || 'zh')}">
               <button class="homily-toggle" type="button" aria-expanded="false">
                 <span class="homily-title">${index + 1}. ${escapeHtml(homily.title)}</span>
                 <span class="homily-meta">${escapeHtml(formatUploadTime(homily.uploaded_at))}</span>
@@ -190,7 +191,7 @@
                   <button class="size-button" type="button" data-size-control data-size="large" aria-pressed="false">大字</button>
                 </div>
                 ${homily.translations?.en?.title && homily.translations.en.content ? `
-                  <label class="homily-language-label">語言 / Language <select class="homily-language"><option value="zh">中文原文</option><option value="en">English</option></select></label>
+                  <label class="homily-language-label">語言 / Language <select class="homily-language"><option value="zh">${homily.original_language === 'en' ? '中文翻譯' : '中文原文'}</option><option value="en">${homily.original_language === 'en' ? 'English（原文）' : 'English'}</option></select></label>
                   <div class="homily-translation-source" hidden data-language="zh" data-title="${escapeHtml(homily.title)}">${escapeHtml(homily.content)}</div>
                   <div class="homily-translation-source" hidden data-language="en" data-title="${escapeHtml(homily.translations.en.title)}">${escapeHtml(homily.translations.en.content)}</div>
                 ` : ''}
@@ -222,6 +223,7 @@
     function selectedItems() {
       if (!cycleData) return [];
       if (['apostles', 'marian'].includes(sectionSelect.value)) return cycleData.folders;
+      if (sectionSelect.value === 'advent-weekdays') return cycleData.advent_weekdays?.weeks || [];
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
       return cycleData.weekdays[paritySelect.value].weeks;
@@ -248,7 +250,7 @@
       }
 
       listEl.innerHTML = items.map(item => {
-        if (sectionSelect.value === 'weekdays') {
+        if (['weekdays', 'advent-weekdays'].includes(sectionSelect.value)) {
           return folderHtml(item.name, item.days.map(day => homilyBlock(day, day.label, 'weekday')).join(''));
         }
         return folderHtml(item.display_name, homilyBlock(item, item.name));
