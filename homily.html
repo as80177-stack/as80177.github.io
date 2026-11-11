@@ -93,6 +93,7 @@
         <option value="weekdays">平日</option>
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
+        <option value="marian">聖母其他節日（獨立分類）</option>
       </select>
     </label>
     <label id="parityLabel" class="hidden">
@@ -211,15 +212,15 @@
 
     function selectedItems() {
       if (!cycleData) return [];
-      if (sectionSelect.value === 'apostles') return cycleData.folders;
+      if (['apostles', 'marian'].includes(sectionSelect.value)) return cycleData.folders;
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
       return cycleData.weekdays[paritySelect.value].weeks;
     }
 
     function render() {
-      document.getElementById('cycleLabel').hidden = sectionSelect.value === 'apostles';
-      currentCycle.hidden = sectionSelect.value === 'apostles';
+      document.getElementById('cycleLabel').hidden = ['apostles', 'marian'].includes(sectionSelect.value);
+      currentCycle.hidden = ['apostles', 'marian'].includes(sectionSelect.value);
       parityLabel.classList.toggle('hidden', sectionSelect.value !== 'weekdays');
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
@@ -277,9 +278,9 @@
       cycleData = null;
       listEl.innerHTML = '<div class="message">載入中…</div>';
       try {
-        const selectedCycle = sectionSelect.value === 'apostles' ? 'apostles' : cycleSelect.value;
+        const selectedCycle = ['apostles', 'marian'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value;
         const data = await window.HomilyData.load(selectedCycle);
-        if (selectedCycle !== (sectionSelect.value === 'apostles' ? 'apostles' : cycleSelect.value)) return;
+        if (selectedCycle !== (['apostles', 'marian'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value)) return;
         cycleData = data;
         render();
       } catch (error) {
