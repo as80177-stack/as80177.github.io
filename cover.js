@@ -25,7 +25,7 @@
     tone.connect(audio.destination);
     // Locally generated stereo church-room impulse; no recording or download.
     const reverb = audio.createConvolver();
-    const reverbSeconds = 3.5;
+    const reverbSeconds = 3.0;
     const impulse = audio.createBuffer(2, Math.ceil(audio.sampleRate * reverbSeconds), audio.sampleRate);
     let seed = 1741;
     for (let channel = 0; channel < 2; channel++) {
@@ -44,7 +44,7 @@
     // F major → C major, with the soprano resolving F4 → E4.
     const chords = [
       { notes: [65,53,57,60], offset: 0, duration: 1.9, release: 0.65 },
-      { notes: [64,48,55,60], offset: 1.7, duration: 6.3, release: 4.5 }
+      { notes: [64,48,55,60], offset: 1.7, duration: 5.5, release: 3.7 }
     ];
     const start = audio.currentTime + 0.03;
     chords.forEach(({ notes, offset, duration, release }) => {
