@@ -18,30 +18,37 @@
     const output = audio.createGain();
     output.gain.value = 0.12;
     output.connect(audio.destination);
-    // Soft pipe-like harmonics, an original C–F–G–C cadence (no audio downloads).
-    const chords = [[48,60,64,67], [41,60,65,69], [43,59,62,67], [48,60,64,67,72]];
+    // Franck, Panis angelicus, opening vocal phrase in A major:
+    // C#5 C#5 B4 B4 A4 A4 (Pa-nis an-ge-li-cus).
+    // Rhythm in quarter-note beats: 2, 1, 1, .75, .25, 1.
+    // Score reference: O. Bornemann print, BnF btv1b108722495;
+    // transcription cross-check: github.com/elreydiegofernando-collab/pitch-lab
+    // commit c499c026667921073ee2e6756c0c1f5fe8249ec4, public/songs/panis-angelicus.txt.
+    const melody = [[73,2], [73,1], [71,1], [71,0.75], [69,0.25], [69,1]];
+    const beat = 60 / 80;
     const start = audio.currentTime + 0.03;
-    chords.forEach((notes, chord) => {
-      const time = start + chord * 0.6;
-      const duration = chord === 3 ? 1.4 : 0.85;
-      notes.forEach(note => {
-        const frequency = 440 * 2 ** ((note - 69) / 12);
-        [[1,0.36],[2,0.14],[3,0.045],[4,0.025]].forEach(([harmonic, level]) => {
-          const oscillator = audio.createOscillator();
-          const envelope = audio.createGain();
-          oscillator.type = 'sine';
-          oscillator.frequency.value = frequency * harmonic;
-          envelope.gain.setValueAtTime(0, time);
-          envelope.gain.linearRampToValueAtTime(level, time + 0.09);
-          envelope.gain.setValueAtTime(level * 0.85, time + duration - 0.3);
-          envelope.gain.linearRampToValueAtTime(0, time + duration);
-          oscillator.connect(envelope); envelope.connect(output);
-          oscillator.start(time); oscillator.stop(time + duration + 0.02);
-        });
+    let elapsed = 0;
+    melody.forEach(([note, beats]) => {
+      const time = start + elapsed * beat;
+      const duration = beats * beat * 0.95;
+      const frequency = 440 * 2 ** ((note - 69) / 12);
+      const release = Math.min(0.16, duration * 0.35);
+      [[1,0.7],[2,0.22],[3,0.07],[4,0.035]].forEach(([harmonic, level]) => {
+        const oscillator = audio.createOscillator();
+        const envelope = audio.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency * harmonic;
+        envelope.gain.setValueAtTime(0, time);
+        envelope.gain.linearRampToValueAtTime(level, time + Math.min(0.055, duration * 0.2));
+        envelope.gain.setValueAtTime(level * 0.85, time + duration - release);
+        envelope.gain.linearRampToValueAtTime(0, time + duration);
+        oscillator.connect(envelope); envelope.connect(output);
+        oscillator.start(time); oscillator.stop(time + duration + 0.02);
       });
+      elapsed += beats;
     });
     const active = audio;
-    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, 4000);
+    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, Math.ceil((elapsed * beat + 0.5) * 1000));
   }
   enter.addEventListener('click', () => {
     if (document.getElementById('welcomeSound').checked) {
