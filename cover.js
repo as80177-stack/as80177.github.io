@@ -40,11 +40,12 @@
     const room = audio.createGain();
     room.gain.value = 0.28;
     tone.connect(reverb); reverb.connect(room); room.connect(audio.destination);
-    // A gentle plagal (IV–I) “Amen” cadence, without speech or singing.
-    // F major → C major, with the soprano resolving F4 → E4.
+    // Three warm chords, without speech or singing: F major → D minor → C major.
+    // Soprano F4 → D4 → E4 creates the requested high–low–middle contour.
     const chords = [
-      { notes: [65,53,57,60], offset: 0, duration: 1.9, release: 0.65 },
-      { notes: [64,48,55,60], offset: 1.7, duration: 5.5, release: 3.7 }
+      { notes: [65,53,57,60], offset: 0, duration: 1.6, release: 0.65 },
+      { notes: [62,50,53,57], offset: 1.4, duration: 1.6, release: 0.65 },
+      { notes: [64,48,55,60], offset: 2.8, duration: 4.4, release: 3.2 }
     ];
     const start = audio.currentTime + 0.03;
     chords.forEach(({ notes, offset, duration, release }) => {
