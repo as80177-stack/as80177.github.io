@@ -60,12 +60,27 @@
     .button.secondary { background: #657468; }
     .button:hover { text-decoration: none; filter: brightness(1.08); }
     [hidden] { display: none !important; }
+    .scripture-card { background: #fff8e8; border-left: 4px solid #72551f; }
+    .scripture-card h2 { font-size: 1.25rem; margin-top: 0; }
+    #verseText { margin: 1rem 0; font-size: 1.2rem; line-height: 1.9; }
+    #verseReference { color: #665434; font-size: .9rem; }
     .install-help { color: #666; font-size: 0.9rem; }
   </style>
 </head>
 <body>
   <h1>天主教講道筆記</h1>
   <p class="subtitle">Catholic Homily Recorder · 甲乙丙年講道與彌撒流程</p>
+
+  <section class="card scripture-card" aria-labelledby="verseHeading">
+    <h2 id="verseHeading">聖經金句 · 在主內得安慰</h2>
+    <div aria-live="polite" aria-atomic="true">
+      <blockquote id="verseText">你們醒寤祈禱罷！免陷於誘惑。</blockquote>
+      <p id="verseReference">瑪竇福音 26:41 · 思高聖經（經文節錄）</p>
+    </div>
+    <button class="button" id="nextVerse" type="button" disabled>換一句金句</button>
+    <p class="install-help" id="verseHelp">100 則祈禱、安慰與盼望的經文，每次開啟隨機顯示。停下片刻，向主祈禱。</p>
+  </section>
+  <script src="verses.js"></script>
 
   <div class="card">
     <h2>今日禮儀</h2>
