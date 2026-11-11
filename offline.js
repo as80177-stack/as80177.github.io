@@ -16,8 +16,8 @@
       : (failed ? '離線儲存未完成，請連線後點「檢查更新」。' : '正在準備離線閱讀，首次使用請保持連線…');
   }
   async function checkReady() {
-    const cache = await caches.open('homily-notes-v12');
-    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
+    const cache = await caches.open('homily-notes-v13');
+    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data/apostles.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
     ready = (await Promise.all(paths.map(path => cache.match(new URL(path, location.href))))).every(Boolean);
     render();
   }

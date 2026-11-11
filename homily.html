@@ -78,7 +78,7 @@
   </div>
 
   <div class="toolbar">
-    <label>
+    <label id="cycleLabel">
       禮儀年
       <select id="cycleSelect">
         <option value="a">甲年</option>
@@ -92,6 +92,7 @@
         <option value="sundays">主日</option>
         <option value="weekdays">平日</option>
         <option value="other">其他（各種節日）</option>
+        <option value="apostles">12宗徒（獨立分類）</option>
       </select>
     </label>
     <label id="parityLabel" class="hidden">
@@ -210,12 +211,15 @@
 
     function selectedItems() {
       if (!cycleData) return [];
+      if (sectionSelect.value === 'apostles') return cycleData.folders;
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
       return cycleData.weekdays[paritySelect.value].weeks;
     }
 
     function render() {
+      document.getElementById('cycleLabel').hidden = sectionSelect.value === 'apostles';
+      currentCycle.hidden = sectionSelect.value === 'apostles';
       parityLabel.classList.toggle('hidden', sectionSelect.value !== 'weekdays');
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
@@ -270,11 +274,12 @@
     }
 
     async function loadData() {
+      cycleData = null;
       listEl.innerHTML = '<div class="message">載入中…</div>';
       try {
-        const selectedCycle = cycleSelect.value;
+        const selectedCycle = sectionSelect.value === 'apostles' ? 'apostles' : cycleSelect.value;
         const data = await window.HomilyData.load(selectedCycle);
-        if (selectedCycle !== cycleSelect.value) return;
+        if (selectedCycle !== (sectionSelect.value === 'apostles' ? 'apostles' : cycleSelect.value)) return;
         cycleData = data;
         render();
       } catch (error) {
@@ -297,7 +302,7 @@
 
     window.addEventListener('homily-data-changed', loadData);
     cycleSelect.addEventListener('change', loadData);
-    sectionSelect.addEventListener('change', render);
+    sectionSelect.addEventListener('change', loadData);
     paritySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
 

@@ -93,3 +93,13 @@ collections:
         name: year-c
         file: data/year-c.json
         fields: *cycle_fields
+      - label: 12宗徒（獨立分類）
+        name: apostles
+        file: data/apostles.json
+        fields:
+          - { label: 分類名稱, name: label, widget: string }
+          - label: 資料夾
+            name: folders
+            widget: list
+            summary: "{{fields.display_name}}"
+            fields: *note_folder_fields
