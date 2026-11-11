@@ -16,13 +16,24 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.16;
+    output.gain.value = 0.13;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
-    tone.frequency.value = 7500;
+    tone.frequency.value = 10000;
     tone.Q.value = 0.5;
     output.connect(tone);
-    tone.connect(audio.destination);
+    // Keep a clear, bright principal chorus without harsh output peaks.
+    const clarity = audio.createBiquadFilter();
+    clarity.type = 'highshelf';
+    clarity.frequency.value = 1100;
+    clarity.gain.value = 3;
+    const limiter = audio.createDynamicsCompressor();
+    limiter.threshold.value = -10;
+    limiter.knee.value = 12;
+    limiter.ratio.value = 3;
+    limiter.attack.value = 0.008;
+    limiter.release.value = 0.2;
+    tone.connect(clarity); clarity.connect(limiter); limiter.connect(audio.destination);
     // Locally generated stereo church-room impulse; no recording or download.
     const reverb = audio.createConvolver();
     const reverbSeconds = 3.0;
@@ -38,8 +49,8 @@
     }
     reverb.buffer = impulse;
     const room = audio.createGain();
-    room.gain.value = 0.28;
-    tone.connect(reverb); reverb.connect(room); room.connect(audio.destination);
+    room.gain.value = 0.24;
+    tone.connect(reverb); reverb.connect(room); room.connect(limiter);
     // Three warm chords, without speech or singing: F major → D minor → C major.
     // User recording: approximately F3 → D3 → E3, with compact, sung-like pacing.
     const chords = [
@@ -50,15 +61,15 @@
     const start = audio.currentTime + 0.03;
     // Fade the room naturally after the final sustained chord; no extra notes.
     const finalEnd = start + Math.max(...chords.map(chord => chord.offset + chord.duration));
-    room.gain.setValueAtTime(0.28, finalEnd);
+    room.gain.setValueAtTime(0.24, finalEnd);
     room.gain.linearRampToValueAtTime(0, finalEnd + 1.2);
     chords.forEach(({ notes, offset, duration, release, attack = 0.14, strength = 1, breathe = false }) => {
       const time = start + offset;
       notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
         const balance = (voice === 0 ? 0.65 : 0.42) * strength;
-        // Bright principal 8′ and flute 4′, balanced with a gentle upper mixture.
-        [[1,0.7],[0.5,0.12],[2,0.5],[3,0.22],[4,0.2],[6,0.08],[8,0.05]].forEach(([harmonic, level]) => {
+        // Bright principal chorus: 8′, strong 4′ and 2′ octaves, plus clear mixtures.
+        [[1,0.45],[0.5,0.025],[2,0.65],[3,0.2],[4,0.5],[5,0.09],[6,0.18],[8,0.22],[12,0.06],[16,0.025]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
