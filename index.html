@@ -10,6 +10,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/app-icon-192.png">
+  <link rel="stylesheet" href="cover.css">
   <style>
     body {
       font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
@@ -68,7 +69,40 @@
   </style>
 </head>
 <body>
-  <h1>天主教講道筆記</h1>
+  <section id="welcomeCover" class="welcome-cover" aria-labelledby="welcomeTitle" hidden>
+    <p class="welcome-kicker">一個安靜的角落 · 與主相遇</p>
+    <svg class="welcome-art" viewBox="0 0 360 300" role="img" aria-label="暖陽下的小教堂，白鴿、花朵與綠樹環繞">
+      <circle cx="278" cy="60" r="29" fill="#f2cd76"/>
+      <g fill="#fffdf7"><rect x="31" y="48" width="76" height="23" rx="12"/><circle cx="61" cy="47" r="18"/><rect x="244" y="105" width="78" height="20" rx="10"/></g>
+      <ellipse cx="180" cy="271" rx="158" ry="23" fill="#d6dfbf"/>
+      <path d="M54 265v-58m252 58v-67" stroke="#967652" stroke-width="12" stroke-linecap="round"/>
+      <g fill="#a4bd94"><circle cx="53" cy="193" r="31"/><circle cx="39" cy="216" r="25"/><circle cx="71" cy="217" r="24"/><circle cx="307" cy="182" r="34"/><circle cx="285" cy="207" r="24"/><circle cx="323" cy="212" r="23"/></g>
+      <rect x="103" y="164" width="155" height="101" rx="13" fill="#fffaf1" stroke="#ba916c" stroke-width="3"/>
+      <path d="M89 172l91-74 91 74" fill="#d39581" stroke="#a96e59" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+      <rect x="156" y="93" width="49" height="102" rx="8" fill="#fff4dd" stroke="#ba916c" stroke-width="3"/>
+      <path d="M145 99l35-41 36 41" fill="#d39581" stroke="#a96e59" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M180 61V29m-11 12h22" stroke="#997441" stroke-width="6" stroke-linecap="round"/>
+      <path d="M168 151v-15a12 12 0 0124 0v15z" fill="#b8d7d8" stroke="#ba916c" stroke-width="3"/>
+      <path d="M156 265v-38a24 24 0 0148 0v38" fill="#ccac7e" stroke="#a78861" stroke-width="3"/>
+      <path d="M180 211v54" stroke="#a78861" stroke-width="2"/>
+      <g fill="#b8d7d8" stroke="#ba916c" stroke-width="3"><rect x="118" y="200" width="23" height="32" rx="11"/><rect x="221" y="200" width="23" height="32" rx="11"/></g>
+      <path d="M164 268l-12 22h58l-13-22" fill="#e8d4b6"/>
+      <path d="M225 56q15 11 23-7-1 21-21 23l-9-7-9 1 7-6q-8-15-2-17z" fill="#fffdf9" stroke="#d2c6af" stroke-width="1.5"/>
+      <g stroke="#8da479" stroke-width="3"><path d="M89 265v-19m185 22v-20m-194 26v-13"/></g>
+      <g fill="#e5a8a3"><circle cx="89" cy="244" r="7"/><circle cx="274" cy="247" r="7"/><circle cx="80" cy="260" r="5"/></g>
+      <g fill="#fff0bb"><circle cx="89" cy="244" r="2"/><circle cx="274" cy="247" r="2"/></g>
+    </svg>
+    <h1 id="welcomeTitle">天主教講道筆記</h1>
+    <p class="welcome-description">把忙碌暫放一旁，讓天主的話語陪伴你。<br>願你今天在主內找到平安。</p>
+    <button id="enterHome" class="button enter-button" type="button">進入首頁 →</button>
+    <label class="sound-setting"><input id="welcomeSound" type="checkbox" checked>進入時播放管風琴和弦</label>
+    <p class="welcome-footnote">溫柔的合成管風琴音效 · 可關閉 · 支援離線</p>
+  </section>
+  <div id="homeContent">
+    <button id="showCover" class="cover-return" type="button">← 回到封面</button>
+    <p id="welcomeAudioStatus" role="status"></p>
+
+  <h1 id="homeHeading" tabindex="-1">天主教講道筆記</h1>
   <p class="subtitle">Catholic Homily Recorder · 甲乙丙年講道與彌撒流程</p>
 
   <section class="card scripture-card" aria-labelledby="verseHeading">
@@ -148,5 +182,7 @@
 
   </script>
   <script src="offline.js"></script>
+  </div>
+  <script src="cover.js"></script>
 </body>
 </html>
