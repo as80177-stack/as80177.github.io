@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homily-notes-v10';
+const CACHE_NAME = 'homily-notes-v11';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL.map(path => new Request(path, { cache: 'reload' })))));
   self.skipWaiting();
 });
 
@@ -33,11 +33,11 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.includes('/admin/')) return;
 
   event.respondWith(
-    fetch(request)
+    fetch(new Request(request, { cache: 'no-store' }))
       .then(response => {
         if (response.ok) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(request, copy)));
         }
         return response;
       })
