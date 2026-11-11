@@ -16,10 +16,10 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.11;
+    output.gain.value = 0.16;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
-    tone.frequency.value = 6000;
+    tone.frequency.value = 7500;
     tone.Q.value = 0.5;
     output.connect(tone);
     tone.connect(audio.destination);
@@ -45,34 +45,46 @@
     const chords = [
       { notes: [53,41,45,48], offset: 0, duration: 1.4, release: 0.3 },
       { notes: [50,38,41,45], offset: 1.25, duration: 1.3, release: 0.3 },
-      { notes: [52,36,43,48], offset: 2.4, duration: 3.8, release: 2.1 },
-      // A soft upward turn G3, then down to E3, closes the phrase.
-      { notes: [55,36,43,48], offset: 6.36, duration: 0.26, release: 0.12, attack: 0.035, strength: 0.48 },
-      { notes: [52,36,43,48], offset: 6.60, duration: 0.44, release: 0.28, attack: 0.045, strength: 0.52 }
+      { notes: [52,36,43,48], offset: 2.4, duration: 3.0, release: 1.3, breathe: true },
+      // A continuous, gentle rise and fall rather than two detached notes.
+      { notes: [52,36,43,48], offset: 5.55, duration: 1.3, release: 0.55, attack: 0.16, strength: 0.66, closing: true }
     ];
     const start = audio.currentTime + 0.03;
     // Let the sustained tail breathe, then shorten the room around the final dot.
-    const finalDot = start + chords[chords.length - 2].offset;
+    const finalDot = start + chords[chords.length - 1].offset;
     room.gain.setValueAtTime(0.28, finalDot - 0.15);
-    room.gain.linearRampToValueAtTime(0.08, finalDot + 0.12);
-    room.gain.linearRampToValueAtTime(0, finalDot + 1.0);
-    chords.forEach(({ notes, offset, duration, release, attack = 0.14, strength = 1 }) => {
+    room.gain.linearRampToValueAtTime(0.12, finalDot + 0.65);
+    room.gain.linearRampToValueAtTime(0, finalDot + 1.65);
+    chords.forEach(({ notes, offset, duration, release, attack = 0.14, strength = 1, breathe = false, closing = false }) => {
       const time = start + offset;
       notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
         const balance = (voice === 0 ? 0.65 : 0.42) * strength;
         // Bright principal 8′ and flute 4′, balanced with a gentle upper mixture.
-        [[1,0.7],[0.5,0.18],[2,0.4],[3,0.18],[4,0.14],[6,0.055],[8,0.03]].forEach(([harmonic, level]) => {
+        [[1,0.7],[0.5,0.12],[2,0.5],[3,0.22],[4,0.2],[6,0.08],[8,0.05]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
           oscillator.frequency.value = frequency * harmonic;
-          envelope.gain.setValueAtTime(0, time);
-          envelope.gain.linearRampToValueAtTime(level * balance, time + attack);
-          envelope.gain.setValueAtTime(level * balance, time + duration - release);
-          const fade = Float32Array.from({length:128}, (_, i) =>
-            i === 127 ? 0 : level * balance * Math.cos((i / 127) * Math.PI / 2) ** 2);
-          envelope.gain.setValueCurveAtTime(fade, time + duration - release, release);
+          const peak = level * balance;
+          if (closing) {
+            // All pipes glide together by one semitone, then settle back.
+            oscillator.detune.setValueCurveAtTime(new Float32Array([0, 30, 75, 100, 85, 55, 20, 0]), time, duration - 0.12);
+            const swell = Float32Array.from({length:128}, (_, i) =>
+              i === 0 || i === 127 ? 0 : peak * Math.sin(Math.PI * i / 127) ** 1.25);
+            envelope.gain.setValueCurveAtTime(swell, time, duration);
+          } else {
+            envelope.gain.setValueAtTime(0, time);
+            envelope.gain.linearRampToValueAtTime(peak, time + attack);
+            if (breathe) {
+              envelope.gain.linearRampToValueAtTime(peak * 0.6, time + 0.7);
+              envelope.gain.linearRampToValueAtTime(peak * 0.9, time + 1.4);
+            }
+            envelope.gain.setValueAtTime(breathe ? peak * 0.9 : peak, time + duration - release);
+            const fade = Float32Array.from({length:128}, (_, i) =>
+              i === 127 ? 0 : peak * (breathe ? 0.9 : 1) * Math.cos((i / 127) * Math.PI / 2) ** 2);
+            envelope.gain.setValueCurveAtTime(fade, time + duration - release, release);
+          }
           oscillator.connect(envelope); envelope.connect(output);
           oscillator.start(time); oscillator.stop(time + duration + 0.02);
         });
