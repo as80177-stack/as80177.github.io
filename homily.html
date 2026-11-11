@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#72551f">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="reader.css">
   <style>
     :root { --reading-font-size: 1.1rem; --reading-line-height: 1.8; }
     * { box-sizing: border-box; }
@@ -175,7 +176,7 @@
         <article class="day ${cssClass}">
           <h3>${escapeHtml(title)}</h3>
           ${homilies.length ? homilies.map((homily, index) => `
-            <section class="homily-card">
+            <section class="homily-card" data-homily-title="${escapeHtml(homily.title)}">
               <button class="homily-toggle" type="button" aria-expanded="false">
                 <span class="homily-title">${index + 1}. ${escapeHtml(homily.title)}</span>
                 <span class="homily-meta">${escapeHtml(formatUploadTime(homily.uploaded_at))}</span>
@@ -188,6 +189,9 @@
                   <button class="size-button" type="button" data-size-control data-size="medium" aria-pressed="false">標準</button>
                   <button class="size-button" type="button" data-size-control data-size="large" aria-pressed="false">大字</button>
                 </div>
+                <div class="homily-actions"><button type="button" class="reader-open">全螢幕閱讀</button><button type="button" class="homily-copy">複製全文</button></div>
+                <p class="reading-hint">雙擊道理標題或正文，也可進入全螢幕閱讀。</p>
+                <p class="copy-status" role="status" aria-live="polite"></p>
                 <p class="notes">${escapeHtml(homily.content)}</p>
                 <button class="homily-collapse" type="button">↑ 收合這篇道理</button>
               </div>
@@ -309,6 +313,7 @@
 
     loadData();
   </script>
+  <script src="reader.js"></script>
   <script src="offline.js"></script>
 </body>
 </html>
