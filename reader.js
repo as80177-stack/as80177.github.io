@@ -13,6 +13,7 @@
     <textarea id="readerManualCopy" class="manual-copy" aria-label="道理全文，請長按全選並複製" readonly hidden></textarea>
     <div id="readerText" class="reader-text"></div></article>`;
   document.body.append(dialog);
+  window.HomilyNarration.attach(dialog.querySelector(".reader-page"));
   const transition = document.getElementById('readerTransition');
   const copyStatus = document.getElementById('readerCopyStatus');
   const manual = document.getElementById('readerManualCopy');
@@ -56,6 +57,7 @@
   }
   function closeReader() {
     if (!dialog.open || closing) return;
+    window.HomilyNarration.stop();
     closing = true; dialog.classList.remove('is-visible');
     const delay = transition.value === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 340;
     setTimeout(() => {
@@ -99,6 +101,11 @@
     dialog.querySelectorAll('[data-reader-size]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
   }));
   document.getElementById('list').addEventListener('click', event => {
+    const listen = event.target.closest('.homily-listen');
+    if (listen && !closing) {
+      openReader(listen.closest('.homily-card'));
+      window.HomilyNarration.start(`${current.title}\n\n${current.text}`);
+    }
     const open = event.target.closest('.reader-open');
     if (open) openReader(open.closest('.homily-card'));
     const copyButton = event.target.closest('.homily-copy');

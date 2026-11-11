@@ -189,7 +189,7 @@
                   <button class="size-button" type="button" data-size-control data-size="medium" aria-pressed="false">標準</button>
                   <button class="size-button" type="button" data-size-control data-size="large" aria-pressed="false">大字</button>
                 </div>
-                <div class="homily-actions"><button type="button" class="reader-open">全螢幕閱讀</button><button type="button" class="homily-copy">複製全文</button></div>
+                <div class="homily-actions"><button type="button" class="reader-open">全螢幕閱讀</button><button type="button" class="homily-copy">複製全文</button><button type="button" class="homily-listen">朗讀道理</button></div>
                 <p class="reading-hint">雙擊道理標題或正文，也可進入全螢幕閱讀。</p>
                 <p class="copy-status" role="status" aria-live="polite"></p>
                 <p class="notes">${escapeHtml(homily.content)}</p>
@@ -313,6 +313,7 @@
 
     loadData();
   </script>
+  <script src="narration.js"></script>
   <script src="reader.js"></script>
   <script src="offline.js"></script>
 </body>
