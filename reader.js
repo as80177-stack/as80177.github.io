@@ -133,9 +133,10 @@
       previousReturnTap = null; return;
     }
     if (previousReturnTap && now-previousReturnTap.time<350 && Math.hypot(touch.x-previousReturnTap.x,touch.y-previousReturnTap.y)<25) {
+      if (event.cancelable) event.preventDefault();
       resetReturnTap(); goBack();
     } else previousReturnTap = {...touch,time:now};
-  }, {passive:true});
+  }, {passive:false});
   dialog.addEventListener('touchcancel', resetReturnTap, {passive:true});
   window.addEventListener('popstate', () => { if (dialog.open) { ownsHistory = false; closeReader(); } });
   dialog.addEventListener('cancel', event => { event.preventDefault(); goBack(); });
@@ -182,15 +183,36 @@
   });
   const list = document.getElementById('list');
   list.addEventListener('dblclick', event => {
-    if (event.target.closest('.notes,.homily-toggle')) openReader(event.target.closest('.homily-card'));
+    if (performance.now() - lastReaderTouch < 800) return;
+    if (event.target.closest('.notes,.homily-toggle')) {
+      event.preventDefault(); openReader(event.target.closest('.homily-card'));
+    }
   });
-  let lastTap = null;
-  list.addEventListener('pointerup', event => {
-    if (event.pointerType !== 'touch' || !event.target.closest('.notes,.homily-toggle')) return;
-    const card = event.target.closest('.homily-card');
+  let entryTouch = null;
+  let previousEntryTap = null;
+  function resetEntryTap() { entryTouch = null; previousEntryTap = null; }
+  list.addEventListener('touchstart', event => {
+    entryTouch = null;
+    // Also suppress compatibility mouse events retargeted into a newly opened dialog.
+    lastReaderTouch = performance.now();
+    if (event.touches.length !== 1 || !event.target.closest('.notes,.homily-toggle')) { previousEntryTap = null; return; }
+    const touch = event.touches[0];
+    entryTouch = {card:event.target.closest('.homily-card'), x:touch.clientX, y:touch.clientY, time:performance.now(), scroll:window.scrollY};
+  }, {passive:true});
+  list.addEventListener('touchmove', event => {
+    if (!entryTouch) return;
+    const touch = event.touches[0];
+    if (event.touches.length !== 1 || Math.hypot(touch.clientX-entryTouch.x,touch.clientY-entryTouch.y)>12 || Math.abs(window.scrollY-entryTouch.scroll)>3) resetEntryTap();
+  }, {passive:true});
+  list.addEventListener('touchend', event => {
+    const touch = entryTouch; entryTouch = null;
     const now = performance.now();
-    if (lastTap && lastTap.card === card && now - lastTap.time < 350 && Math.hypot(event.clientX-lastTap.x,event.clientY-lastTap.y)<25) {
-      lastTap = null; openReader(card);
-    } else lastTap = {card,time:now,x:event.clientX,y:event.clientY};
-  });
+    if (!touch || event.touches.length || now-touch.time>300 || Math.abs(window.scrollY-touch.scroll)>3) { previousEntryTap = null; return; }
+    if (previousEntryTap && previousEntryTap.card === touch.card && now-previousEntryTap.time<420 && Math.hypot(touch.x-previousEntryTap.x,touch.y-previousEntryTap.y)<30) {
+      if (event.cancelable) event.preventDefault();
+      window.getSelection()?.removeAllRanges();
+      resetEntryTap(); openReader(touch.card);
+    } else previousEntryTap = {...touch,time:now};
+  }, {passive:false});
+  list.addEventListener('touchcancel', resetEntryTap, {passive:true});
 })();
