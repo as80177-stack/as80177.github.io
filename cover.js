@@ -19,7 +19,7 @@
     output.gain.value = 0.12;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
-    tone.frequency.value = 4200;
+    tone.frequency.value = 3200;
     tone.Q.value = 0.5;
     output.connect(tone);
     tone.connect(audio.destination);
@@ -39,44 +39,36 @@
     const room = audio.createGain();
     room.gain.value = 0.28;
     tone.connect(reverb); reverb.connect(room); room.connect(audio.destination);
-    // Franck, Panis angelicus, opening vocal phrase in A major:
-    // C#5 C#5 B4 B4 A4 A4 (Pa-nis an-ge-li-cus).
-    // Rhythm in quarter-note beats: 2, 1, 1, .75, .25, 1.
-    // Score reference: O. Bornemann print, BnF btv1b108722495;
-    // transcription cross-check: github.com/elreydiegofernando-collab/pitch-lab
-    // commit c499c026667921073ee2e6756c0c1f5fe8249ec4, public/songs/panis-angelicus.txt.
-    const melody = [[73,2], [73,1], [71,1], [71,0.75], [69,0.25], [69,1]];
-    // Original simple A–E–A harmonization beneath the six-note melody.
-    const harmony = [[45,57,64], [45,57,64], [40,56,64], [40,56,64], [45,61,64], [45,61,64]];
-    const beat = 60 / 80;
+    // A gentle plagal (IV–I) “Amen” cadence, without speech or singing.
+    // F major → C major, with the soprano resolving F4 → E4.
+    const chords = [
+      { notes: [65,53,57,60], offset: 0, duration: 1.9 },
+      { notes: [64,48,55,60], offset: 1.7, duration: 2.6 }
+    ];
     const start = audio.currentTime + 0.03;
-    let elapsed = 0;
-    melody.forEach(([melodyNote, beats], index) => {
-      const time = start + elapsed * beat;
-      const duration = beats * beat * 0.95;
-      const voices = [melodyNote, ...harmony[index]];
-      voices.forEach((note, voice) => {
+    chords.forEach(({ notes, offset, duration }) => {
+      const time = start + offset;
+      notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
-        const balance = voice === 0 ? 0.85 : 0.42;
-        const release = Math.min(0.16, duration * 0.35);
-        // Principal 8′, Bourdon 16′, flute 4′ and a gentle upper mixture.
-        [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
+        const balance = voice === 0 ? 0.65 : 0.42;
+        const release = 0.65;
+        // Warm principal 8′, soft Bourdon 16′ and restrained flute 4′.
+        [[1,0.7],[0.5,0.2],[2,0.23],[3,0.065],[4,0.035]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
           oscillator.frequency.value = frequency * harmonic;
           envelope.gain.setValueAtTime(0, time);
-          envelope.gain.linearRampToValueAtTime(level * balance, time + Math.min(0.055, duration * 0.2));
-          envelope.gain.setValueAtTime(level * balance * 0.85, time + duration - release);
+          envelope.gain.linearRampToValueAtTime(level * balance, time + 0.14);
+          envelope.gain.setValueAtTime(level * balance, time + duration - release);
           envelope.gain.linearRampToValueAtTime(0, time + duration);
           oscillator.connect(envelope); envelope.connect(output);
           oscillator.start(time); oscillator.stop(time + duration + 0.02);
         });
       });
-      elapsed += beats;
     });
     const active = audio;
-    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, Math.ceil((elapsed * beat + 2.3) * 1000));
+    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, 6600);
   }
   enter.addEventListener('click', () => {
     if (document.getElementById('welcomeSound').checked) {
