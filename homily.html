@@ -109,6 +109,9 @@
 
   <main id="list"><div class="message">載入中…</div></main>
 
+  <div id="backupTools"></div>
+  <script src="backup.js"></script>
+
   <script>
     const cycleSelect = document.getElementById('cycleSelect');
     const sectionSelect = document.getElementById('sectionSelect');
@@ -269,9 +272,10 @@
     async function loadData() {
       listEl.innerHTML = '<div class="message">載入中…</div>';
       try {
-        const response = await fetch(`data/year-${cycleSelect.value}.json`);
-        if (!response.ok) throw new Error('找不到禮儀年資料');
-        cycleData = await response.json();
+        const selectedCycle = cycleSelect.value;
+        const data = await window.HomilyData.load(selectedCycle);
+        if (selectedCycle !== cycleSelect.value) return;
+        cycleData = data;
         render();
       } catch (error) {
         listEl.innerHTML = `<div class="message error">載入失敗：${escapeHtml(error.message)}</div>`;
@@ -291,6 +295,7 @@
     const weekdayLabel = detected.weekday === 'odd' ? '單數年' : '雙數年';
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日 · ${weekdayLabel}平日`;
 
+    window.addEventListener('homily-data-changed', loadData);
     cycleSelect.addEventListener('change', loadData);
     sectionSelect.addEventListener('change', render);
     paritySelect.addEventListener('change', render);

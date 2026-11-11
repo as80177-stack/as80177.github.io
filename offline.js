@@ -16,8 +16,8 @@
   }
   navigator.serviceWorker.register('sw.js').then(async () => {
     await navigator.serviceWorker.ready;
-    const cache = await caches.open('homily-notes-v9');
-    const paths = ['index.html', 'homily.html', 'offline.js', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
+    const cache = await caches.open('homily-notes-v10');
+    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
     ready = (await Promise.all(paths.map(path => cache.match(new URL(path, location.href))))).every(Boolean);
     failed = !ready;
     render();
