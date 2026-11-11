@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#72551f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>安裝 App · 天主教講道筆記</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/app-icon-192.png">
+  <script src="install.js" defer></script>
+  <style>
+    *{box-sizing:border-box}body{max-width:650px;margin:0 auto;padding:2rem 1.25rem;font-family:system-ui,sans-serif;line-height:1.8;color:#403a32;background:#faf6ef}main{padding:1.5rem;border-radius:24px;background:white;border:1px solid #e8ddcc}h1{font-size:1.6rem;margin:.6rem 0}h2{font-size:1.15rem}a{color:#72551f}button,.button{display:inline-block;border:0;border-radius:12px;padding:.8rem 1.2rem;font:inherit;background:#72551f;color:white;cursor:pointer;text-decoration:none}button:disabled{opacity:.65;cursor:default}.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.secondary{background:#657468}input{width:100%;padding:.6rem;border:1px solid #d8cdbb;border-radius:8px;font:inherit;font-size:.85rem}li{margin:.6rem 0}.hint{color:#756956;font-size:.9rem}.icon{width:80px;height:80px;border-radius:18px}
+  </style>
+</head>
+<body>
+<main>
+  <img class="icon" src="icons/app-icon-192.png" width="80" height="80" alt="講道筆記 App 圖示">
+  <h1>安裝天主教講道筆記 App</h1>
+  <p>把講道筆記放到手機主畫面，隨時閱讀聖經金句與講道，並下載備份。</p>
+  <div class="actions"><button id="installApp" type="button">安裝 App</button><a class="button secondary" href="index.html#home">直接開啟首頁</a></div>
+  <p id="installStatus" role="status" aria-live="polite">若未出現安裝提示，請依照下方說明操作。</p>
+  <h2>手機安裝方式</h2>
+  <ul id="manualInstall">
+    <li><strong>Android：</strong>用 Chrome 開啟本頁，點「安裝 App」；也可在右上角「⋮」選「安裝應用程式」或「加到主畫面」。</li>
+    <li><strong>iPhone／iPad：</strong>用 Safari 開啟本頁，點「分享」→「加入主畫面」。</li>
+    <li><strong>電腦：</strong>用 Chrome 或 Edge 開啟，點安裝按鈕或網址列的安裝圖示。</li>
+  </ul>
+  <p class="hint">若從 LINE 等 App 開啟，請複製下方連結，貼到 Chrome 或 Safari。若已安裝，瀏覽器可能不再提供安裝選項，可直接使用原有圖示。</p>
+  <h2>分享安裝連結</h2>
+  <label for="installLink">把這個網址傳給親友，即可開啟安裝頁：</label>
+  <input id="installLink" type="url" readonly>
+  <div class="actions"><button id="copyInstallLink" type="button">複製安裝連結</button></div>
+  <p id="copyStatus" role="status" aria-live="polite"></p>
+  <p class="hint">這是加入主畫面的網站 App。首次請保持連線，等「已可離線閱讀」出現後，就能離線使用；管理後台及內容更新需要網路。</p>
+  <p id="offlineStatus" role="status" aria-live="polite"></p>
+</main>
+<script src="offline.js"></script>
+</body>
+</html>
