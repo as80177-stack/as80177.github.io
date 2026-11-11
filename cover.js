@@ -16,7 +16,7 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.16;
+    output.gain.value = 0.12;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
     tone.frequency.value = 4200;
@@ -46,26 +46,32 @@
     // transcription cross-check: github.com/elreydiegofernando-collab/pitch-lab
     // commit c499c026667921073ee2e6756c0c1f5fe8249ec4, public/songs/panis-angelicus.txt.
     const melody = [[73,2], [73,1], [71,1], [71,0.75], [69,0.25], [69,1]];
+    // Original simple A–E–A harmonization beneath the six-note melody.
+    const harmony = [[45,57,64], [45,57,64], [40,56,64], [40,56,64], [45,61,64], [45,61,64]];
     const beat = 60 / 80;
     const start = audio.currentTime + 0.03;
     let elapsed = 0;
-    melody.forEach(([note, beats]) => {
+    melody.forEach(([melodyNote, beats], index) => {
       const time = start + elapsed * beat;
       const duration = beats * beat * 0.95;
-      const frequency = 440 * 2 ** ((note - 69) / 12);
-      const release = Math.min(0.16, duration * 0.35);
-      // Principal 8′, Bourdon 16′, flute 4′ and a gentle upper mixture.
-      [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
-        const oscillator = audio.createOscillator();
-        const envelope = audio.createGain();
-        oscillator.type = 'sine';
-        oscillator.frequency.value = frequency * harmonic;
-        envelope.gain.setValueAtTime(0, time);
-        envelope.gain.linearRampToValueAtTime(level, time + Math.min(0.055, duration * 0.2));
-        envelope.gain.setValueAtTime(level * 0.85, time + duration - release);
-        envelope.gain.linearRampToValueAtTime(0, time + duration);
-        oscillator.connect(envelope); envelope.connect(output);
-        oscillator.start(time); oscillator.stop(time + duration + 0.02);
+      const voices = [melodyNote, ...harmony[index]];
+      voices.forEach((note, voice) => {
+        const frequency = 440 * 2 ** ((note - 69) / 12);
+        const balance = voice === 0 ? 0.85 : 0.42;
+        const release = Math.min(0.16, duration * 0.35);
+        // Principal 8′, Bourdon 16′, flute 4′ and a gentle upper mixture.
+        [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
+          const oscillator = audio.createOscillator();
+          const envelope = audio.createGain();
+          oscillator.type = 'sine';
+          oscillator.frequency.value = frequency * harmonic;
+          envelope.gain.setValueAtTime(0, time);
+          envelope.gain.linearRampToValueAtTime(level * balance, time + Math.min(0.055, duration * 0.2));
+          envelope.gain.setValueAtTime(level * balance * 0.85, time + duration - release);
+          envelope.gain.linearRampToValueAtTime(0, time + duration);
+          oscillator.connect(envelope); envelope.connect(output);
+          oscillator.start(time); oscillator.stop(time + duration + 0.02);
+        });
       });
       elapsed += beats;
     });
