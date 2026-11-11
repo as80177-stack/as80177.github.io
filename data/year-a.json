@@ -2936,6 +2936,12 @@
       "name": "聖誕節",
       "display_name": "聖誕節資料夾",
       "homilies": []
+    },
+    {
+      "id": "world-mission-sunday",
+      "name": "傳教節",
+      "display_name": "傳教節資料夾",
+      "homilies": []
     }
   ]
 }
