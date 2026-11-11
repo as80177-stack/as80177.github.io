@@ -19,7 +19,7 @@
     output.gain.value = 0.12;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
-    tone.frequency.value = 3200;
+    tone.frequency.value = 4200;
     tone.Q.value = 0.5;
     output.connect(tone);
     tone.connect(audio.destination);
@@ -53,8 +53,8 @@
       notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
         const balance = voice === 0 ? 0.65 : 0.42;
-        // Warm principal 8′, soft Bourdon 16′ and restrained flute 4′.
-        [[1,0.7],[0.5,0.2],[2,0.23],[3,0.065],[4,0.035]].forEach(([harmonic, level]) => {
+        // Full principal 8′, Bourdon 16′, flute 4′ and gentle upper mixture.
+        [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
