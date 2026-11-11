@@ -96,6 +96,7 @@
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
         <option value="marian">聖母其他節日（獨立分類）</option>
+        <option value="theology">其他神學與生活道理（獨立分類）</option>
       </select>
     </label>
     <label id="parityLabel" class="hidden">
@@ -222,7 +223,7 @@
 
     function selectedItems() {
       if (!cycleData) return [];
-      if (['apostles', 'marian'].includes(sectionSelect.value)) return cycleData.folders;
+      if (['apostles', 'marian', 'theology'].includes(sectionSelect.value)) return cycleData.folders;
       if (sectionSelect.value === 'advent-weekdays') return cycleData.advent_weekdays?.weeks || [];
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
@@ -230,8 +231,8 @@
     }
 
     function render() {
-      document.getElementById('cycleLabel').hidden = ['apostles', 'marian'].includes(sectionSelect.value);
-      currentCycle.hidden = ['apostles', 'marian'].includes(sectionSelect.value);
+      document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
+      currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       parityLabel.classList.toggle('hidden', sectionSelect.value !== 'weekdays');
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
@@ -290,9 +291,9 @@
       cycleData = null;
       listEl.innerHTML = '<div class="message">載入中…</div>';
       try {
-        const selectedCycle = ['apostles', 'marian'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value;
+        const selectedCycle = ['apostles', 'marian', 'theology'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value;
         const data = await window.HomilyData.load(selectedCycle);
-        if (selectedCycle !== (['apostles', 'marian'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value)) return;
+        if (selectedCycle !== (['apostles', 'marian', 'theology'].includes(sectionSelect.value) ? sectionSelect.value : cycleSelect.value)) return;
         cycleData = data;
         render();
       } catch (error) {

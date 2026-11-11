@@ -33,6 +33,8 @@
     }
     if (data.marian !== undefined && (!object(data.marian) || !text(data.marian.label) || !Array.isArray(data.marian.folders) || !data.marian.folders.every(folder))) throw new Error('聖母其他節日資料格式不正確');
     if (!data.marian) data.marian = {label:'聖母其他節日', folders:[{id:'marian-feasts',name:'聖母其他節日',display_name:'聖母其他節日資料夾',homilies:[]}]};
+    if (data.theology !== undefined && (!object(data.theology) || !text(data.theology.label) || !Array.isArray(data.theology.folders) || !data.theology.folders.every(folder))) throw new Error('其他神學與生活道理資料格式不正確');
+    if (!data.theology) data.theology = {label:'其他神學與生活道理', folders:[{id:'theology-life',name:'其他神學與生活道理',display_name:'其他神學與生活道理資料夾',homilies:[]}]};
     return data;
   }
   function local() {
@@ -42,8 +44,8 @@
   async function all() {
     const saved = local();
     if (saved) return saved;
-    const entries = await Promise.all([...cycles, 'apostles', 'marian'].map(async c => {
-      const r = await fetch(['apostles', 'marian'].includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
+    const entries = await Promise.all([...cycles, 'apostles', 'marian', 'theology'].map(async c => {
+      const r = await fetch(['apostles', 'marian', 'theology'].includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
       if (!r.ok) throw new Error('無法讀取講道，請連線後再試。');
       return [c, await r.json()];
     }));
@@ -52,14 +54,14 @@
   window.HomilyData = { async load(c) {
     const saved = local();
     if (saved) return saved[c];
-    const r = await fetch(['apostles', 'marian'].includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
+    const r = await fetch(['apostles', 'marian', 'theology'].includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
     if (!r.ok) throw new Error('找不到禮儀年資料');
     return r.json();
   }};
   const panel = document.createElement('section');
   panel.className = 'backup-panel';
   panel.innerHTML = `<h2>講道備份與還原</h2>
-    <p>完整備份包含三個年度、獨立的12宗徒與聖母其他節日分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
+    <p>完整備份包含三個年度、獨立的12宗徒、聖母其他節日及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
     <div class="backup-actions"><button type="button" id="backupDownload">下載完整備份</button>
     <button type="button" id="backupRestore">從備份還原</button>
     <button type="button" id="readingExport">匯出閱讀文件</button></div>
@@ -111,7 +113,7 @@
     message.textContent = '已改回網站資料。';
   });
   document.getElementById('readingExport').onclick = () => run(async () => {
-    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒與聖母其他節日的講道全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
+    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒、聖母其他節日與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
       return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }
@@ -121,7 +123,7 @@
       if (d.advent_weekdays) body += `<h2>${escape(d.label)} · ${escape(d.advent_weekdays.label)}</h2>` + d.advent_weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }
-    for (const key of ['apostles', 'marian']) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => entry(x, x.display_name)).join('');
+    for (const key of ['apostles', 'marian', 'theology']) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => entry(x, x.display_name)).join('');
     download(`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>講道閱讀文件</title><style>body{max-width:850px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.8}.content{white-space:pre-wrap}h2{border-bottom:1px solid #aaa}article{margin-bottom:2rem}@media print{h2,h3,h4{break-after:avoid}}</style><body>${body}</body></html>`, 'text/html;charset=utf-8', '講道閱讀文件.html');
     message.textContent = '已產生閱讀文件，下載後可離線開啟，或使用列印功能存為 PDF。';
   });
