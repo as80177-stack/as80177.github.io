@@ -68,6 +68,7 @@
   <a class="back" href="index.html">← 回首頁</a>
   <h1>講道與道理筆記</h1>
   <p class="subtitle">每個禮儀年分為主日、平日與其他節日資料夾</p>
+  <p id="offlineStatus" role="status" aria-live="polite"></p>
   <div id="currentCycle" class="current"></div>
   <div class="reading-settings" aria-label="閱讀字體大小">
     <span class="reading-label">閱讀字體</span>
@@ -294,10 +295,9 @@
     sectionSelect.addEventListener('change', render);
     paritySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
-    }
+
     loadData();
   </script>
+  <script src="offline.js"></script>
 </body>
 </html>

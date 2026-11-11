@@ -82,9 +82,18 @@
     <div class="actions">
       <a class="button" href="homily.html">開啟講道筆記</a>
       <a class="button secondary" href="admin/">管理後台</a>
-      <button class="button" id="installButton" type="button" hidden>安裝 App</button>
+      <button class="button" id="installButton" type="button">安裝離線 App</button>
     </div>
-    <p class="install-help">手機若沒有顯示安裝按鈕，可使用瀏覽器選單的「加入主畫面」。</p>
+    <p id="offlineStatus" role="status" aria-live="polite"></p>
+    <div id="installHelp" class="install-help">
+      <p>將講道筆記加入主畫面，就能像 App 一樣開啟。首次請連線開啟，等候顯示「已可離線閱讀」。</p>
+      <ul>
+        <li>iPhone／iPad：用 Safari 開啟，點「分享」→「加入主畫面」。</li>
+        <li>Android：用 Chrome 開啟，點「安裝離線 App」；若沒有安裝提示，使用選單的「安裝應用程式」或「加到主畫面」。</li>
+        <li>電腦：使用 Chrome 或 Edge，點網址列的安裝圖示。</li>
+      </ul>
+      <p>離線可閱讀三個年度的講道；管理後台與更新內容需要網路。清除瀏覽器資料會移除離線內容，之後需重新連線儲存。</p>
+    </div>
   </div>
 
   <p style="color:#888; font-size:0.9rem;">網站已成功部署於 GitHub Pages</p>
@@ -103,7 +112,10 @@
       installButton.hidden = false;
     });
     installButton.addEventListener('click', async () => {
-      if (!installPrompt) return;
+      if (!installPrompt) {
+        document.getElementById('installHelp').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
       installPrompt.prompt();
       await installPrompt.userChoice;
       installPrompt = null;
@@ -113,9 +125,8 @@
       installButton.hidden = true;
       installPrompt = null;
     });
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
-    }
+
   </script>
+  <script src="offline.js"></script>
 </body>
 </html>
