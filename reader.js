@@ -7,7 +7,7 @@
     <button type="button" id="readerBack">← 返回道理</button>
     <button type="button" id="readerCopy">複製全文</button>
     <label>轉場 <select id="readerTransition"><option value="fade">柔和淡入</option><option value="slide">輕柔滑入</option><option value="none">無轉場</option></select></label>
-    <span id="readerPullHint" class="reader-pull-hint" role="status" aria-live="polite">頂部下拉可返回</span>
+    <span class="reader-return-hint">雙擊道理可返回上一頁</span>
     </div><article class="reader-page"><h2 id="readerTitle"></h2>
     <div class="reader-settings" aria-label="全螢幕閱讀字體大小"><button class="size-button" data-reader-size="small" type="button">小字</button><button class="size-button" data-reader-size="medium" type="button">標準</button><button class="size-button" data-reader-size="large" type="button">大字</button></div>
     <p id="readerCopyStatus" role="status" aria-live="polite"></p>
@@ -38,7 +38,7 @@
   function openReader(card) {
     if (dialog.open || closing) return;
     window.HomilyNarration.hide();
-    resetPull();
+    resetReturnTap();
     current = readCard(card); source = card;
     document.getElementById('readerTitle').textContent = current.title;
     document.getElementById('readerText').textContent = current.text;
@@ -61,7 +61,7 @@
   function closeReader() {
     if (!dialog.open || closing) return;
     window.HomilyNarration.stop();
-    resetPull();
+    resetReturnTap();
     closing = true; dialog.classList.remove('is-visible');
     const delay = transition.value === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 340;
     setTimeout(() => {
@@ -79,44 +79,45 @@
     if (ownsHistory) { ownsHistory = false; history.back(); }
     else closeReader();
   }
-  const pullHint = document.getElementById('readerPullHint');
-  const pullThreshold = 110;
-  let pull = null;
-  function resetPull() {
-    pull = null;
-    dialog.classList.remove('is-pulling');
-    dialog.style.removeProperty('--reader-pull');
-    pullHint.textContent = '頂部下拉可返回';
+  let returnTouch = null;
+  let previousReturnTap = null;
+  let lastReaderTouch = -Infinity;
+  function resetReturnTap() {
+    returnTouch = null;
+    previousReturnTap = null;
   }
+  function returnTarget(target) {
+    return target.closest('.reader-page') && !target.closest('button,select,input,textarea,a,summary,label,.reader-settings');
+  }
+  dialog.addEventListener('dblclick', event => {
+    // Touch has its own tap-only detector so scrolling and long-pressing cannot return.
+    if (performance.now() - lastReaderTouch < 800 || !returnTarget(event.target)) return;
+    event.preventDefault(); goBack();
+  });
   dialog.addEventListener('touchstart', event => {
-    resetPull();
-    if (!dialog.open || closing || event.touches.length !== 1 || dialog.scrollTop > 1 ||
-        event.target.closest('button,select,input,textarea,a,summary') || !window.getSelection().isCollapsed) return;
+    returnTouch = null; lastReaderTouch = performance.now();
+    if (!dialog.open || closing || event.touches.length !== 1 || !returnTarget(event.target) || !window.getSelection().isCollapsed) {
+      previousReturnTap = null; return;
+    }
     const touch = event.touches[0];
-    pull = { x:touch.clientX, y:touch.clientY, distance:0, dragging:false };
+    returnTouch = {x:touch.clientX, y:touch.clientY, time:performance.now(), scroll:dialog.scrollTop};
   }, {passive:true});
   dialog.addEventListener('touchmove', event => {
-    if (!pull) return;
-    if (event.touches.length !== 1 || dialog.scrollTop > 1 || !window.getSelection().isCollapsed) { resetPull(); return; }
+    if (!returnTouch) return;
     const touch = event.touches[0];
-    const dx = Math.abs(touch.clientX - pull.x);
-    const dy = touch.clientY - pull.y;
-    if (dy < -8 || (dx > 12 && dx > Math.max(dy, 0))) { resetPull(); return; }
-    if (dy <= 10 || dy < dx * 1.4) return;
-    if (!event.cancelable) { resetPull(); return; }
-    event.preventDefault();
-    pull.dragging = true; pull.distance = dy;
-    dialog.classList.add('is-pulling');
-    dialog.style.setProperty('--reader-pull', `${Math.min(42, dy * 0.25)}px`);
-    const label = dy >= pullThreshold ? '放開即可返回' : '繼續下拉以返回';
-    if (pullHint.textContent !== label) pullHint.textContent = label;
-  }, {passive:false});
-  dialog.addEventListener('touchend', event => {
-    const returnNow = pull?.dragging && pull.distance >= pullThreshold && event.touches.length === 0;
-    resetPull();
-    if (returnNow) goBack();
+    if (event.touches.length !== 1 || Math.hypot(touch.clientX-returnTouch.x,touch.clientY-returnTouch.y)>10 || Math.abs(dialog.scrollTop-returnTouch.scroll)>2) resetReturnTap();
   }, {passive:true});
-  dialog.addEventListener('touchcancel', resetPull, {passive:true});
+  dialog.addEventListener('touchend', event => {
+    const touch = returnTouch; returnTouch = null;
+    const now = performance.now();
+    if (!touch || event.touches.length || now-touch.time>250 || Math.abs(dialog.scrollTop-touch.scroll)>2 || !window.getSelection().isCollapsed) {
+      previousReturnTap = null; return;
+    }
+    if (previousReturnTap && now-previousReturnTap.time<350 && Math.hypot(touch.x-previousReturnTap.x,touch.y-previousReturnTap.y)<25) {
+      resetReturnTap(); goBack();
+    } else previousReturnTap = {...touch,time:now};
+  }, {passive:true});
+  dialog.addEventListener('touchcancel', resetReturnTap, {passive:true});
   window.addEventListener('popstate', () => { if (dialog.open) { ownsHistory = false; closeReader(); } });
   dialog.addEventListener('cancel', event => { event.preventDefault(); goBack(); });
   document.getElementById('readerBack').addEventListener('click', goBack);
