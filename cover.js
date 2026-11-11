@@ -16,7 +16,7 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.13;
+    output.gain.value = 0.11;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
     tone.frequency.value = 10000;
@@ -25,8 +25,8 @@
     // Keep a clear, bright principal chorus without harsh output peaks.
     const clarity = audio.createBiquadFilter();
     clarity.type = 'highshelf';
-    clarity.frequency.value = 1100;
-    clarity.gain.value = 3;
+    clarity.frequency.value = 700;
+    clarity.gain.value = 4;
     const limiter = audio.createDynamicsCompressor();
     limiter.threshold.value = -10;
     limiter.knee.value = 12;
@@ -68,8 +68,8 @@
       notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
         const balance = (voice === 0 ? 0.65 : 0.42) * strength;
-        // Bright principal chorus: 8′, strong 4′ and 2′ octaves, plus clear mixtures.
-        [[1,0.45],[0.5,0.025],[2,0.65],[3,0.2],[4,0.5],[5,0.09],[6,0.18],[8,0.22],[12,0.06],[16,0.025]].forEach(([harmonic, level]) => {
+        // Reference 84 emphasizes 500–2000 Hz: strong 2′/1′ ranks and bright mixtures.
+        [[1,0.28],[0.5,0.025],[2,0.35],[3,0.12],[4,0.7],[5,0.1],[6,0.65],[8,0.8],[10,0.12],[12,0.55],[16,0.4]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
