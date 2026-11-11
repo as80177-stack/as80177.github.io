@@ -16,8 +16,29 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.12;
-    output.connect(audio.destination);
+    output.gain.value = 0.16;
+    const tone = audio.createBiquadFilter();
+    tone.type = 'lowpass';
+    tone.frequency.value = 4200;
+    tone.Q.value = 0.5;
+    output.connect(tone);
+    tone.connect(audio.destination);
+    // Locally generated stereo church-room impulse; no recording or download.
+    const reverb = audio.createConvolver();
+    const impulse = audio.createBuffer(2, Math.ceil(audio.sampleRate * 2), audio.sampleRate);
+    let seed = 1741;
+    for (let channel = 0; channel < 2; channel++) {
+      const samples = impulse.getChannelData(channel);
+      for (let i = 0; i < samples.length; i++) {
+        seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+        const seconds = i / audio.sampleRate;
+        samples[i] = seconds < 0.025 ? 0 : (seed / 2147483648 - 1) * Math.exp(-seconds * 3.8);
+      }
+    }
+    reverb.buffer = impulse;
+    const room = audio.createGain();
+    room.gain.value = 0.28;
+    tone.connect(reverb); reverb.connect(room); room.connect(audio.destination);
     // Franck, Panis angelicus, opening vocal phrase in A major:
     // C#5 C#5 B4 B4 A4 A4 (Pa-nis an-ge-li-cus).
     // Rhythm in quarter-note beats: 2, 1, 1, .75, .25, 1.
@@ -33,7 +54,8 @@
       const duration = beats * beat * 0.95;
       const frequency = 440 * 2 ** ((note - 69) / 12);
       const release = Math.min(0.16, duration * 0.35);
-      [[1,0.7],[2,0.22],[3,0.07],[4,0.035]].forEach(([harmonic, level]) => {
+      // Principal 8′, Bourdon 16′, flute 4′ and a gentle upper mixture.
+      [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
         const oscillator = audio.createOscillator();
         const envelope = audio.createGain();
         oscillator.type = 'sine';
@@ -48,7 +70,7 @@
       elapsed += beats;
     });
     const active = audio;
-    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, Math.ceil((elapsed * beat + 0.5) * 1000));
+    setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, Math.ceil((elapsed * beat + 2.3) * 1000));
   }
   enter.addEventListener('click', () => {
     if (document.getElementById('welcomeSound').checked) {
