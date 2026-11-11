@@ -16,10 +16,10 @@
     audio = new Audio();
     await audio.resume();
     const output = audio.createGain();
-    output.gain.value = 0.12;
+    output.gain.value = 0.11;
     const tone = audio.createBiquadFilter();
     tone.type = 'lowpass';
-    tone.frequency.value = 4200;
+    tone.frequency.value = 6000;
     tone.Q.value = 0.5;
     output.connect(tone);
     tone.connect(audio.destination);
@@ -45,22 +45,30 @@
     const chords = [
       { notes: [53,41,45,48], offset: 0, duration: 1.4, release: 0.3 },
       { notes: [50,38,41,45], offset: 1.25, duration: 1.3, release: 0.3 },
-      { notes: [52,36,43,48], offset: 2.4, duration: 2.4, release: 1.3 }
+      { notes: [52,36,43,48], offset: 2.4, duration: 3.8, release: 2.1 },
+      // A soft upward turn G3, then down to E3, closes the phrase.
+      { notes: [55,36,43,48], offset: 6.36, duration: 0.26, release: 0.12, attack: 0.035, strength: 0.48 },
+      { notes: [52,36,43,48], offset: 6.60, duration: 0.44, release: 0.28, attack: 0.045, strength: 0.52 }
     ];
     const start = audio.currentTime + 0.03;
-    chords.forEach(({ notes, offset, duration, release }) => {
+    // Let the sustained tail breathe, then shorten the room around the final dot.
+    const finalDot = start + chords[chords.length - 2].offset;
+    room.gain.setValueAtTime(0.28, finalDot - 0.15);
+    room.gain.linearRampToValueAtTime(0.08, finalDot + 0.12);
+    room.gain.linearRampToValueAtTime(0, finalDot + 1.0);
+    chords.forEach(({ notes, offset, duration, release, attack = 0.14, strength = 1 }) => {
       const time = start + offset;
       notes.forEach((note, voice) => {
         const frequency = 440 * 2 ** ((note - 69) / 12);
-        const balance = voice === 0 ? 0.65 : 0.42;
-        // Full principal 8′, Bourdon 16′, flute 4′ and gentle upper mixture.
-        [[1,0.7],[0.5,0.24],[2,0.3],[3,0.12],[4,0.09],[6,0.025],[8,0.015]].forEach(([harmonic, level]) => {
+        const balance = (voice === 0 ? 0.65 : 0.42) * strength;
+        // Bright principal 8′ and flute 4′, balanced with a gentle upper mixture.
+        [[1,0.7],[0.5,0.18],[2,0.4],[3,0.18],[4,0.14],[6,0.055],[8,0.03]].forEach(([harmonic, level]) => {
           const oscillator = audio.createOscillator();
           const envelope = audio.createGain();
           oscillator.type = 'sine';
           oscillator.frequency.value = frequency * harmonic;
           envelope.gain.setValueAtTime(0, time);
-          envelope.gain.linearRampToValueAtTime(level * balance, time + 0.14);
+          envelope.gain.linearRampToValueAtTime(level * balance, time + attack);
           envelope.gain.setValueAtTime(level * balance, time + duration - release);
           const fade = Float32Array.from({length:128}, (_, i) =>
             i === 127 ? 0 : level * balance * Math.cos((i / 127) * Math.PI / 2) ** 2);
