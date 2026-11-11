@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homily-notes-v38';
+const CACHE_NAME = 'homily-notes-v39';
 const APP_SHELL = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const APP_SHELL = [
   './install.html',
   './install.js',
   './reader.js',
+  './translations.js',
   './narration.js',
   './reader.css',
   './data/verses.json',

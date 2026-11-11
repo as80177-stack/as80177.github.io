@@ -2,6 +2,7 @@
   const synth = window.speechSynthesis;
   const supported = !!synth && typeof window.SpeechSynthesisUtterance === 'function';
   let panel, status, play, pause, stopButton, voiceSelect, rateSelect;
+  let language = 'zh';
   let voices = [], chunks = [], index = 0, run = 0, state = 'idle';
   let selectedVoice = '', selectedRate = '0.9';
   let activeUtterance;
@@ -26,8 +27,8 @@
   }
   function populateVoices() {
     if (!voiceSelect || !supported) return;
-    voices = synth.getVoices().filter(v => /^(zh|cmn|yue)([-_]|$)/i.test(v.lang));
-    voiceSelect.replaceChildren(new Option('自動選擇中文聲音', ''));
+    voices = synth.getVoices().filter(v => language === 'en' ? /^en([-_]|$)/i.test(v.lang) : /^(zh|cmn|yue)([-_]|$)/i.test(v.lang));
+    voiceSelect.replaceChildren(new Option(language === 'en' ? '自動選擇英文聲音' : '自動選擇中文聲音', ''));
     voices.forEach(v => voiceSelect.add(new Option(`${v.name} · ${v.lang}${v.localService ? '（裝置聲音）' : '（可能需連線）'}`, v.voiceURI)));
     voiceSelect.value = voices.some(v => v.voiceURI === selectedVoice) ? selectedVoice : '';
   }
@@ -49,7 +50,7 @@
     activeUtterance = utterance;
     const chosen = voices.find(v => v.voiceURI === voiceSelect.value) || voices.find(v => /^zh[-_]TW$/i.test(v.lang)) || voices.find(v => /^zh[-_]CN$/i.test(v.lang)) || voices[0];
     if (chosen) utterance.voice = chosen;
-    utterance.lang = chosen?.lang || 'zh-TW';
+    utterance.lang = chosen?.lang || (language === 'en' ? 'en-US' : 'zh-TW');
     utterance.rate = Number(rateSelect.value);
     utterance.pitch = 1;
     utterance.volume = 1;
@@ -61,18 +62,20 @@
     utterance.onend = () => { if (token === run) { clearTimeout(startTimer); index++; speakNext(token); } };
     utterance.onerror = event => {
       if (token !== run) return;
-      stop(event.error === 'not-allowed' ? '瀏覽器未允許播放，請再點一次「開始朗讀」。' : '朗讀無法繼續。請選擇其他中文聲音，或在手機文字轉語音設定中安裝中文語音後重試。');
+      stop(event.error === 'not-allowed' ? '瀏覽器未允許播放，請再點一次「開始朗讀」。' : '朗讀無法繼續。請選擇其他聲音，或在手機文字轉語音設定中安裝對應語言後重試。');
     };
     startTimer = setTimeout(() => {
-      if (token === run && state !== 'paused') stop('未收到語音播放回應。請檢查手機的中文文字轉語音設定，或選擇其他聲音再試。');
+      if (token === run && state !== 'paused') stop('未收到語音播放回應。請檢查手機的文字轉語音設定，或選擇其他聲音再試。');
     }, 10000);
-    try { synth.speak(utterance); } catch (_) { stop('目前無法朗讀，請確認裝置的中文語音設定。'); }
+    try { synth.speak(utterance); } catch (_) { stop('目前無法朗讀，請確認裝置的語音設定。'); }
   }
   function start(text, card) {
+    language = card?.dataset.readingLanguage === 'en' ? 'en' : 'zh';
+    if (panel) panel.querySelector('#narrationVoiceLabel').textContent = language === 'en' ? '英文聲音' : '中文聲音';
     if (card) card.querySelector('.homily-actions').after(panel);
     panel.hidden = false;
     if (!supported) return;
-    stop('正在準備中文朗讀…');
+    stop(language === 'en' ? '正在準備英文朗讀…' : '正在準備中文朗讀…');
     chunks = split(text); index = 0;
     if (!text.trim()) { status.textContent = '此篇沒有可朗讀的內容。'; return; }
     populateVoices(); state = 'speaking'; controls(); speakNext(run);
@@ -81,7 +84,7 @@
     panel = document.createElement('section'); panel.className = 'narration-panel'; panel.hidden = true;
     panel.setAttribute('aria-label','道理朗讀');
     panel.innerHTML = `<div class="narration-actions"><button id="narrationPlay" type="button">開始朗讀</button><button id="narrationPause" type="button" disabled>暫停</button><button id="narrationStop" type="button" disabled>停止</button></div>
-      <details class="narration-settings"><summary>聲音與語速</summary><div class="narration-options"><label>中文聲音 <select id="narrationVoice"></select></label><label>語速 <select id="narrationRate"><option value="0.8">較慢</option><option value="0.9">稍慢</option><option value="1">標準</option><option value="1.05">輕快</option><option value="1.1">較快</option></select></label></div><p class="reading-hint">使用裝置原有中文聲音；離線需已安裝語音資料。</p></details>
+      <details class="narration-settings"><summary>聲音與語速</summary><div class="narration-options"><label><span id="narrationVoiceLabel">中文聲音</span> <select id="narrationVoice"></select></label><label>語速 <select id="narrationRate"><option value="0.8">較慢</option><option value="0.9">稍慢</option><option value="1">標準</option><option value="1.05">輕快</option><option value="1.1">較快</option></select></label></div><p class="reading-hint">使用裝置原有聲音；離線需已安裝對應語言的語音資料。</p></details>
       <p id="narrationStatus" role="status" aria-live="polite"></p>`;
     document.body.append(panel);
     status = panel.querySelector('#narrationStatus'); play = panel.querySelector('#narrationPlay'); pause = panel.querySelector('#narrationPause'); stopButton = panel.querySelector('#narrationStop'); voiceSelect = panel.querySelector('#narrationVoice'); rateSelect = panel.querySelector('#narrationRate');

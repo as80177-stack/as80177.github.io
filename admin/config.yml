@@ -42,6 +42,18 @@ collections:
                   - { label: 版本名稱, name: title, widget: string, hint: "例如：諸聖節道理 1、兒童版、青年版。" }
                   - { label: 上傳時間, name: uploaded_at, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ", hint: "新增版本時請保留目前的日期與時間。" }
                   - { label: 道理正文, name: content, widget: text, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
+                  - label: 翻譯（選填）
+                    name: translations
+                    widget: object
+                    required: false
+                    fields:
+                      - label: English
+                        name: en
+                        widget: object
+                        required: false
+                        fields:
+                          - { label: 英文標題, name: title, widget: string }
+                          - { label: 英文全文, name: content, widget: text }
           - label: 平日資料夾
             name: weekdays
             widget: object

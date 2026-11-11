@@ -7,6 +7,7 @@
     <button type="button" id="readerBack">← 返回道理</button>
     <button type="button" id="readerCopy">複製全文</button>
     <label>轉場 <select id="readerTransition"><option value="fade">柔和淡入</option><option value="slide">輕柔滑入</option><option value="none">無轉場</option></select></label>
+    <label id="readerLanguageLabel" hidden>語言 / Language <select id="readerLanguage"><option value="zh">中文原文</option><option value="en">English</option></select></label>
     <span class="reader-return-hint">雙擊道理可返回上一頁</span>
     </div><article class="reader-page"><h2 id="readerTitle"></h2>
     <div class="reader-settings" aria-label="全螢幕閱讀字體大小"><button class="size-button" data-reader-size="small" type="button">小字</button><button class="size-button" data-reader-size="medium" type="button">標準</button><button class="size-button" data-reader-size="large" type="button">大字</button></div>
@@ -35,14 +36,29 @@
   function readCard(card) {
     return {title:card.dataset.homilyTitle, text:card.querySelector('.notes').textContent};
   }
+  function syncLanguage() {
+    if (!source) return;
+    current = readCard(source);
+    document.getElementById('readerTitle').textContent = current.title;
+    document.getElementById('readerText').textContent = current.text;
+    const language = source.dataset.readingLanguage || 'zh';
+    document.getElementById('readerTitle').lang = document.getElementById('readerText').lang = language === 'en' ? 'en' : 'zh-Hant';
+    document.getElementById('readerLanguageLabel').hidden = !source.querySelector('.homily-language');
+    document.getElementById('readerLanguage').value = language;
+    copyStatus.textContent = ''; manual.hidden = true;
+  }
+  document.getElementById('readerLanguage').addEventListener('change', event => {
+    if (source) window.HomilyLanguages.set(source, event.target.value);
+  });
+  document.getElementById('list').addEventListener('homily-language-changed', event => {
+    if (event.target === source && dialog.open) { syncLanguage(); dialog.scrollTop = 0; }
+  });
   function openReader(card) {
     if (dialog.open || closing) return;
     window.HomilyNarration.hide();
     resetReturnTap();
     current = readCard(card); source = card;
-    document.getElementById('readerTitle').textContent = current.title;
-    document.getElementById('readerText').textContent = current.text;
-    copyStatus.textContent = ''; manual.hidden = true;
+    syncLanguage();
     previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     dialog.showModal(); dialog.scrollTop = 0;

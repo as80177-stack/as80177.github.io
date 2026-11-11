@@ -6,7 +6,7 @@
     const object = x => x && typeof x === 'object' && !Array.isArray(x);
     const text = x => typeof x === 'string';
     function notes(item) {
-      return object(item) && Array.isArray(item.homilies) && item.homilies.every(h => object(h) && text(h.title) && text(h.content) && (h.uploaded_at === undefined || text(h.uploaded_at)));
+      return object(item) && Array.isArray(item.homilies) && item.homilies.every(h => object(h) && text(h.title) && text(h.content) && (h.uploaded_at === undefined || text(h.uploaded_at)) && (h.translations === undefined || (object(h.translations) && Object.values(h.translations).every(t => object(t) && text(t.title) && text(t.content)))));
     }
     function folder(item) { return notes(item) && text(item.id) && text(item.name) && text(item.display_name); }
     if (!object(data) || !cycles.every(c => {
@@ -109,7 +109,7 @@
   document.getElementById('readingExport').onclick = () => run(async () => {
     const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒與聖母其他節日的講道全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
-      return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div></article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
+      return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }
     for (const c of cycles) {
       const d = data[c]; body += `<h2>${escape(d.label)} · 主日</h2>` + d.sundays.map(x => entry(x, x.display_name)).join('');
