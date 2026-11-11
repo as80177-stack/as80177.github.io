@@ -41,11 +41,11 @@
     room.gain.value = 0.28;
     tone.connect(reverb); reverb.connect(room); room.connect(audio.destination);
     // Three warm chords, without speech or singing: F major → D minor → C major.
-    // Soprano F4 → D4 → E4 creates the requested high–low–middle contour.
+    // User recording: approximately F3 → D3 → E3, with compact, sung-like pacing.
     const chords = [
-      { notes: [65,53,57,60], offset: 0, duration: 1.6, release: 0.65 },
-      { notes: [62,50,53,57], offset: 1.4, duration: 1.6, release: 0.65 },
-      { notes: [64,48,55,60], offset: 2.8, duration: 4.4, release: 3.2 }
+      { notes: [53,41,45,48], offset: 0, duration: 1.4, release: 0.3 },
+      { notes: [50,38,41,45], offset: 1.25, duration: 1.3, release: 0.3 },
+      { notes: [52,36,43,48], offset: 2.4, duration: 2.4, release: 1.3 }
     ];
     const start = audio.currentTime + 0.03;
     chords.forEach(({ notes, offset, duration, release }) => {
