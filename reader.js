@@ -20,7 +20,6 @@
   let source = null;
   let closing = false;
   let ownsHistory = false;
-  let nativeFullscreen = false;
   let previousOverflow = '';
   try {
     const saved = localStorage.getItem('homily-reader-transition');
@@ -44,22 +43,21 @@
     document.body.style.overflow = 'hidden';
     dialog.showModal(); dialog.scrollTop = 0;
     history.pushState({homilyReader:true}, '', '#reading'); ownsHistory = true;
-    requestAnimationFrame(() => requestAnimationFrame(() => dialog.classList.add('is-visible')));
-    // The dialog remains a full-page reader even if native fullscreen is unavailable.
-    if (dialog.requestFullscreen) {
-      try {
-        const request = dialog.requestFullscreen();
-        request?.then(() => { nativeFullscreen = !!document.fullscreenElement; }).catch(() => {});
-      } catch (_) {}
+    if (transition.value === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      dialog.classList.add('is-visible');
+    } else {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (dialog.open && !closing) dialog.classList.add('is-visible');
+      }));
     }
+    // Keep the viewport stable; native fullscreen resizing can flash on phones.
+    // Installed apps already hide browser chrome, and this dialog fills the viewport.
     document.getElementById('readerBack').focus({preventScroll:true});
   }
   function closeReader() {
     if (!dialog.open || closing) return;
     closing = true; dialog.classList.remove('is-visible');
-    if (document.fullscreenElement === dialog) document.exitFullscreen().catch(() => {});
-    nativeFullscreen = false;
-    const delay = transition.value === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 230;
+    const delay = transition.value === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 340;
     setTimeout(() => {
       dialog.close(); document.body.style.overflow = previousOverflow;
       if (source?.isConnected) {
@@ -76,9 +74,6 @@
     else closeReader();
   }
   window.addEventListener('popstate', () => { if (dialog.open) { ownsHistory = false; closeReader(); } });
-  document.addEventListener('fullscreenchange', () => {
-    if (nativeFullscreen && !document.fullscreenElement) { nativeFullscreen = false; goBack(); }
-  });
   dialog.addEventListener('cancel', event => { event.preventDefault(); goBack(); });
   document.getElementById('readerBack').addEventListener('click', goBack);
   async function copy(data, status, fallback) {
