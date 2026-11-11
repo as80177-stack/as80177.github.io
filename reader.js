@@ -13,7 +13,7 @@
     <textarea id="readerManualCopy" class="manual-copy" aria-label="道理全文，請長按全選並複製" readonly hidden></textarea>
     <div id="readerText" class="reader-text"></div></article>`;
   document.body.append(dialog);
-  window.HomilyNarration.attach(dialog.querySelector(".reader-page"));
+  window.HomilyNarration.attach();
   const transition = document.getElementById('readerTransition');
   const copyStatus = document.getElementById('readerCopyStatus');
   const manual = document.getElementById('readerManualCopy');
@@ -36,6 +36,7 @@
   }
   function openReader(card) {
     if (dialog.open || closing) return;
+    window.HomilyNarration.hide();
     current = readCard(card); source = card;
     document.getElementById('readerTitle').textContent = current.title;
     document.getElementById('readerText').textContent = current.text;
@@ -103,8 +104,9 @@
   document.getElementById('list').addEventListener('click', event => {
     const listen = event.target.closest('.homily-listen');
     if (listen && !closing) {
-      openReader(listen.closest('.homily-card'));
-      window.HomilyNarration.start(`${current.title}\n\n${current.text}`);
+      const card = listen.closest('.homily-card');
+      const data = readCard(card);
+      window.HomilyNarration.start(`${data.title}\n\n${data.text}`, card);
     }
     const open = event.target.closest('.reader-open');
     if (open) openReader(open.closest('.homily-card'));
