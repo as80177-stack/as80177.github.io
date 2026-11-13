@@ -3,7 +3,7 @@
   const status = document.getElementById('christmasOrganStatus');
   const song = document.getElementById('christmasSong');
   const songs = {
-    'holy-night': { title: 'O Holy Night · 溫馨爵士藍調', jazz: true, melody: [[64,1],[64,.5],[64,.5],[67,2],[67,1],[69,1.5],[69,.5],[65,1],[69,1],[72,1.5],[71,.5],[69,1],[67,5]], harmony: [[0,2.4,[52,57,62,67]],[2.65,2.2,[52,57,62,67]],[5,1.7,[51,57,60,67]],[7.2,1.65,[51,57,60,67]],[9,1.3,[53,57,60,64]],[10.5,1.4,[53,59,64,69]],[12,5,[52,57,62,67]]], bass: [[0,36,1.8],[2,43,1.6],[4,40,.8],[5,41,1.6],[7,48,1.6],[9,38,1.2],[10.5,43,1.3],[12,36,1.8],[14,43,1.3],[15.5,36,1.5]] },
+    'holy-night': { title: 'O Holy Night · 溫馨爵士藍調', jazz: true, melody: [[64,1],[64,.5],[64,.5],[67,2],[67,1],[69,1.5],[69,.5],[65,1],[69,1],[72,1.5],[71,.5],[69,1],[67,3]], harmony: [[0,2.4,[52,57,62,67]],[2.65,2.2,[52,57,62,67]],[5,1.7,[51,57,60,67]],[7.2,1.65,[51,57,60,67]],[9,1.3,[53,57,60,64]],[10.5,1.4,[53,59,64,69]],[12,3,[52,57,62,67]]], bass: [[0,36,1.8],[2,43,1.6],[4,40,.8],[5,41,1.6],[7,48,1.6],[9,38,1.2],[10.5,43,1.3],[12,36,1.8],[14,36,1]] },
     'silent-night': { title: 'Silent Night · 平安夜', melody: [[67,1.5],[69,.5],[67,1],[64,3],[67,1.5],[69,.5],[67,1],[64,3],[74,2],[74,1],[71,3],[72,2],[72,1],[67,3]], harmony: [[0,6,[36,48,52,55]],[6,6,[36,48,52,55]],[12,6,[43,50,55,59]],[18,6,[36,48,52,55]]] }
   };
   const volume = document.getElementById('christmasOrganVolume');
@@ -110,8 +110,9 @@
     // Let the final tonic and the room decay together, without an extra note.
     const end = start + cursor * beat;
     ending.gain.setValueAtTime(1, end);
-    ending.gain.linearRampToValueAtTime(0, end + 2.8);
-    return (end + 3 - context.currentTime) * 1000;
+    const tail = selection.jazz ? 1.6 : 2.8;
+    ending.gain.linearRampToValueAtTime(0, end + tail);
+    return (end + tail + .2 - context.currentTime) * 1000;
   }
   async function play() {
     if (active) return;
