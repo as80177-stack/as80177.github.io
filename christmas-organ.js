@@ -43,11 +43,11 @@
       // The standalone Cmaj9 pad gently brightens as the doors open.
       const color = context.createBiquadFilter();
       color.type = 'lowpass';
-      color.frequency.setValueAtTime(standalone ? 1200 : 5000, start);
-      color.frequency.linearRampToValueAtTime(standalone ? 4800 : 5000, start + .85);
-      color.frequency.linearRampToValueAtTime(2600, start + 1.8);
+      color.frequency.setValueAtTime(standalone ? 900 : 2200, start);
+      color.frequency.linearRampToValueAtTime(standalone ? 2400 : 2600, start + .85);
+      color.frequency.linearRampToValueAtTime(1400, start + 1.8);
       color.connect(gain);
-      const notes = standalone ? [60,67,76,79,84,86] : [72,79,81,86];
+      const notes = standalone ? [55,60,64,67,69,74] : [60,67,69,74];
       notes.forEach((note, index) => {
         const at = start + index * (standalone ? .065 : .055);
         const envelope = context.createGain();
@@ -59,7 +59,7 @@
         envelope.gain.exponentialRampToValueAtTime(.0001, at + end - .07);
         envelope.gain.linearRampToValueAtTime(0, at + end);
         envelope.connect(color);
-        for (const [harmonic, strength] of standalone ? [[1,1],[2,.18],[3,.045]] : [[1,1]]) {
+        for (const [harmonic, strength] of standalone ? [[1,1],[2,.1],[3,.015]] : [[1,1]]) {
           const oscillator = context.createOscillator();
           const rank = context.createGain();
           rank.gain.value = strength;
