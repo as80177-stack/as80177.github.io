@@ -41,8 +41,8 @@
     if (entering) return;
     if (document.getElementById('welcomeSound').checked) {
       window.dispatchEvent(new Event('welcome-music-play'));
-      window.dispatchEvent(new Event('entrance-light-sound'));
     }
+    if (document.getElementById('entranceSound').checked) window.dispatchEvent(new Event('entrance-light-sound'));
     // Honor reduced-motion preferences and older browsers without Web Animations.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !door.animate) {
       showPage('verse', true);

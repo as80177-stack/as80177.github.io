@@ -21,41 +21,58 @@
     setTimeout(() => previous.context.close().catch(() => {}), 160);
   }
   async function playLightSound() {
-    // A separate, very quiet layer leaves the music's transport and gain intact.
+    // Use an independent layer: a light accent over music, or a fuller
+    // warm-to-bright entrance chord when no Christmas song is playing.
     const Audio = window.AudioContext || window.webkitAudioContext;
     if (!Audio) return;
     stopLightSound();
+    const standalone = !active || active.context.state === 'closed';
+    const level = standalone ? .12 : .035;
     let context;
     let sound;
     try {
       context = new Audio();
       const gain = context.createGain();
-      gain.gain.value = Number(volume.value) * .035;
+      gain.gain.value = Number(volume.value) * level;
       gain.connect(context.destination);
-      sound = {context, gain};
+      sound = {context, gain, level};
       lightSound = sound;
       await context.resume();
       if (lightSound !== sound) return;
       const start = context.currentTime + .18;
-      // Open C6/9 colors (no major/minor third) blend with both Christmas songs.
-      [72,79,81,86].forEach((note, index) => {
-        const at = start + index * .055;
+      // The standalone Cmaj9 pad gently brightens as the doors open.
+      const color = context.createBiquadFilter();
+      color.type = 'lowpass';
+      color.frequency.setValueAtTime(standalone ? 1200 : 5000, start);
+      color.frequency.linearRampToValueAtTime(standalone ? 4800 : 5000, start + .85);
+      color.frequency.linearRampToValueAtTime(2600, start + 1.8);
+      color.connect(gain);
+      const notes = standalone ? [60,67,76,79,84,86] : [72,79,81,86];
+      notes.forEach((note, index) => {
+        const at = start + index * (standalone ? .065 : .055);
         const envelope = context.createGain();
+        const attack = standalone ? .6 : .16;
+        const end = standalone ? 1.75 : 1.12;
+        const peak = standalone ? .3 - index * .025 : .5 - index * .06;
         envelope.gain.setValueAtTime(0, at);
-        envelope.gain.linearRampToValueAtTime(.5 - index * .06, at + .16);
-        envelope.gain.exponentialRampToValueAtTime(.0001, at + 1.05);
-        envelope.gain.linearRampToValueAtTime(0, at + 1.12);
-        envelope.connect(gain);
-        const oscillator = context.createOscillator();
-        oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12);
-        oscillator.connect(envelope);
-        oscillator.start(at);
-        oscillator.stop(at + 1.13);
+        envelope.gain.linearRampToValueAtTime(peak, at + attack);
+        envelope.gain.exponentialRampToValueAtTime(.0001, at + end - .07);
+        envelope.gain.linearRampToValueAtTime(0, at + end);
+        envelope.connect(color);
+        for (const [harmonic, strength] of standalone ? [[1,1],[2,.18],[3,.045]] : [[1,1]]) {
+          const oscillator = context.createOscillator();
+          const rank = context.createGain();
+          rank.gain.value = strength;
+          oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12) * harmonic;
+          oscillator.connect(rank); rank.connect(envelope);
+          oscillator.start(at);
+          oscillator.stop(at + end + .01);
+        }
       });
       sound.timer = setTimeout(() => {
         if (lightSound === sound) lightSound = null;
         context.close().catch(() => {});
-      }, 1700);
+      }, standalone ? 2500 : 1700);
     } catch (_) {
       if (lightSound === sound) lightSound = null;
       if (context && context.state !== 'closed') context.close().catch(() => {});
@@ -205,7 +222,7 @@
   window.addEventListener('welcome-music-play', play);
   song.addEventListener('change', stop);
   volume.addEventListener('input', () => {
-    if (lightSound) lightSound.gain.gain.setTargetAtTime(Number(volume.value) * .035, lightSound.context.currentTime, .04);
+    if (lightSound) lightSound.gain.gain.setTargetAtTime(Number(volume.value) * lightSound.level, lightSound.context.currentTime, .04);
     if (!active) return;
     active.master.gain.cancelScheduledValues(active.context.currentTime);
     active.master.gain.setTargetAtTime(Number(volume.value), active.context.currentTime, .04);
