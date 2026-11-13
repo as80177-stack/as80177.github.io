@@ -105,6 +105,7 @@
       搜尋資料夾或筆記
       <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
     </label>
+    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七主日」、「第二週星期三」或「婚姻」。只說關鍵字會搜尋目前年度與類別。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
   </div>
 
   <main id="list"><div class="message">載入中…</div></main>
@@ -120,6 +121,7 @@
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
     const sizeButtons = document.querySelectorAll('.reading-settings .size-button');
+    let voiceFilter = null;
     let cycleData;
     let detected;
 
@@ -230,6 +232,7 @@
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
+        if (voiceFilter?.folderId && item.id !== voiceFilter.folderId) return false;
         const days = item.days || [];
         const homilyText = entry => (entry.homilies || []).flatMap(homily => [
           homily.title, homily.uploaded_at, homily.content,
@@ -246,7 +249,7 @@
 
       listEl.innerHTML = items.map(item => {
         if (['weekdays', 'advent-weekdays', 'lent-weekdays', 'holy-week'].includes(sectionSelect.value)) {
-          return folderHtml(item.name, item.days.map(day => homilyBlock(day, day.label, 'weekday')).join(''));
+          return folderHtml(item.name, item.days.filter(day => !voiceFilter?.day || day.id === voiceFilter.day).map(day => homilyBlock(day, day.label, 'weekday')).join(''));
         }
         return folderHtml(item.display_name, homilyBlock(item, item.name));
       }).join('');
@@ -307,15 +310,34 @@
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日`;
 
     window.addEventListener('homily-data-changed', loadData);
-    cycleSelect.addEventListener('change', loadData);
-    sectionSelect.addEventListener('change', loadData);
-    searchInput.addEventListener('input', render);
+    function clearVoiceFilter() { voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
+    cycleSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
+    sectionSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
+    searchInput.addEventListener('input', () => { clearVoiceFilter(); render(); });
 
+    window.HomilySearch = {reset() { clearVoiceFilter(); searchInput.value = ''; render(); }, async navigate(command) {
+      if (command.cycle) cycleSelect.value = command.cycle;
+      if (command.section) sectionSelect.value = command.section;
+      voiceFilter = {folderId:command.folderId,day:command.day};
+      document.getElementById('voiceSearchClear').hidden = !command.folderId && !command.day;
+      searchInput.value = command.query;
+      await loadData();
+      if (!cycleData) throw new Error('資料載入失敗，請確認連線或離線資料後重試。');
+      const folders = listEl.querySelectorAll('.folder');
+      if (command.folderId && folders.length === 1) {
+        folders[0].classList.add('open');
+        folders[0].querySelector('.folder-button').setAttribute('aria-expanded','true');
+        folders[0].scrollIntoView({behavior:'smooth',block:'start'});
+      }
+      return folders.length > 0 && (!command.day || listEl.querySelectorAll('article.day').length > 0);
+    }};
     loadData();
   </script>
   <script src="narration.js"></script>
   <script src="translations.js"></script>
   <script src="reader.js"></script>
+  <script src="voice-search-commands.js"></script>
+  <script src="voice-search.js"></script>
   <script src="offline.js"></script>
 </body>
 </html>

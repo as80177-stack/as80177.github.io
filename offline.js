@@ -16,8 +16,8 @@
       : (failed ? '離線儲存未完成，請連線後點「檢查更新」。' : '正在準備離線閱讀，首次使用請保持連線…');
   }
   async function checkReady() {
-    const cache = await caches.open('homily-notes-v45');
-    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data-model.js', 'verses.js', 'cover.js', 'cover.css', 'install.html', 'install.js', 'reader.js', 'translations.js', 'narration.js', 'reader.css', 'data/verses.json', 'data/apostles.json', 'data/marian.json', 'data/theology.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
+    const cache = await caches.open('homily-notes-v46');
+    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data-model.js', 'verses.js', 'cover.js', 'cover.css', 'install.html', 'install.js', 'reader.js', 'voice-search.js', 'voice-search-commands.js', 'translations.js', 'narration.js', 'reader.css', 'data/verses.json', 'data/apostles.json', 'data/marian.json', 'data/theology.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
     ready = (await Promise.all(paths.map(path => cache.match(new URL(path, location.href))))).every(Boolean);
     render();
   }
