@@ -39,21 +39,42 @@
       lightSound = sound;
       await context.resume();
       if (lightSound !== sound) return;
-      // A rounded game-door impact: low resonance with a little wooden body,
-      // without a sharp transient or hardware vibration.
+      // Orchestral bass drum: deep membrane, upper body resonances, and a
+      // short felt-beater transient that remains audible on phone speakers.
       const impactAt = context.currentTime + .025;
-      for (const [from, to, peak] of [[130.81,65.41,1.05],[261.63,130.81,.24]]) {
+      const drum = context.createGain();
+      drum.gain.value = standalone ? 1 : 2.4;
+      drum.connect(gain);
+      for (const [from, to, peak, decay] of [[82,48,1.35,.85],[134,96,.52,.52],[202,156,.2,.28]]) {
         const impact = context.createOscillator();
         const pulse = context.createGain();
         impact.frequency.setValueAtTime(from, impactAt);
-        impact.frequency.exponentialRampToValueAtTime(to, impactAt + .18);
+        impact.frequency.exponentialRampToValueAtTime(to, impactAt + .12);
         pulse.gain.setValueAtTime(0, impactAt);
-        pulse.gain.linearRampToValueAtTime(peak, impactAt + .012);
-        pulse.gain.exponentialRampToValueAtTime(.0001, impactAt + .43);
-        pulse.gain.linearRampToValueAtTime(0, impactAt + .48);
-        impact.connect(pulse); pulse.connect(gain);
-        impact.start(impactAt); impact.stop(impactAt + .49);
+        pulse.gain.linearRampToValueAtTime(peak, impactAt + .008);
+        pulse.gain.exponentialRampToValueAtTime(.0001, impactAt + decay);
+        pulse.gain.linearRampToValueAtTime(0, impactAt + decay + .04);
+        impact.connect(pulse); pulse.connect(drum);
+        impact.start(impactAt); impact.stop(impactAt + decay + .05);
       }
+      const beater = context.createBufferSource();
+      const texture = context.createBuffer(1, Math.ceil(context.sampleRate * .09), context.sampleRate);
+      let noiseSeed = 613;
+      const samples = texture.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) {
+        noiseSeed = (Math.imul(noiseSeed, 1664525) + 1013904223) >>> 0;
+        samples[i] = noiseSeed / 2147483648 - 1;
+      }
+      beater.buffer = texture;
+      const felt = context.createBiquadFilter();
+      felt.type = 'lowpass'; felt.frequency.value = 900;
+      const hit = context.createGain();
+      hit.gain.setValueAtTime(0, impactAt);
+      hit.gain.linearRampToValueAtTime(.45, impactAt + .003);
+      hit.gain.exponentialRampToValueAtTime(.0001, impactAt + .075);
+      hit.gain.linearRampToValueAtTime(0, impactAt + .085);
+      beater.connect(felt); felt.connect(hit); hit.connect(drum);
+      beater.start(impactAt); beater.stop(impactAt + .09);
       // The music blooms after the initial impact as the doors start opening.
       const start = context.currentTime + .46;
       // The standalone Cmaj9 pad gently brightens as the doors open.
