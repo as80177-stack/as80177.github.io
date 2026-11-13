@@ -9,14 +9,20 @@
   let failed = false;
   let registration;
   let reloading = false;
+  let pendingUpdate = false;
   const hadController = !!navigator.serviceWorker?.controller;
   function render() {
+    if (pendingUpdate) {
+      button.textContent = '套用更新';
+      status.textContent = '新版已下載。返回封面或按「套用更新」後更新，閱讀與備份會保留。';
+      return;
+    }
     status.textContent = ready
       ? (navigator.onLine ? '已可離線閱讀：甲、乙、丙年講道已儲存在此裝置。' : '目前離線：可繼續閱讀已儲存的講道。')
       : (failed ? '離線儲存未完成，請連線後點「檢查更新」。' : '正在準備離線閱讀，首次使用請保持連線…');
   }
   async function checkReady() {
-    const cache = await caches.open('homily-notes-v77');
+    const cache = await caches.open('homily-notes-v78');
     const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data-model.js', 'verses.js', 'cover.js', 'home-settings.js', 'icons/sacred-heart.webp', 'christmas-organ.js', 'cover.css', 'icons/church-glass-door.svg', 'install.html', 'install.js', 'reader.js', 'voice-search.js', 'search-matching.js', 'voice-search-commands.js', 'translations.js', 'narration.js', 'reader.css', 'data/verses.json', 'data/apostles.json', 'data/marian.json', 'data/theology.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
     ready = (await Promise.all(paths.map(path => cache.match(new URL(path, location.href))))).every(Boolean);
     render();
@@ -29,11 +35,26 @@
   }
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (hadController && !reloading) {
+      const cover = document.getElementById('welcomeCover');
+      if (cover && (cover.hidden || document.body.classList.contains('is-entering'))) {
+        // Do not replace the document just as the doors finish or a verse is
+        // being read. Apply safely on return to the cover or explicit update.
+        pendingUpdate = true;
+        render();
+        return;
+      }
       reloading = true;
       location.reload();
     } else { checkReady().catch(() => {}); }
   });
+  window.addEventListener('home-page-change', event => {
+    if (pendingUpdate && event.detail.page === 'cover' && !reloading) {
+      reloading = true;
+      location.reload();
+    }
+  });
   async function checkUpdate() {
+    if (pendingUpdate) { reloading = true; location.reload(); return; }
     if (!navigator.onLine) {
       status.textContent = '目前離線，請連上網路後再檢查更新。';
       return;

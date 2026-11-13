@@ -10,6 +10,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/app-icon-192.png">
+  <link rel="preload" as="image" href="icons/church-glass-door.svg">
   <link rel="stylesheet" href="cover.css">
   <style>
     body {
@@ -82,7 +83,7 @@
     .page-count { color: #806943; white-space: nowrap; font-size: .9rem; }
     .verse-page { cursor: pointer; }
     .verse-tap-hint { text-align: center; color: #806943; font-size: .9rem; margin: 1.5rem 0 .5rem; }
-    .verse-page { display: flex; flex-direction: column; }
+    .verse-page { display: flex; flex-direction: column; transform: translateZ(0); backface-visibility: hidden; isolation: isolate; }
     .verse-page .scripture-card { margin: auto 0; }
     .verse-page h1 { margin: 1rem 0 1.5rem; }
     .home-top-actions { display: flex; align-items: center; gap: .75rem; }
@@ -256,8 +257,8 @@
   </section>
   <div id="doorTransition" class="door-transition" aria-hidden="true" hidden>
     <div class="door-glow"></div>
-    <div class="church-door door-left"><span class="door-panel"></span><span class="door-hinge"></span><span class="door-hinge lower"></span><span class="door-handle"></span></div>
-    <div class="church-door door-right"><span class="door-panel"></span><span class="door-hinge"></span><span class="door-hinge lower"></span><span class="door-handle"></span></div>
+    <div class="church-door door-left"><img class="door-art" src="icons/church-glass-door.svg" width="240" height="900" alt="" decoding="async" fetchpriority="high"><span class="door-panel"></span><span class="door-hinge"></span><span class="door-hinge lower"></span><span class="door-handle"></span></div>
+    <div class="church-door door-right"><img class="door-art" src="icons/church-glass-door.svg" width="240" height="900" alt="" decoding="async" fetchpriority="high"><span class="door-panel"></span><span class="door-hinge"></span><span class="door-hinge lower"></span><span class="door-handle"></span></div>
   </div>
   <script src="christmas-organ.js"></script>
   <script src="cover.js"></script>
