@@ -127,11 +127,21 @@
     }else add(data.folders,key,data.label,null);
     return result;
   }
-  function rank(documents, command, alternatives=[]) {
-    const queries=[command.query,...alternatives.map(cleanQuery)].filter(Boolean);
-    return documents.filter(d=>(!command.cycle || d.cycle===command.cycle || (!d.cycle&&command.section===d.section)) && (!command.section || d.section===command.section))
-      .map(d=>({...d,score:Math.max(0,...queries.map(query=>topicScore(query,d.note)))}))
-      .filter(d=>d.score>0).sort((a,b)=>b.score-a.score).slice(0,15);
+  function keywordScore(query, note) {
+    const q = normalize(query);
+    if (!q) return 0;
+    return Math.max(0, ...[note, ...Object.values(note.translations || {})].map(version =>
+      normalize(version.title || '').includes(q) ? 120 : normalize(version.content || '').includes(q) ? 85 : 0));
   }
-  return {prepare,normalize,cleanQuery,score,topicScore,catalog,rank};
+  function rank(documents, command, alternatives=[]) {
+    const allKeywords = command.matchMode === 'keywords';
+    // Literal mode uses the accepted transcript only; alternatives must not
+    // silently broaden a request to unrelated words or synonyms.
+    const queries = allKeywords ? [command.query] : [command.query,...alternatives.map(cleanQuery)].filter(Boolean);
+    const results = documents.filter(d=>(!command.cycle || d.cycle===command.cycle || (!d.cycle&&command.section===d.section)) && (!command.section || d.section===command.section))
+      .map(d=>({...d,score:Math.max(0,...queries.map(query=>allKeywords ? keywordScore(query,d.note) : topicScore(query,d.note)))}))
+      .filter(d=>d.score>0).sort((a,b)=>b.score-a.score);
+    return allKeywords ? results : results.slice(0,15);
+  }
+  return {prepare,normalize,cleanQuery,score,topicScore,keywordScore,catalog,rank};
 });

@@ -29,3 +29,16 @@ test('English partial words and translation duplicates are not topic evidence',(
   assert.equal(m.topicScore('十字架',{title:'Homily',content:'Words of Christ bring us comfort.\n\nChrist creates all things.'}),0);
   assert.equal(m.topicScore('十字架',{title:'道理',content:'順帶提到十字架。',translations:{en:{title:'Homily',content:'We mention the cross.'}}}),0);
 });
+
+test('keyword mode includes incidental and closing mentions without a result limit',()=>{
+  const docs=Array.from({length:24},(_,i)=>({note:{title:`道理${i}`,content:'今天談工作。\n\n願聖母幫我們背起十字架。'}}));
+  assert.equal(m.rank(docs,{query:'十字架',matchMode:'keywords'}).length,24);
+  assert.equal(m.rank(docs,{query:'十字架'}).length,0);
+  assert.equal(m.rank(docs,{query:'婚姻',matchMode:'keywords'},['十字架']).length,0);
+});
+test('keyword mode searches both languages and respects explicit locations',()=>{
+ const docs=[{cycle:'a',section:'weekdays',note:{title:'道理',content:'中文',translations:{en:{title:'Prayer',content:'We carry the cross.'}}}},{cycle:'c',section:'sundays',note:{title:'十字架',content:'全文'}}];
+ assert.equal(m.rank(docs,{query:'cross',matchMode:'keywords'}).length,1);
+ assert.equal(m.rank(docs,{query:'十字架',matchMode:'keywords',cycle:'a'}).length,0);
+ assert.equal(m.rank(docs,{query:'十字架',matchMode:'keywords',section:'sundays'}).length,1);
+});

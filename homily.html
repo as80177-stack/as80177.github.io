@@ -105,7 +105,14 @@
       搜尋資料夾或筆記
       <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
     </label>
-    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七個主日」、「找饒恕別人的道理」或「夫妻相處」。主題語音會跨年度、分類尋找近似內容。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
+    <label>搜尋方式
+      <select id="searchMatchMode">
+        <option value="topic">主要主題（近義詞、主題相關）</option>
+        <option value="keywords">所有關鍵字（全文出現就列出）</option>
+      </select>
+    </label>
+    <button id="runHomilySearch" type="button">搜尋道理</button>
+    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七個主日」、「找饒恕別人的道理」或「夫妻相處」。文字與語音都可跨年度、分類搜尋。「主要主題」找重點；「所有關鍵字」列出標題或中英文內文包含該詞的全部道理，不限篇數。文字輸入後按「搜尋道理」或 Enter。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
   </div>
 
   <main id="list"><div class="message">載入中…</div></main>
@@ -122,6 +129,10 @@
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
     const sizeButtons = document.querySelectorAll('.reading-settings .size-button');
+    const searchMatchMode = document.getElementById('searchMatchMode');
+    let lastSearch = null;
+    let resultMode = 'topic';
+    let searchRequest = 0;
     let voiceResults = null;
     let voiceFilter = null;
     let cycleData;
@@ -233,7 +244,7 @@
       document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       if (voiceResults !== null) {
-        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">語音主題道理：${voiceResults.length} 篇（依相關程度排序）<br><small>優先顯示以此為主題的道理，略過零星提及。可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到相近的道理，請換一個關鍵字或說法。</div>';
+        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">${resultMode === 'keywords' ? '所有關鍵字' : '主要主題'}搜尋：${voiceResults.length} 篇<br><small>${resultMode === 'keywords' ? '標題或中英文內文包含搜尋詞的道理全部列出，不限篇數。' : '優先顯示以此為主題的道理，略過零星提及。'}可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到符合的道理，請換一個關鍵字或搜尋方式。</div>';
         bindListEvents(); return;
       }
       const query = searchInput.value.trim().toLowerCase();
@@ -319,18 +330,46 @@
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日`;
 
     window.addEventListener('homily-data-changed', () => { clearVoiceFilter(); loadData(); });
-    function clearVoiceFilter() { voiceResults = null; voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
+    function clearVoiceFilter() { searchRequest++; lastSearch = null; voiceResults = null; voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
     cycleSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
     sectionSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
     searchInput.addEventListener('input', () => { clearVoiceFilter(); render(); });
 
+    async function runTextSearch() {
+      const query = searchInput.value.trim();
+      if (!query) { window.HomilySearch.reset(); return; }
+      const status = document.getElementById('voiceSearchStatus');
+      try {
+        status.textContent = '搜尋中…';
+        const found = await window.HomilySearch.navigate({query});
+        status.textContent = found ? '已完成搜尋，可切換搜尋方式比較結果。' : '沒有找到符合的道理。';
+      } catch (error) { status.textContent = error.message || '搜尋失敗，請重試。'; }
+    }
+    document.getElementById('runHomilySearch').addEventListener('click', runTextSearch);
+    searchInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); runTextSearch(); }
+    });
+    searchMatchMode.addEventListener('change', () => {
+      if (lastSearch) {
+        const {command, alternatives} = lastSearch;
+        window.HomilySearch.navigate(command, alternatives).catch(error => {
+          document.getElementById('voiceSearchStatus').textContent = error.message;
+        });
+      } else if (searchInput.value.trim()) runTextSearch();
+    });
+
     window.HomilySearch = {reset() { clearVoiceFilter(); searchInput.value = ''; render(); }, async navigate(command, alternatives = []) {
+      const request = ++searchRequest;
       if (command.query && !command.folderId && !command.day) {
+        lastSearch = {command, alternatives};
+        const matchMode = searchMatchMode.value;
         const keys = command.section && ['apostles','marian','theology'].includes(command.section) ? [command.section] : command.cycle ? [command.cycle] : ['a','b','c','apostles','marian','theology'];
         const loaded = await Promise.allSettled(keys.map(async key => window.HomilySearchMatching.catalog(await window.HomilyData.load(key),key)));
+        if (request !== searchRequest) return false;
         if (loaded.every(result=>result.status==='rejected')) throw new Error('無法讀取道理資料，請確認網路或離線資料後重試。');
         const documents = loaded.filter(result=>result.status==='fulfilled').flatMap(result=>result.value);
-        voiceResults = window.HomilySearchMatching.rank(documents,command,alternatives);
+        voiceResults = window.HomilySearchMatching.rank(documents,{...command,matchMode},alternatives);
+        resultMode = matchMode;
         voiceFilter = null; searchInput.value = command.query;
         document.getElementById('voiceSearchClear').hidden = false;
         render();
@@ -338,6 +377,7 @@
         if (heading && loaded.some(result=>result.status==='rejected')) heading.append(document.createTextNode('部分分類未能載入，結果可能不完整。'));
         return voiceResults.length>0;
       }
+      lastSearch = null;
       voiceResults = null;
       if (command.cycle) cycleSelect.value = command.cycle;
       if (command.section) sectionSelect.value = command.section;
