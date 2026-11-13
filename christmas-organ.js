@@ -88,25 +88,27 @@
       beater.start(impactAt); beater.stop(impactAt + .09);
       // The music blooms after the initial impact as the doors start opening.
       const start = context.currentTime + .46;
-      // Rounded bells join the opening, with alternating stereo placement.
-      // Restrained upper partials retain the warm, non-piercing entrance tone.
-      [[72,0,-.5],[79,.16,.5],[74,.34,-.15]].forEach(([note, offset, pan]) => {
+      // A quiet, irregular wind-chime cluster floats above the original chord.
+      // Keep the entrance pad below intact; the chimes are an additional layer.
+      [[72,0,-.6],[79,.13,.5],[74,.32,-.25],[81,.48,.65],[72,.62,-.45]].forEach(([note, offset, pan]) => {
         const at = start + offset;
-        const bell = context.createGain(); bell.gain.value = standalone ? 1 : 1.6;
+        const bell = context.createGain(); bell.gain.value = standalone ? .85 : 1.25;
         const soften = context.createBiquadFilter();
-        soften.type = 'lowpass'; soften.frequency.value = 2400;
-        const position = context.createStereoPanner(); position.pan.value = pan;
+        soften.type = 'lowpass'; soften.frequency.value = 2200;
+        const position = context.createStereoPanner();
+        position.pan.setValueAtTime(pan, at);
+        position.pan.linearRampToValueAtTime(pan * .55, at + .75);
         bell.connect(soften); soften.connect(position); position.connect(gain);
         const reflection = context.createDelay(.5); reflection.delayTime.value = .18;
         const wet = context.createGain(); wet.gain.value = .24;
         const opposite = context.createStereoPanner(); opposite.pan.value = -pan;
         soften.connect(reflection); reflection.connect(wet); wet.connect(opposite); opposite.connect(gain);
-        for (const [ratio, peak, decay] of [[1,.42,1.1],[2.01,.085,.65],[2.76,.04,.42],[4.08,.012,.2]]) {
+        for (const [ratio, peak, decay] of [[1,.17,.78],[2.756,.028,.48],[5.404,.008,.22]]) {
           const oscillator = context.createOscillator();
           const envelope = context.createGain();
           oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12) * ratio;
           envelope.gain.setValueAtTime(0, at);
-          envelope.gain.linearRampToValueAtTime(peak, at + .012);
+          envelope.gain.linearRampToValueAtTime(peak, at + .008);
           envelope.gain.exponentialRampToValueAtTime(.0001, at + decay);
           envelope.gain.linearRampToValueAtTime(0, at + decay + .04);
           oscillator.connect(envelope); envelope.connect(bell);
