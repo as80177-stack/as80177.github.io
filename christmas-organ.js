@@ -46,7 +46,7 @@
       drum.gain.value = standalone ? 2.2 : 5.5;
       drum.connect(gain);
       // Finite, damped room reflections: a clear echo without a feedback loop.
-      for (const [seconds, strength, pan] of [[.16,.42,-.28],[.31,.24,.28],[.49,.14,-.18],[.72,.07,.18]]) {
+      for (const [seconds, strength, pan] of [[.14,.42,-.65],[.29,.26,.65],[.47,.16,-.48],[.69,.095,.48],[.91,.045,-.3]]) {
         const delay = context.createDelay(1);
         delay.delayTime.value = seconds;
         const damping = context.createBiquadFilter();
@@ -88,6 +88,31 @@
       beater.start(impactAt); beater.stop(impactAt + .09);
       // The music blooms after the initial impact as the doors start opening.
       const start = context.currentTime + .46;
+      // Rounded bells join the opening, with alternating stereo placement.
+      // Restrained upper partials retain the warm, non-piercing entrance tone.
+      [[72,0,-.5],[79,.16,.5],[74,.34,-.15]].forEach(([note, offset, pan]) => {
+        const at = start + offset;
+        const bell = context.createGain(); bell.gain.value = standalone ? 1 : 1.6;
+        const soften = context.createBiquadFilter();
+        soften.type = 'lowpass'; soften.frequency.value = 2400;
+        const position = context.createStereoPanner(); position.pan.value = pan;
+        bell.connect(soften); soften.connect(position); position.connect(gain);
+        const reflection = context.createDelay(.5); reflection.delayTime.value = .18;
+        const wet = context.createGain(); wet.gain.value = .24;
+        const opposite = context.createStereoPanner(); opposite.pan.value = -pan;
+        soften.connect(reflection); reflection.connect(wet); wet.connect(opposite); opposite.connect(gain);
+        for (const [ratio, peak, decay] of [[1,.42,1.1],[2.01,.085,.65],[2.76,.04,.42],[4.08,.012,.2]]) {
+          const oscillator = context.createOscillator();
+          const envelope = context.createGain();
+          oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12) * ratio;
+          envelope.gain.setValueAtTime(0, at);
+          envelope.gain.linearRampToValueAtTime(peak, at + .012);
+          envelope.gain.exponentialRampToValueAtTime(.0001, at + decay);
+          envelope.gain.linearRampToValueAtTime(0, at + decay + .04);
+          oscillator.connect(envelope); envelope.connect(bell);
+          oscillator.start(at); oscillator.stop(at + decay + .05);
+        }
+      });
       // The standalone Cmaj9 pad gently brightens as the doors open.
       const color = context.createBiquadFilter();
       color.type = 'lowpass';
@@ -106,7 +131,9 @@
         envelope.gain.linearRampToValueAtTime(peak, at + attack);
         envelope.gain.exponentialRampToValueAtTime(.0001, at + end - .07);
         envelope.gain.linearRampToValueAtTime(0, at + end);
-        envelope.connect(color);
+        const spread = context.createStereoPanner();
+        spread.pan.value = (index / (notes.length - 1) * 2 - 1) * .42;
+        envelope.connect(spread); spread.connect(color);
         for (const [harmonic, strength] of standalone ? [[1,1],[2,.1],[3,.015]] : [[1,1]]) {
           const oscillator = context.createOscillator();
           const rank = context.createGain();
