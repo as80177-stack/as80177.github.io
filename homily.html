@@ -105,12 +105,13 @@
       搜尋資料夾或筆記
       <input type="search" id="searchInput" placeholder="例如：第5主日、聖誕、祈禱">
     </label>
-    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七主日」、「第二週星期三」或「婚姻」。只說關鍵字會搜尋目前年度與類別。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
+    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七個主日」、「找饒恕別人的道理」或「夫妻相處」。主題語音會跨年度、分類尋找近似內容。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
   </div>
 
   <main id="list"><div class="message">載入中…</div></main>
 
   <div id="backupTools"></div>
+  <script src="search-matching.js"></script>
   <script src="data-model.js"></script>
   <script src="backup.js"></script>
 
@@ -121,6 +122,7 @@
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
     const sizeButtons = document.querySelectorAll('.reading-settings .size-button');
+    let voiceResults = null;
     let voiceFilter = null;
     let cycleData;
     let detected;
@@ -230,16 +232,20 @@
     function render() {
       document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
+      if (voiceResults !== null) {
+        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">語音相關道理：${voiceResults.length} 篇（依相關程度排序）<br><small>主題搜尋可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到相近的道理，請換一個關鍵字或說法。</div>';
+        bindListEvents(); return;
+      }
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
         if (voiceFilter?.folderId && item.id !== voiceFilter.folderId) return false;
-        const days = item.days || [];
+        const days = (item.days || []).filter(day => !voiceFilter?.day || day.id === voiceFilter.day);
         const homilyText = entry => (entry.homilies || []).flatMap(homily => [
           homily.title, homily.uploaded_at, homily.content,
           ...Object.values(homily.translations || {}).flatMap(translation => [translation.title, translation.content])
         ]);
         const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
-        return !query || text.includes(query);
+        return !query || (voiceFilter?.fuzzy ? window.HomilySearchMatching.score(query,item.name + " " + (item.display_name || ""),text)>0 : text.includes(query));
       });
 
       if (!items.length) {
@@ -254,6 +260,9 @@
         return folderHtml(item.display_name, homilyBlock(item, item.name));
       }).join('');
 
+      bindListEvents();
+    }
+    function bindListEvents() {
       listEl.querySelectorAll('.folder-button').forEach(button => {
         button.addEventListener('click', () => {
           const folder = button.closest('.folder');
@@ -309,16 +318,30 @@
     const sundayLabel = { a: '甲年', b: '乙年', c: '丙年' }[detected.sunday];
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日`;
 
-    window.addEventListener('homily-data-changed', loadData);
-    function clearVoiceFilter() { voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
+    window.addEventListener('homily-data-changed', () => { clearVoiceFilter(); loadData(); });
+    function clearVoiceFilter() { voiceResults = null; voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
     cycleSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
     sectionSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
     searchInput.addEventListener('input', () => { clearVoiceFilter(); render(); });
 
-    window.HomilySearch = {reset() { clearVoiceFilter(); searchInput.value = ''; render(); }, async navigate(command) {
+    window.HomilySearch = {reset() { clearVoiceFilter(); searchInput.value = ''; render(); }, async navigate(command, alternatives = []) {
+      if (command.query && !command.folderId && !command.day) {
+        const keys = command.section && ['apostles','marian','theology'].includes(command.section) ? [command.section] : command.cycle ? [command.cycle] : ['a','b','c','apostles','marian','theology'];
+        const loaded = await Promise.allSettled(keys.map(async key => window.HomilySearchMatching.catalog(await window.HomilyData.load(key),key)));
+        if (loaded.every(result=>result.status==='rejected')) throw new Error('無法讀取道理資料，請確認網路或離線資料後重試。');
+        const documents = loaded.filter(result=>result.status==='fulfilled').flatMap(result=>result.value);
+        voiceResults = window.HomilySearchMatching.rank(documents,command,alternatives);
+        voiceFilter = null; searchInput.value = command.query;
+        document.getElementById('voiceSearchClear').hidden = false;
+        render();
+        const heading = listEl.querySelector('.voice-results-heading');
+        if (heading && loaded.some(result=>result.status==='rejected')) heading.append(document.createTextNode('部分分類未能載入，結果可能不完整。'));
+        return voiceResults.length>0;
+      }
+      voiceResults = null;
       if (command.cycle) cycleSelect.value = command.cycle;
       if (command.section) sectionSelect.value = command.section;
-      voiceFilter = {folderId:command.folderId,day:command.day};
+      voiceFilter = {folderId:command.folderId,day:command.day,fuzzy:true};
       document.getElementById('voiceSearchClear').hidden = !command.folderId && !command.day;
       searchInput.value = command.query;
       await loadData();

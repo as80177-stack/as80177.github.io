@@ -19,7 +19,7 @@
     }
     if (listening) { cancel('已停止語音辨識。'); return; }
     recognition = new Recognition();
-    recognition.lang = 'zh-TW'; recognition.continuous = false; recognition.interimResults = true; recognition.maxAlternatives = 1;
+    recognition.lang = 'zh-TW'; recognition.continuous = false; recognition.interimResults = true; recognition.maxAlternatives = 5;
     handled = cancelled = false; listening = true;
     button.textContent = '停止辨識'; button.setAttribute('aria-pressed','true');
     status.textContent = '正在聆聽，請說關鍵字或位置，例如「找甲年第七主日」。語音辨識可能需要網路。';
@@ -34,9 +34,9 @@
         try {
           const command = window.HomilyVoiceCommands.parse(text);
           if (!command.query && !command.folderId && !command.section && !command.cycle) throw new Error('沒有辨識到搜尋內容，請再試一次。');
-          const outcome = await window.HomilySearch.navigate(command);
+          const outcome = await window.HomilySearch.navigate(command, Array.from(result).slice(1).map(item=>item.transcript));
           const target = [...command.location,command.query].filter(Boolean).join('・') || text;
-          status.textContent = outcome ? `已聽到「${text}」；搜尋：${target}。` : `已聽到「${text}」，但目前沒有符合的道理。可修改搜尋文字再試。`;
+          status.textContent = outcome ? `已聽到「${text}」；搜尋：${target}。` : `已聽到「${text}」，但目前沒有找到相近的道理。可換關鍵字再試。`;
         } catch(error) { status.textContent = error.message || '語音搜尋失敗，請重試或使用文字搜尋。'; }
         finally { button.disabled = false; }
         return;

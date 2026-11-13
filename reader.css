@@ -13,3 +13,5 @@
 .homily-language-label{display:block;margin:.5rem 0;font-size:.9rem;color:#5f584e}.homily-language-label select{width:auto;max-width:100%;margin-left:.4rem}.homily-translation-source[hidden]{display:none!important}.reader-text[lang="en"],.notes[lang="en"]{overflow-wrap:anywhere}
 
 .voice-search{grid-column:1/-1}.voice-search button{padding:.65rem 1rem;border:1px solid #72551f;border-radius:9px;background:#fff8e8;color:#5c461d;font:inherit;cursor:pointer}.voice-search button[aria-pressed="true"]{background:#72551f;color:white}.voice-search button:disabled{opacity:.6}.voice-search p{margin:.4rem 0;font-size:.85rem}
+
+.voice-results-heading{padding:.8rem 1rem;border-left:3px solid #9b762d;border-radius:6px;background:#fff9e9;line-height:1.7}.voice-results-heading small{color:#756d61}

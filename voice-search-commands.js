@@ -1,8 +1,8 @@
 ((root, factory) => {
-  const api = factory();
+  const api = factory(typeof module === 'object' && module.exports ? require('./search-matching.js') : root.HomilySearchMatching);
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.HomilyVoiceCommands = api;
-})(globalThis, () => {
+})(globalThis, matching => {
   const digits = {零:0,〇:0,一:1,二:2,兩:2,两:2,三:3,四:4,五:5,六:6,七:7,八:8,九:9};
   const numbers = '[0-9零〇一二兩两三四五六七八九十廿卅]+';
   const dayIds = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -17,7 +17,7 @@
     return digits[text];
   }
   function parse(transcript) {
-    let text = transcript.trim().replace(/[，。！？、,.!?：:]/g,'').replace(/\s+/g,'').replace(/将临/g,'將臨').replace(/圣/g,'聖').replace(/弥/g,'彌').replace(/灵/g,'靈');
+    let text = matching.prepare(transcript).trim().replace(/[，。！？、,.!?：:]/g,'').replace(/\s+/g,'').replace(/将临/g,'將臨').replace(/圣/g,'聖').replace(/弥/g,'彌').replace(/灵/g,'靈');
     const command = {cycle:null,section:null,folderId:null,day:null,query:'',location:[]};
     const year = text.match(/([甲乙丙ABC])年/i);
     if (year) { command.cycle = ({甲:'a',乙:'b',丙:'c',a:'a',b:'b',c:'c'})[year[1].toLowerCase()]; command.location.push(({a:'甲年',b:'乙年',c:'丙年'})[command.cycle]); text = text.replace(year[0],''); }
@@ -64,11 +64,11 @@
       command.section = 'apostles'; command.location.push('12宗徒'); text = text.replace(/12宗徒|十二宗徒|宗徒/g,'');
     } else if (/聖母/.test(text)) {
       command.section = 'marian'; command.location.push('聖母其他節日'); text = text.replace(/聖母其他節日(?:資料夾)?/,'');
-    } else if (/婚姻|入門聖事|神學|生活道理/.test(text)) {
+    } else if (/婚姻|夫妻|夫婦|結婚|婚約|入門聖事|神學|生活道理/.test(text)) {
       command.section = 'theology'; command.location.push('其他神學與生活道理'); text = text.replace(/其他神學與生活道理(?:資料夾)?/,'');
     }
     if (command.day) command.location.push('星期'+['一','二','三','四','五','六','日'][dayIds.indexOf(command.day)]);
-    command.query = text.replace(/(?:的)?(?:道理|講道|資料夾|笔记|筆記|平日|主日)/g,'').replace(/^(?:請你|請|麻煩|幫我|帮我|給我|我要|我想|想要|找一下|找找|尋找|搜索|搜尋|查找|找|打開|打开)+/,'').trim();
+    command.query = matching.cleanQuery(text.replace(/(?:的)?(?:道理|講道|資料夾|笔记|筆記|平日|主日)/g,'').replace(/^(?:請你|請|麻煩|幫我|帮我|給我|我要|我想|想要|找一下|找找|尋找|搜索|搜尋|查找|找|打開|打开)+/,'').trim());
     return command;
   }
   return {parse,number};

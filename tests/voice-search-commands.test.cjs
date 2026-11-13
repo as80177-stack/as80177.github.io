@@ -5,5 +5,5 @@ test('specific week and day',()=>{const c=parse('找乙年常年期第二十二�
 test('Advent and Lent dates',()=>{assert.equal(parse('找甲年四旬期第一主日').folderId,'lent-1');const c=parse('找甲年將臨期第四週星期六早上');assert.equal(c.section,'advent-weekdays');assert.equal(c.folderId,'advent-week-4');assert.equal(c.day,'saturday');assert.equal(c.query,'早上')});
 test('Holy Thursday must not be confused with an ordinary Thursday',()=>{const c=parse('找聖週四');assert.equal(c.section,'holy-week');assert.equal(c.folderId,'holy-week-1');assert.equal(c.day,'thursday');assert.equal(c.query,'')});
 test('festival and independent folder commands',()=>{assert.equal(parse('找甲年聖誕節').folderId,'christmas');assert.equal(parse('找婚姻').section,'theology');assert.equal(parse('找聖母其他節日').section,'marian');assert.equal(parse('找聖保祿歸化').section,'apostles')});
-test('plain keywords keep the current scope',()=>{const c=parse('幫我找祈禱');assert.equal(c.query,'祈禱');assert.equal(c.section,null);assert.equal(c.cycle,null)});
+test('plain keywords remain available for topic matching',()=>{const c=parse('幫我找祈禱');assert.equal(c.query,'祈禱');assert.equal(c.section,null);assert.equal(c.cycle,null)});
 test('invalid week numbers explain the error',()=>{assert.throws(()=>parse('四旬期第九週星期五'),/沒有第9週/)});
