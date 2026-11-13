@@ -138,7 +138,7 @@
       </label>
       <p id="christmasOrganStatus" role="status" aria-live="polite"></p>
     </section>
-    <button id="enterHome" class="button enter-button" type="button">下一頁：聖經金句 →</button>
+    <button id="enterHome" class="button enter-button" type="button">進入首頁 →</button>
     <p><a href="install.html">安裝 App／分享安裝連結</a></p>
     <label class="sound-setting"><input id="welcomeSound" type="checkbox" checked>進入時播放所選聖誕歌</label>
     <p class="welcome-footnote">溫柔合成管風琴 · 旋律節選 · 支援離線</p>
@@ -228,6 +228,11 @@
   </script>
   <script src="offline.js"></script>
   </section>
+  <div id="doorTransition" class="door-transition" aria-hidden="true" hidden>
+    <div class="door-glow"></div>
+    <div class="church-door door-left"><span class="door-panel"></span><span class="door-handle"></span></div>
+    <div class="church-door door-right"><span class="door-panel"></span><span class="door-handle"></span></div>
+  </div>
   <script src="christmas-organ.js"></script>
   <script src="cover.js"></script>
 </body>
