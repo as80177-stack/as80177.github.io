@@ -45,6 +45,36 @@
       ]
     },
     {
+      "id": "lent-1",
+      "name": "四旬期第一主日",
+      "display_name": "四旬期第一主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-2",
+      "name": "四旬期第二主日",
+      "display_name": "四旬期第二主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-3",
+      "name": "四旬期第三主日",
+      "display_name": "四旬期第三主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-4",
+      "name": "四旬期第四主日",
+      "display_name": "四旬期第四主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-5",
+      "name": "四旬期第五主日",
+      "display_name": "四旬期第五主日資料夾",
+      "homilies": []
+    },
+    {
       "id": "ordinary-1",
       "number": 1,
       "name": "第1主日",
@@ -1726,12 +1756,6 @@
       "homilies": []
     },
     {
-      "id": "holy-thursday",
-      "name": "聖週四",
-      "display_name": "聖週四資料夾",
-      "homilies": []
-    },
-    {
       "id": "good-friday",
       "name": "主受難日",
       "display_name": "主受難日資料夾",
@@ -2030,6 +2054,253 @@
                 "composition_year": 2023
               }
             ]
+          }
+        ]
+      }
+    ]
+  },
+  "lent_weekdays": {
+    "label": "四旬期",
+    "weeks": [
+      {
+        "id": "lent-week-1",
+        "number": 1,
+        "name": "四旬期第1週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": [
+              {
+                "title": "單-四旬期第1週星期五道理：更圓滿的義德與和好",
+                "content": "今天的福音說：\n\n耶穌對門徒說：「除非你們的義德超過經師和法利賽人的義德，你們決進不了天國。」\n\n這裡所說的德行，就是義德。\n\n在這裡，我們要留意新約如何超越舊約。耶穌要求門徒明白，新的比舊的更為美好，而新的導師將舊約的一切真理，完整地表達出來。\n\n然而，我們的主並沒有稱經師和法利賽人為不義的人，而是談到「他們的德行，也就是義德」。\n\n耶穌要告訴我們，經師和法利賽人，\n\n他們的義德也有價值，因為他們同樣遵守法律；但新約的義德比這更為深遠。\n\n也就是說，舊約的義德也是真實的，但新約的義德更加圓滿。兩者同屬一類，都是天主的正義，只是啟示的深度不同。\n\n最後，在四旬期中，讓我們特別反省：是否曾得罪某位弟兄，卻還沒有請求他的寬恕，而我們仍繼續向天主奉獻禮物？也許因為我們尚未寬恕弟兄，我們的奉獻便不蒙上主接納，結果所做的成了徒然。\n\n只要信友之間仍有不和，也許正因如此，我們的奉獻不受重視，祈禱也不常蒙天主俯允。\n\n願聖母幫助我們，寬恕所有曾傷害我們的弟兄姊妹。",
+                "original_language": "en",
+                "composition_year": 2023,
+                "liturgical_parity": "odd",
+                "uploaded_at": "2026-11-13T17:51:37+08:00",
+                "translations": {
+                  "en": {
+                    "title": "Odd-Friday of the First Week of Lent: Fuller Righteousness and Reconciliation",
+                    "content": "In the Gospel today:\n\nJesus said to his disciples: ‘If your virtue goes no deeper than that of the scribes and Pharisees, you will never get into the kingdom of heaven.\n\nThe virtue here means righteousness.\n\nHere we shall observe about the preference of the New Testament over the Old. Jesus asks his disciples to understand that the new is better than the old, and that the new teacher speaks the whole truth of the Old Testament in its fullness.\n\nBut our lord he does not call the Scribes and Pharisees unrighteous, but speaks of “their virtue(righteousness).”\n\nJesus wants to tell us that the scribes and Pharisees,\n\nTheir virtue also had value, because they also obeyed the law; but the New Testament is even more than that.\n\nThat is to say, the righteousness of the Old Testament is also true, but the righteousness of the New Testament is more complete. The two are of the same kind, that is, the Divine Righteousness, but the depth of revelation is not the same.\n\nFinally, during Lent, let us reflect especially on whether we have sinned against a certain brother and we have not asked for forgiveness. Yet we continue to offer gifts to God. It may be that our gift is not accepted by the Lord because we have not forgiven our brother, and then we have done it in vain.\n\nFor as long as there is disagreement among the faithful, perhaps because of this our gifts are not valued and our prayers are not often answered by God.\n\nMay Our Lady help us to forgive all our brothers and sisters who have hurt us."
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-2",
+        "number": 2,
+        "name": "四旬期第2週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-3",
+        "number": 3,
+        "name": "四旬期第3週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-4",
+        "number": 4,
+        "name": "四旬期第4週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-5",
+        "number": 5,
+        "name": "四旬期第5週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      }
+    ]
+  },
+  "holy_week": {
+    "label": "聖週",
+    "weeks": [
+      {
+        "id": "holy-week-1",
+        "number": 1,
+        "name": "聖週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "聖週一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "聖週二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "聖週三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "聖週四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "聖週五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "聖週六",
+            "homilies": []
           }
         ]
       }

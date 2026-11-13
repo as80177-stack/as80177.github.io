@@ -94,6 +94,30 @@ collections:
                 widget: list
                 summary: "{{fields.name}}"
                 fields: *week_folder_fields
+          - label: 四旬期平日
+            name: lent_weekdays
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: 分類名稱, name: label, widget: string }
+              - label: 第一至第五週
+                name: weeks
+                widget: list
+                summary: "{{fields.name}}"
+                fields: *week_folder_fields
+          - label: 聖週
+            name: holy_week
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: 分類名稱, name: label, widget: string }
+              - label: 聖週資料夾
+                name: weeks
+                widget: list
+                summary: "{{fields.name}}"
+                fields: *week_folder_fields
           - label: 其他（各種節日）
             name: other
             widget: list

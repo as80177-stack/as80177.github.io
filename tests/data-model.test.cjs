@@ -28,7 +28,8 @@ test('normalization is idempotent and preserves Sunday and feast data', () => {
   const original = legacy([clone(note)],[clone(note)]);
   const data = normalizeCycle(clone(original)); const once = clone(data);
   assert.deepEqual(normalizeCycle(data),once);
-  assert.deepEqual(data.sundays,original.sundays); assert.deepEqual(data.other,original.other);
+  for (const folder of original.sundays) assert.deepEqual(data.sundays.find(f=>f.id===folder.id),folder);
+  for (const folder of original.other) assert.deepEqual(data.other.find(f=>f.id===folder.id),folder);
 });
 test('unknown original years are not guessed from upload year', () => {
   const data = normalizeCycle({...legacy(),advent_weekdays:{label:'將臨期平日',weeks:[{id:'advent-week-4',days:[{id:'thursday',homilies:[clone(note)]}]}]}});
@@ -37,4 +38,17 @@ test('unknown original years are not guessed from upload year', () => {
 test('incomplete legacy structure is left for the backup validator to reject', () => {
   const bad = {cycle:'a',weekdays:{odd:{weeks:[]}}};
   assert.deepEqual(normalizeCycle(clone(bad)),bad);
+});
+
+test('Lent and Holy Week folders are repeatable and preserve legacy Holy Thursday notes', () => {
+  const input = legacy(); input.other.push({id:'holy-thursday',name:'聖週四',homilies:[clone(note)]});
+  const data = normalizeCycle(input);
+  assert.equal(data.sundays.filter(f=>f.id.startsWith('lent-')).length,5);
+  assert.equal(data.lent_weekdays.weeks.length,5);
+  assert(data.lent_weekdays.weeks.every(w=>w.days.length===6));
+  assert(!data.other.some(f=>f.id==='holy-thursday'));
+  const thursday = data.holy_week.weeks[0].days.find(d=>d.id==='thursday');
+  assert.equal(thursday.homilies.length,1); assert.equal(thursday.homilies[0].content,note.content);
+  assert.equal(thursday.homilies[0].translations.en.content,note.translations.en.content);
+  assert.deepEqual(normalizeCycle(clone(data)),data);
 });

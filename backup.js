@@ -14,9 +14,9 @@
       const d = data[c];
       return object(d) && d.cycle === c && text(d.label) && Array.isArray(d.sundays) && d.sundays.every(folder) && Array.isArray(d.other) && d.other.every(folder) && object(d.weekdays) && text(d.weekdays.label) && Array.isArray(d.weekdays.weeks) && d.weekdays.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
     })) throw new Error('備份內容不完整或格式不正確，必須包含甲、乙、丙年資料。');
-    for (const c of cycles) {
-      const season = data[c].advent_weekdays;
-      if (season !== undefined && (!object(season) || !text(season.label) || !Array.isArray(season.weeks) || !season.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label))))) throw new Error('將臨期平日資料格式不正確');
+    for (const c of cycles) for (const key of ['advent_weekdays','lent_weekdays','holy_week']) {
+      const season = data[c][key];
+      if (season !== undefined && (!object(season) || !text(season.label) || !Array.isArray(season.weeks) || !season.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label))))) throw new Error('禮儀季節平日資料格式不正確');
     }
     if (data.apostles !== undefined && (!object(data.apostles) || !text(data.apostles.label) || !Array.isArray(data.apostles.folders) || !data.apostles.folders.every(folder))) throw new Error('12宗徒資料格式不正確');
     // Migrate old backups without discarding any previously saved apostle notes.
@@ -118,7 +118,7 @@
     for (const c of cycles) {
       const d = data[c]; body += `<h2>${escape(d.label)} · 主日</h2>` + d.sundays.map(x => entry(x, x.display_name)).join('');
       body += `<h2>${escape(d.label)} · ${escape(d.weekdays.label)}</h2>` + d.weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
-      if (d.advent_weekdays) body += `<h2>${escape(d.label)} · ${escape(d.advent_weekdays.label)}</h2>` + d.advent_weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
+      for (const key of ['advent_weekdays','lent_weekdays','holy_week']) if (d[key]) body += `<h2>${escape(d.label)} · ${escape(d[key].label)}</h2>` + d[key].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }
     for (const key of ['apostles', 'marian', 'theology']) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => entry(x, x.display_name)).join('');

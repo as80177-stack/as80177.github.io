@@ -93,6 +93,8 @@
         <option value="sundays">主日</option>
         <option value="weekdays">常年期平日</option>
         <option value="advent-weekdays">將臨期平日</option>
+        <option value="lent-weekdays">四旬期平日</option>
+        <option value="holy-week">聖週</option>
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
         <option value="marian">聖母其他節日（獨立分類）</option>
@@ -216,7 +218,8 @@
     function selectedItems() {
       if (!cycleData) return [];
       if (['apostles', 'marian', 'theology'].includes(sectionSelect.value)) return cycleData.folders;
-      if (sectionSelect.value === 'advent-weekdays') return cycleData.advent_weekdays?.weeks || [];
+      const seasons = {'advent-weekdays':'advent_weekdays','lent-weekdays':'lent_weekdays','holy-week':'holy_week'};
+      if (seasons[sectionSelect.value]) return cycleData[seasons[sectionSelect.value]]?.weeks || [];
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
       return cycleData.weekdays.weeks;
@@ -242,7 +245,7 @@
       }
 
       listEl.innerHTML = items.map(item => {
-        if (['weekdays', 'advent-weekdays'].includes(sectionSelect.value)) {
+        if (['weekdays', 'advent-weekdays', 'lent-weekdays', 'holy-week'].includes(sectionSelect.value)) {
           return folderHtml(item.name, item.days.map(day => homilyBlock(day, day.label, 'weekday')).join(''));
         }
         return folderHtml(item.display_name, homilyBlock(item, item.name));

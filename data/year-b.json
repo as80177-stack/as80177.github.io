@@ -3,6 +3,36 @@
   "label": "乙年",
   "sundays": [
     {
+      "id": "lent-1",
+      "name": "四旬期第一主日",
+      "display_name": "四旬期第一主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-2",
+      "name": "四旬期第二主日",
+      "display_name": "四旬期第二主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-3",
+      "name": "四旬期第三主日",
+      "display_name": "四旬期第三主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-4",
+      "name": "四旬期第四主日",
+      "display_name": "四旬期第四主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "lent-5",
+      "name": "四旬期第五主日",
+      "display_name": "四旬期第五主日資料夾",
+      "homilies": []
+    },
+    {
       "id": "ordinary-1",
       "number": 1,
       "name": "第1主日",
@@ -1566,12 +1596,6 @@
       "homilies": []
     },
     {
-      "id": "holy-thursday",
-      "name": "聖週四",
-      "display_name": "聖週四資料夾",
-      "homilies": []
-    },
-    {
       "id": "good-friday",
       "name": "主受難日",
       "display_name": "主受難日資料夾",
@@ -1667,5 +1691,237 @@
       "display_name": "傳教節資料夾",
       "homilies": []
     }
-  ]
+  ],
+  "lent_weekdays": {
+    "label": "四旬期",
+    "weeks": [
+      {
+        "id": "lent-week-1",
+        "number": 1,
+        "name": "四旬期第1週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-2",
+        "number": 2,
+        "name": "四旬期第2週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-3",
+        "number": 3,
+        "name": "四旬期第3週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-4",
+        "number": 4,
+        "name": "四旬期第4週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "lent-week-5",
+        "number": 5,
+        "name": "四旬期第5週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      }
+    ]
+  },
+  "holy_week": {
+    "label": "聖週",
+    "weeks": [
+      {
+        "id": "holy-week-1",
+        "number": 1,
+        "name": "聖週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "聖週一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "聖週二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "聖週三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "聖週四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "聖週五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "聖週六",
+            "homilies": []
+          }
+        ]
+      }
+    ]
+  }
 }
