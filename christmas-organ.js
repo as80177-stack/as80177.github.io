@@ -88,31 +88,42 @@
       beater.start(impactAt); beater.stop(impactAt + .09);
       // The music blooms after the initial impact as the doors start opening.
       const start = context.currentTime + .46;
-      // A quiet, irregular wind-chime cluster floats above the original chord.
-      // Keep the entrance pad below intact; the chimes are an additional layer.
-      [[72,0,-.6],[79,.13,.5],[74,.32,-.25],[81,.48,.65],[72,.62,-.45]].forEach(([note, offset, pan]) => {
+      // A shared, subtle room ties the light pad and chime fragments together.
+      const lightRoom = context.createGain(); lightRoom.connect(gain);
+      for (const [seconds, strength, pan] of [[.055,.13,-.4],[.085,.1,.4]]) {
+        const delay = context.createDelay(.2); delay.delayTime.value = seconds;
+        const damping = context.createBiquadFilter();
+        damping.type = 'lowpass'; damping.frequency.value = 1800;
+        const reflection = context.createGain(); reflection.gain.value = strength;
+        const position = context.createStereoPanner(); position.pan.value = pan;
+        lightRoom.connect(delay); delay.connect(damping); damping.connect(reflection);
+        reflection.connect(position); position.connect(gain);
+      }
+      // Small, irregular overlapping fragments, rather than a few big bell hits.
+      const fragments = [[72,.12,-.6,1],[79,.18,.5,.65],[74,.27,-.25,.85],
+        [81,.33,.65,.5],[79,.4,-.45,.75],[72,.44,.2,.55],[74,.53,-.55,.8],
+        [79,.59,.5,.6],[81,.68,-.2,.45],[74,.73,.65,.7],[72,.77,-.45,.55],
+        [79,.84,.15,.6],[74,.91,-.6,.5],[81,.97,.5,.35],[79,1.03,-.2,.45],[72,1.1,.35,.35]];
+      fragments.forEach(([note, offset, pan, weight], index) => {
         const at = start + offset;
-        const bell = context.createGain(); bell.gain.value = standalone ? .85 : 1.25;
+        const bell = context.createGain(); bell.gain.value = (standalone ? .9 : 1.2) * weight;
         const soften = context.createBiquadFilter();
         soften.type = 'lowpass'; soften.frequency.value = 2200;
         const position = context.createStereoPanner();
         position.pan.setValueAtTime(pan, at);
-        position.pan.linearRampToValueAtTime(pan * .55, at + .75);
-        bell.connect(soften); soften.connect(position); position.connect(gain);
-        const reflection = context.createDelay(.5); reflection.delayTime.value = .18;
-        const wet = context.createGain(); wet.gain.value = .24;
-        const opposite = context.createStereoPanner(); opposite.pan.value = -pan;
-        soften.connect(reflection); reflection.connect(wet); wet.connect(opposite); opposite.connect(gain);
-        for (const [ratio, peak, decay] of [[1,.17,.78],[2.756,.028,.48],[5.404,.008,.22]]) {
+        position.pan.linearRampToValueAtTime(pan * .6, at + .3);
+        bell.connect(soften); soften.connect(position); position.connect(lightRoom);
+        for (const [ratio, peak, baseDecay] of [[1,.13,.3],[2.756,.018,.16],[5.404,.004,.09]]) {
+          const decay = baseDecay + (index % 3) * .025;
           const oscillator = context.createOscillator();
           const envelope = context.createGain();
           oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12) * ratio;
           envelope.gain.setValueAtTime(0, at);
-          envelope.gain.linearRampToValueAtTime(peak, at + .008);
+          envelope.gain.linearRampToValueAtTime(peak, at + .005);
           envelope.gain.exponentialRampToValueAtTime(.0001, at + decay);
-          envelope.gain.linearRampToValueAtTime(0, at + decay + .04);
+          envelope.gain.linearRampToValueAtTime(0, at + decay + .025);
           oscillator.connect(envelope); envelope.connect(bell);
-          oscillator.start(at); oscillator.stop(at + decay + .05);
+          oscillator.start(at); oscillator.stop(at + decay + .035);
         }
       });
       // The standalone Cmaj9 pad gently brightens as the doors open.
@@ -121,18 +132,19 @@
       color.frequency.setValueAtTime(standalone ? 900 : 2200, start);
       color.frequency.linearRampToValueAtTime(standalone ? 2400 : 2600, start + .85);
       color.frequency.linearRampToValueAtTime(1400, start + 1.8);
-      color.connect(gain);
+      color.connect(lightRoom);
       const notes = standalone ? [55,60,64,67,69,74] : [60,67,69,74];
       notes.forEach((note, index) => {
-        const at = start + index * (standalone ? .065 : .055);
+        const at = start + index * (standalone ? .035 : .03);
         const envelope = context.createGain();
-        const attack = standalone ? .6 : .16;
-        const end = standalone ? 1.75 : 1.12;
-        const peak = standalone ? .3 - index * .025 : .5 - index * .06;
-        envelope.gain.setValueAtTime(0, at);
-        envelope.gain.linearRampToValueAtTime(peak, at + attack);
-        envelope.gain.exponentialRampToValueAtTime(.0001, at + end - .07);
-        envelope.gain.linearRampToValueAtTime(0, at + end);
+        const attack = standalone ? .7 : .35;
+        const end = standalone ? 1.85 : 1.35;
+        const peak = standalone ? .3 - index * .025 : .36 - index * .04;
+        const swell = Float32Array.from({length: 64}, (_, i) => peak * Math.sin(i / 63 * Math.PI / 2) ** 2);
+        const fade = Float32Array.from({length: 96}, (_, i) => peak * Math.cos(i / 95 * Math.PI / 2) ** 2);
+        fade[95] = 0;
+        envelope.gain.setValueCurveAtTime(swell, at, attack);
+        envelope.gain.setValueCurveAtTime(fade, at + attack + .1, end - attack - .1);
         const spread = context.createStereoPanner();
         spread.pan.value = (index / (notes.length - 1) * 2 - 1) * .42;
         envelope.connect(spread); spread.connect(color);
