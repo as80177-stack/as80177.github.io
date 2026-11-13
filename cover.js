@@ -11,6 +11,8 @@
     return location.hash === '#home' ? 'home' : location.hash === '#verse' ? 'verse' : 'cover';
   }
   function showPage(page, navigate = false) {
+    const settings = document.getElementById('appSettings');
+    if (settings?.open) settings.close();
     if (navigate) history.pushState(null, '', location.pathname + location.search + (page === 'cover' ? '' : '#' + page));
     Object.entries(pages).forEach(([key, element]) => { element.hidden = key !== page; });
     document.getElementById(headings[page]).focus({preventScroll: true});

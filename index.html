@@ -76,6 +76,7 @@
     .organ-volume { display: flex; align-items: center; gap: .8rem; margin-top: 1rem; color: #665434; }
     .organ-volume input { accent-color: #72551f; width: min(220px,65%); min-height: 44px; }
     #christmasOrganStatus:empty { display: none; }
+    .home-page h1:focus { outline: none; }
     .home-page { min-height: calc(100svh - 4rem); }
     .page-navigation { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .page-count { color: #806943; white-space: nowrap; font-size: .9rem; }
@@ -84,6 +85,21 @@
     .verse-page { display: flex; flex-direction: column; }
     .verse-page .scripture-card { margin: auto 0; }
     .verse-page h1 { margin: 1rem 0 1.5rem; }
+    .home-top-actions { display: flex; align-items: center; gap: .75rem; }
+    .settings-button { border: 1px solid #ded0b8; border-radius: 999px; padding: .45rem .8rem; background: #faf5eb; color: #72551f; font: inherit; cursor: pointer; min-height: 44px; }
+    .settings-button span { font-size: 1.3rem; vertical-align: middle; }
+    .sacred-heart-home { text-align: center; }
+    .sacred-heart-figure { margin: .8rem auto 1rem; }
+    .sacred-heart-figure img { display: block; width: auto; height: min(49svh,460px); max-width: 100%; object-fit: contain; margin: 0 auto; border-radius: 18px; box-shadow: 0 8px 26px #76532826; background: #eee0c8; }
+    .sacred-heart-figure figcaption { font-family: Georgia,"Noto Serif TC",serif; margin-top: .6rem; color: #806943; }
+    .homily-entry { border-radius: 999px; padding: .85rem 2.5rem; font-size: 1.15rem; }
+    .settings-dialog { width: min(640px,calc(100% - 3rem)); max-height: 86svh; box-sizing: border-box; overflow-y: auto; overscroll-behavior: contain; padding: 1.2rem; color: #24211d; background: #fffcf6; border: 1px solid #d9c7a7; border-radius: 20px; box-shadow: 0 16px 70px #30231644; }
+    .settings-dialog::backdrop { background: #2c241c88; }
+    .settings-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .settings-header h2 { margin: 0; font-size: 1.4rem; }
+    .settings-close { color: #72551f; background: #f5edde; border: 0; padding: .6rem .8rem; border-radius: 10px; font: inherit; cursor: pointer; min-height: 44px; }
+    .settings-dialog h3 { margin: 0; font-size: 1.15rem; }
+    .settings-dialog .actions a,.settings-dialog .actions button { font-size: .95rem; }
     .tools-page h1 { margin: .6rem 0 .2rem; }
     .tools-page #today { margin: .3rem 0 .8rem; }
     .tools-page .actions { margin-top: .6rem; }
@@ -166,19 +182,28 @@
   <section id="homeContent" class="home-page tools-page" aria-labelledby="homeHeading" hidden>
     <nav class="page-navigation" aria-label="首頁分頁">
       <button class="cover-return" type="button" data-home-page="verse">← 上一頁：聖經金句</button>
-      <span class="page-count">3 / 3</span>
+      <div class="home-top-actions"><span class="page-count">3 / 3</span><button id="openSettings" class="settings-button" type="button" aria-label="開啟設定" aria-controls="appSettings" aria-expanded="false"><span aria-hidden="true">⚙</span> 設定</button></div>
     </nav>
-    <h1 id="homeHeading" tabindex="-1">講道與備份</h1>
+    <h1 id="homeHeading" tabindex="-1">講道筆記</h1>
     <p id="today" class="install-help">載入中…</p>
-  <div class="card">
-    <h2>講道與道理筆記</h2>
-    <div class="actions">
-      <a class="button" href="homily.html">開啟講道筆記</a>
-      <a class="button secondary" href="admin/">管理後台</a>
-      <a class="button secondary" href="install.html">App 安裝連結</a>
-      <button class="button" id="installButton" type="button">安裝離線 App</button>
+    <div class="sacred-heart-home">
+      <figure class="sacred-heart-figure">
+        <img src="icons/sacred-heart.webp" width="720" height="960" alt="耶穌聖心聖像：耶穌身披紅袍，一手指向聖心，一手舉起祝福。" decoding="async">
+        <figcaption>耶穌聖心</figcaption>
+      </figure>
+      <a class="button homily-entry" href="homily.html">開啟講道</a>
     </div>
-    <p id="offlineStatus" role="status" aria-live="polite"></p>
+
+    <dialog id="appSettings" class="settings-dialog" aria-labelledby="settingsHeading">
+      <header class="settings-header"><h2 id="settingsHeading">設定</h2><button id="closeSettings" class="settings-close" type="button" autofocus>關閉 ✕</button></header>
+      <section class="card">
+        <h3>更新與管理</h3>
+        <div class="actions">
+          <a class="button secondary" href="admin/">管理後台</a>
+          <a class="button secondary" href="install.html">App 安裝連結</a>
+          <button class="button" id="installButton" type="button">安裝離線 App</button>
+        </div>
+        <p id="offlineStatus" role="status" aria-live="polite"></p>
     <details id="installDetails" class="install-help"><summary>安裝與離線使用說明</summary>
     <div id="installHelp">
       <p>將講道筆記加入主畫面，就能像 App 一樣開啟。首次請連線開啟，等候顯示「已可離線閱讀」。</p>
@@ -190,10 +215,10 @@
       <p>離線可閱讀三個年度的講道；管理後台與更新內容需要網路。清除瀏覽器資料會移除離線內容，之後需重新連線儲存。</p>
     </div>
     </details>
-  </div>
-
-  <div id="backupTools" data-compact="true"></div>
-  <button id="showCover" class="cover-return" type="button" data-home-page="cover">回到第一頁：封面</button>
+      </section>
+      <div id="backupTools" data-compact="true"></div>
+      <button id="showCover" class="cover-return" type="button" data-home-page="cover">回到第一頁：封面</button>
+    </dialog>
   <script src="data-model.js"></script>
   <script src="backup.js"></script>
 
@@ -236,5 +261,6 @@
   </div>
   <script src="christmas-organ.js"></script>
   <script src="cover.js"></script>
+  <script src="home-settings.js"></script>
 </body>
 </html>

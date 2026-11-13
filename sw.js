@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homily-notes-v73';
+const CACHE_NAME = 'homily-notes-v74';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,6 +8,8 @@ const APP_SHELL = [
   './data-model.js',
   './verses.js',
   './cover.js',
+  './home-settings.js',
+  './icons/sacred-heart.webp',
   './christmas-organ.js',
   './cover.css',
   './icons/church-glass-door.svg',
