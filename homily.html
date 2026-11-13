@@ -233,7 +233,7 @@
       document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       if (voiceResults !== null) {
-        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">語音相關道理：${voiceResults.length} 篇（依相關程度排序）<br><small>主題搜尋可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到相近的道理，請換一個關鍵字或說法。</div>';
+        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">語音主題道理：${voiceResults.length} 篇（依相關程度排序）<br><small>優先顯示以此為主題的道理，略過零星提及。可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到相近的道理，請換一個關鍵字或說法。</div>';
         bindListEvents(); return;
       }
       const query = searchInput.value.trim().toLowerCase();

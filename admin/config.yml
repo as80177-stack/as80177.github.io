@@ -44,6 +44,7 @@ collections:
                   - { label: 原稿年份, name: composition_year, widget: number, value_type: int, required: false, hint: "例如2023為單數，2022為雙數。不確定可留空。" }
                   - { label: 上傳時間, name: uploaded_at, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ", hint: "新增版本時請保留目前的日期與時間。" }
                   - { label: 道理正文, name: content, widget: text, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
+                  - { label: 主要主題, name: search_topics, widget: list, required: false, hint: "選填，例如聖體、祈禱。只列文章深入講解的主題，幫助語音搜尋。" }
                   - label: 翻譯（選填）
                     name: translations
                     widget: object

@@ -6,7 +6,8 @@
   const groups = [
     ['祈禱','祈求','禱告','代禱','祈祷','祷告','代祷','prayer','pray'],
     ['寬恕','饒恕','原諒','赦免','宽恕','饶恕','原谅','forgive','forgiveness'],
-    ['十字架','苦架','背負苦架','苦難','受苦','苦痛','cross','suffering'],
+    ['十字架','苦架','背負苦架','cross'],
+    ['苦難','受苦','苦痛','suffering'],
     ['希望','盼望','望德','盼望','hope'],
     ['婚姻','夫妻','夫婦','結婚','婚約','结婚','marriage'],
     ['聖洗','洗禮','受洗','洗礼','入門聖事','baptism'],
@@ -63,6 +64,52 @@
     if(q.length>=4){const a=overlap(q,t),c=overlap(q,b);if(a.hits>=2&&a.ratio>=.55)return Math.max(exactBody,40+a.ratio*10);if(c.hits>=2&&c.ratio>=.7)return Math.max(exactBody,30+c.ratio*10);}
     return exactBody;
   }
+  // A mention is not necessarily the subject. Apply this evidence check to
+  // every query, including topics outside the synonym dictionary.
+  function topicEvidence(query, title, content) {
+    const q = normalize(cleanQuery(query));
+    const concept = normalizedGroups.find(g => g.includes(q));
+    const terms = concept || [q];
+    function mentions(text) {
+      return terms.some(term => /^[a-z]+$/.test(term)
+        ? new RegExp('\\b' + term + '(?:s|ed|ing)?\\b', 'i').test(prepare(text))
+        : normalize(text).includes(term));
+    }
+    const titleScore = score(query, title);
+    if (mentions(title)) return 150;
+    if (!concept && titleScore >= 40) return titleScore + 30;
+    let paragraphs = String(content || '').split(/\n\s*\n|\n/)
+      .map(p => p.trim()).filter(Boolean)
+      .filter(p => !/^(?:願|愿|May\s+(?:Our\s+Lady|God|the\s+Lord)\b)/i.test(p));
+    // Older backups sometimes store a whole homily on one line.
+    if (paragraphs.length < 3) paragraphs = paragraphs.flatMap(p =>
+      p.split(/(?<=[。！？.!?])\s*/u).filter(s => normalize(s).length >= 8));
+    if (!paragraphs.length) return 0;
+    const matches = paragraphs.map(mentions);
+    const count = matches.filter(Boolean).length;
+    const coverage = count / paragraphs.length;
+    const opening = matches.slice(0, 2).filter(Boolean).length;
+    // Require repeated discussion and meaningful coverage, not a closing
+    // invocation, isolated quotation or single example in a different topic.
+    if (count < 2 || coverage < .3 || (!opening && coverage < .5)) return 0;
+    return 60 + coverage * 30 + opening * 5 + titleScore / 10;
+  }
+  function topicScore(query, note) {
+    const q = normalize(cleanQuery(query));
+    if (!q) return 0;
+    const concepts = normalizedGroups.filter(g => g.some(term => q.includes(term)));
+    const versions = [note, ...Object.values(note.translations || {})];
+    // Evaluate languages separately so a translation does not count as a
+    // second independent discussion of an incidental mention.
+    return Math.max(0, ...versions.map(version => {
+      if (concepts.length) {
+        const evidence = concepts.map(g => Math.max(...g.map(term =>
+          topicEvidence(term, (version.title || '') + ' ' + (note.search_topics || []).join(' '), version.content || ''))));
+        return evidence.every(Boolean) ? evidence.reduce((a,b) => a+b,0)/evidence.length : 0;
+      }
+      return topicEvidence(query, (version.title || '') + ' ' + (note.search_topics || []).join(' '), version.content || '');
+    }));
+  }
   function catalog(data,key) {
     const result=[];
     function add(folders,section,sectionLabel,cycle) {
@@ -83,8 +130,8 @@
   function rank(documents, command, alternatives=[]) {
     const queries=[command.query,...alternatives.map(cleanQuery)].filter(Boolean);
     return documents.filter(d=>(!command.cycle || d.cycle===command.cycle || (!d.cycle&&command.section===d.section)) && (!command.section || d.section===command.section))
-      .map(d=>({...d,score:Math.max(0,...queries.map(query=>score(query,d.note.title+' '+(d.note.translations?.en?.title||''),d.note.content+' '+(d.note.translations?.en?.content||''))))}))
+      .map(d=>({...d,score:Math.max(0,...queries.map(query=>topicScore(query,d.note)))}))
       .filter(d=>d.score>0).sort((a,b)=>b.score-a.score).slice(0,15);
   }
-  return {prepare,normalize,cleanQuery,score,catalog,rank};
+  return {prepare,normalize,cleanQuery,score,topicScore,catalog,rank};
 });
