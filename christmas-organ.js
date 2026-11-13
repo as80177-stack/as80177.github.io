@@ -34,11 +34,16 @@
       context = new Audio();
       const gain = context.createGain();
       gain.gain.value = Number(volume.value) * level;
-      gain.connect(context.destination);
+      const ending = context.createGain();
+      gain.connect(ending); ending.connect(context.destination);
       sound = {context, gain, level};
       lightSound = sound;
       await context.resume();
       if (lightSound !== sound) return;
+      // One balanced five-second cue; background Christmas music stays separate.
+      const cueAt = context.currentTime;
+      ending.gain.setValueAtTime(1, cueAt + 4.1);
+      ending.gain.linearRampToValueAtTime(0, cueAt + 4.95);
       // Reference 87: retain audible low body and multiple membrane modes.
       // Orchestral bass drum: deep membrane, upper body resonances, and a
       // short felt-beater transient that remains audible on phone speakers.
@@ -107,9 +112,14 @@
         [72,.49,.5,.6],[74,.56,-.2,.45],[67,.61,.65,.7],[69,.66,-.45,.55],
         [72,.72,.15,.6],[67,.79,-.6,.5],[74,.85,.5,.35],[72,.91,-.2,.45],
         [69,.96,.35,.35],[67,1.02,-.45,.32],[72,1.08,.5,.28]];
-      fragments.forEach(([note, offset, pan, weight], index) => {
+      const chimePhrase = [
+        ...fragments,
+        ...fragments.filter((_, i) => i % 2 === 0).map(([note, offset, pan, weight]) => [note, offset + 1.55, -pan, weight * .6]),
+        [72,3.05,-.3,.32], [69,3.25,.35,.26], [67,3.45,-.2,.18]
+      ];
+      chimePhrase.forEach(([note, offset, pan, weight], index) => {
         const at = start + offset;
-        const bell = context.createGain(); bell.gain.value = (standalone ? 1.3 : 1.7) * weight;
+        const bell = context.createGain(); bell.gain.value = (standalone ? 1.15 : 1.5) * weight;
         const soften = context.createBiquadFilter();
         soften.type = 'lowpass'; soften.frequency.value = 3000; soften.Q.value = .5;
         const position = context.createStereoPanner();
@@ -134,20 +144,20 @@
       color.type = 'lowpass';
       color.frequency.setValueAtTime(standalone ? 900 : 2200, start);
       color.frequency.linearRampToValueAtTime(standalone ? 2400 : 2600, start + .85);
-      color.frequency.linearRampToValueAtTime(1400, start + 1.8);
+      color.frequency.linearRampToValueAtTime(1400, start + 3.8);
       color.connect(lightRoom);
       const notes = standalone ? [55,60,64,67,69,74] : [60,67,69,74];
       notes.forEach((note, index) => {
         const at = start + index * (standalone ? .035 : .03);
         const envelope = context.createGain();
-        const attack = standalone ? .7 : .35;
-        const end = standalone ? 1.85 : 1.35;
+        const attack = standalone ? .8 : .55;
+        const end = 4.15;
         const peak = standalone ? .3 - index * .025 : .36 - index * .04;
         const swell = Float32Array.from({length: 64}, (_, i) => peak * Math.sin(i / 63 * Math.PI / 2) ** 2);
         const fade = Float32Array.from({length: 96}, (_, i) => peak * Math.cos(i / 95 * Math.PI / 2) ** 2);
         fade[95] = 0;
         envelope.gain.setValueCurveAtTime(swell, at, attack);
-        envelope.gain.setValueCurveAtTime(fade, at + attack + .1, end - attack - .1);
+        envelope.gain.setValueCurveAtTime(fade, at + attack + .35, end - attack - .35);
         const spread = context.createStereoPanner();
         spread.pan.value = (index / (notes.length - 1) * 2 - 1) * .42;
         envelope.connect(spread); spread.connect(color);
@@ -164,7 +174,7 @@
       sound.timer = setTimeout(() => {
         if (lightSound === sound) lightSound = null;
         context.close().catch(() => {});
-      }, standalone ? 2900 : 2300);
+      }, 5100);
     } catch (_) {
       if (lightSound === sound) lightSound = null;
       if (context && context.state !== 'closed') context.close().catch(() => {});
