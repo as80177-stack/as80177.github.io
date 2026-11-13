@@ -39,6 +39,7 @@
       lightSound = sound;
       await context.resume();
       if (lightSound !== sound) return;
+      // Reference 87: retain audible low body and multiple membrane modes.
       // Orchestral bass drum: deep membrane, upper body resonances, and a
       // short felt-beater transient that remains audible on phone speakers.
       const impactAt = context.currentTime + .025;
@@ -56,11 +57,11 @@
         drum.connect(delay); delay.connect(damping); damping.connect(reflection);
         reflection.connect(space); space.connect(gain);
       }
-      for (const [from, to, peak, decay] of [[82,48,1.35,.85],[134,96,.52,.52],[202,156,.2,.28]]) {
+      for (const [from, to, peak, decay] of [[105,64,1.2,.95],[178,128,.65,.65],[288,226,.36,.4],[530,452,.16,.18]]) {
         const impact = context.createOscillator();
         const pulse = context.createGain();
         impact.frequency.setValueAtTime(from, impactAt);
-        impact.frequency.exponentialRampToValueAtTime(to, impactAt + .12);
+        impact.frequency.exponentialRampToValueAtTime(to, impactAt + .075);
         pulse.gain.setValueAtTime(0, impactAt);
         pulse.gain.linearRampToValueAtTime(peak, impactAt + .008);
         pulse.gain.exponentialRampToValueAtTime(.0001, impactAt + decay);
@@ -78,7 +79,7 @@
       }
       beater.buffer = texture;
       const felt = context.createBiquadFilter();
-      felt.type = 'lowpass'; felt.frequency.value = 900;
+      felt.type = 'lowpass'; felt.frequency.value = 1250;
       const hit = context.createGain();
       hit.gain.setValueAtTime(0, impactAt);
       hit.gain.linearRampToValueAtTime(.45, impactAt + .003);
@@ -99,21 +100,23 @@
         lightRoom.connect(delay); delay.connect(damping); damping.connect(reflection);
         reflection.connect(position); position.connect(gain);
       }
-      // Small, irregular overlapping fragments, rather than a few big bell hits.
-      const fragments = [[72,.12,-.6,1],[79,.18,.5,.65],[74,.27,-.25,.85],
-        [81,.33,.65,.5],[79,.4,-.45,.75],[72,.44,.2,.55],[74,.53,-.55,.8],
-        [79,.59,.5,.6],[81,.68,-.2,.45],[74,.73,.65,.7],[72,.77,-.45,.55],
-        [79,.84,.15,.6],[74,.91,-.6,.5],[81,.97,.5,.35],[79,1.03,-.2,.45],[72,1.1,.35,.35]];
+      // Reference 86 emphasizes a metallic mode near 2.27× the body tone.
+      // Small overlapping fragments keep that resonance bright and scattered.
+      const fragments = [[69,.12,-.6,1],[72,.17,.5,.65],[67,.22,-.25,.85],
+        [74,.28,.65,.5],[72,.32,-.45,.75],[69,.37,.2,.55],[67,.44,-.55,.8],
+        [72,.49,.5,.6],[74,.56,-.2,.45],[67,.61,.65,.7],[69,.66,-.45,.55],
+        [72,.72,.15,.6],[67,.79,-.6,.5],[74,.85,.5,.35],[72,.91,-.2,.45],
+        [69,.96,.35,.35],[67,1.02,-.45,.32],[72,1.08,.5,.28]];
       fragments.forEach(([note, offset, pan, weight], index) => {
         const at = start + offset;
-        const bell = context.createGain(); bell.gain.value = (standalone ? .9 : 1.2) * weight;
+        const bell = context.createGain(); bell.gain.value = (standalone ? 1.3 : 1.7) * weight;
         const soften = context.createBiquadFilter();
-        soften.type = 'lowpass'; soften.frequency.value = 2200;
+        soften.type = 'lowpass'; soften.frequency.value = 3000; soften.Q.value = .5;
         const position = context.createStereoPanner();
         position.pan.setValueAtTime(pan, at);
         position.pan.linearRampToValueAtTime(pan * .6, at + .3);
         bell.connect(soften); soften.connect(position); position.connect(lightRoom);
-        for (const [ratio, peak, baseDecay] of [[1,.13,.3],[2.756,.018,.16],[5.404,.004,.09]]) {
+        for (const [ratio, peak, baseDecay] of [[1,.075,.32],[2.27,.18,.38],[4.31,.035,.2],[6.31,.008,.11]]) {
           const decay = baseDecay + (index % 3) * .025;
           const oscillator = context.createOscillator();
           const envelope = context.createGain();
@@ -161,7 +164,7 @@
       sound.timer = setTimeout(() => {
         if (lightSound === sound) lightSound = null;
         context.close().catch(() => {});
-      }, standalone ? 2900 : 2100);
+      }, standalone ? 2900 : 2300);
     } catch (_) {
       if (lightSound === sound) lightSound = null;
       if (context && context.state !== 'closed') context.close().catch(() => {});
