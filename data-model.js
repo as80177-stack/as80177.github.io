@@ -5,8 +5,18 @@
 })(globalThis, () => {
   const strip = title => String(title).replace(/^(?:單／雙|單\/雙|單|雙)-\s*/, '');
   const stripEnglish = title => String(title).replace(/^(?:Odd\/Even|Odd|Even)-\s*/i, '');
+  // The owner confirmed these existing weekday drafts were written in 2023.
+  // Match their content, not upload timestamps; an explicit original year wins.
+  const confirmedDraftYears = {"519:cf03cd17":2023,"480:0f1e384f":2023,"552:a1712a93":2023,"639:5dec6cab":2023};
+  function originalYear(note) {
+    if (Number.isInteger(note.composition_year) && note.composition_year > 0) return note.composition_year;
+    let hash = 2166136261;
+    for (let i = 0; i < note.content.length; i++) hash = Math.imul(hash ^ note.content.charCodeAt(i),16777619) >>> 0;
+    return confirmedDraftYears[`${note.content.length}:${hash.toString(16).padStart(8,'0')}`];
+  }
   function parityOf(note, fallback = 'both') {
-    if (Number.isInteger(note.composition_year) && note.composition_year > 0) return note.composition_year % 2 ? 'odd' : 'even';
+    const year = originalYear(note);
+    if (year) return year % 2 ? 'odd' : 'even';
     if (['odd','even','both'].includes(note.liturgical_parity)) return note.liturgical_parity;
     if (/^單-/.test(note.title)) return 'odd';
     if (/^雙-/.test(note.title)) return 'even';
@@ -14,10 +24,15 @@
     return fallback;
   }
   function label(note, parity) {
-    note.liturgical_parity = parity;
-    note.title = ({odd:'單-',even:'雙-',both:'單／雙-'})[parity] + strip(note.title);
+    const year = originalYear(note);
+    if (year) { note.composition_year = year; parity = year % 2 ? 'odd' : 'even'; }
+    // Unknown dates stay unclassified rather than displaying a combined prefix.
+    const prefix = {odd:'單-',even:'雙-'}[parity] || '';
+    if (prefix) note.liturgical_parity = parity;
+    else delete note.liturgical_parity;
+    note.title = prefix + strip(note.title);
     if (note.translations?.en && typeof note.translations.en.title === 'string') {
-      note.translations.en.title = ({odd:'Odd-',even:'Even-',both:'Odd/Even-'})[parity] + stripEnglish(note.translations.en.title);
+      note.translations.en.title = ({odd:'Odd-',even:'Even-'}[parity] || '') + stripEnglish(note.translations.en.title);
     }
     return note;
   }

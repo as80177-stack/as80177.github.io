@@ -8,10 +8,10 @@ function legacy(oddNotes = [], evenNotes = []) {
 }
 const note = {title:'道理',content:'第一段\n\n第二段',uploaded_at:'2026-11-13T16:29:01+08:00',translations:{en:{title:'Homily',content:'Paragraph one\n\nParagraph two'}}};
 const notes = d => d.weekdays.weeks[0].days[0].homilies;
-test('identical legacy copies become one both-years sermon without losing bilingual text', () => {
+test('identical undated legacy copies become one sermon without inventing an original year', () => {
   const data = normalizeCycle(legacy([clone(note)],[clone(note)]));
   assert.equal(data.weekdays.weeks.length,1); assert.equal(notes(data).length,1);
-  assert.equal(notes(data)[0].title,'單／雙-道理'); assert.equal(notes(data)[0].translations.en.title,'Odd/Even-Homily');
+  assert.equal(notes(data)[0].title,'道理'); assert.equal(notes(data)[0].translations.en.title,'Homily');
   assert.equal(notes(data)[0].content,note.content); assert.equal(notes(data)[0].translations.en.content,note.translations.en.content);
   assert(!data.weekdays.odd && !data.weekdays.even);
 });
@@ -30,9 +30,9 @@ test('normalization is idempotent and preserves Sunday and feast data', () => {
   assert.deepEqual(normalizeCycle(data),once);
   assert.deepEqual(data.sundays,original.sundays); assert.deepEqual(data.other,original.other);
 });
-test('undated unified seasonal notes are marked both, not guessed from upload year', () => {
+test('unknown original years are not guessed from upload year', () => {
   const data = normalizeCycle({...legacy(),advent_weekdays:{label:'將臨期平日',weeks:[{id:'advent-week-4',days:[{id:'thursday',homilies:[clone(note)]}]}]}});
-  assert.equal(data.advent_weekdays.weeks[0].days[0].homilies[0].title,'單／雙-道理');
+  assert.equal(data.advent_weekdays.weeks[0].days[0].homilies[0].title,'道理');
 });
 test('incomplete legacy structure is left for the backup validator to reject', () => {
   const bad = {cycle:'a',weekdays:{odd:{weeks:[]}}};
