@@ -284,2544 +284,1274 @@
     }
   ],
   "weekdays": {
-    "odd": {
-      "label": "單數年平日",
-      "weeks": [
-        {
-          "id": "week-1",
-          "number": 1,
-          "name": "第1週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-2",
-          "number": 2,
-          "name": "第2週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-3",
-          "number": 3,
-          "name": "第3週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-4",
-          "number": 4,
-          "name": "第4週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-5",
-          "number": 5,
-          "name": "第5週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-6",
-          "number": 6,
-          "name": "第6週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-7",
-          "number": 7,
-          "name": "第7週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-8",
-          "number": 8,
-          "name": "第8週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-9",
-          "number": 9,
-          "name": "第9週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-10",
-          "number": 10,
-          "name": "第10週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-11",
-          "number": 11,
-          "name": "第11週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-12",
-          "number": 12,
-          "name": "第12週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-13",
-          "number": 13,
-          "name": "第13週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-14",
-          "number": 14,
-          "name": "第14週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-15",
-          "number": 15,
-          "name": "第15週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-16",
-          "number": 16,
-          "name": "第16週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-17",
-          "number": 17,
-          "name": "第17週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-18",
-          "number": 18,
-          "name": "第18週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-19",
-          "number": 19,
-          "name": "第19週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-20",
-          "number": 20,
-          "name": "第20週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-21",
-          "number": 21,
-          "name": "第21週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-22",
-          "number": 22,
-          "name": "第22週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-23",
-          "number": 23,
-          "name": "第23週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-24",
-          "number": 24,
-          "name": "第24週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-25",
-          "number": 25,
-          "name": "第25週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-26",
-          "number": 26,
-          "name": "第26週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-27",
-          "number": 27,
-          "name": "第27週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-28",
-          "number": 28,
-          "name": "第28週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-29",
-          "number": 29,
-          "name": "第29週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-30",
-          "number": 30,
-          "name": "第30週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": [
-                {
-                  "title": "常年期第30週星期三道理：竭力由窄門而入",
-                  "content": "在祈禱當中，禮儀本身就是祈禱，宣認信仰的適當場所就是在舉行敬天禮儀中，即彌撒聖事，這是不可取代的最高超的祈禱。任何祈禱都沒有在彌撒中所得到的恩寵與效果更大。\n\n所以對於基督徒的操守是不可替代的條件就如參與教會的禮儀要求信德一樣，如果信的不表現在行為上，就是死的，這樣的信德也不能結出永生的果實。\n\n今天福音中:\n\n有一個人問他說：「主！得救的人果然不多嗎？」耶穌對眾人說：你們竭力由窄門而入吧！\n\n窄門也代表聖者們的辛勞與苦難。因為有怎樣的工作就可以證實有怎樣的能力，所以怎樣的忍受勞苦和試探他就是怎樣的人。\n\n可是，主耶穌在其他地方所說的 \"我的軛是柔和的，我的擔子是輕省的 \"又是什麼意思呢？怎麼跟這裡講要很痛苦有點不一樣。其實這部矛盾。\n\n其實前面所說的是正在接受試探的情況而說，而後面是因戰勝試探的人而說的。在人來說，凡是麻煩、困難的事，但只要用心去做，一切困難也可變得簡單。\n\n所以，雖然救恩的路，起初是狹窄的，但通過它便可進入一個光明的彼岸，相反，寬闊的路會導致傷亡。\n\n這裡我們要想耶穌對那些人為什麼這樣說，不直接說明多或少。因為主的回答，不只是聽那些人要問甚麼，而更是考慮到對他的聽眾是否能得到益處。所以知道得救的人是多還是少，對他的聽眾有什麼益處呢?當然沒有甚麼益處。\n\n但如果回答使人知道人得救的途徑，那主自然便是這樣回答。因此，他故意不回答這個沒意思的問題，而是把他的話語轉向一個更重要的話題。\n\n願聖母使我們了解天主的心意，使我們的祈禱時時得到主的悅納。",
-                  "uploaded_at": "2026-11-11T19:44:59+08:00"
-                }
-              ]
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-31",
-          "number": 31,
-          "name": "第31週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-32",
-          "number": 32,
-          "name": "第32週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-33",
-          "number": 33,
-          "name": "第33週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-34",
-          "number": 34,
-          "name": "第34週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        }
-      ]
-    },
-    "even": {
-      "label": "雙數年平日",
-      "weeks": [
-        {
-          "id": "week-1",
-          "number": 1,
-          "name": "第1週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-2",
-          "number": 2,
-          "name": "第2週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-3",
-          "number": 3,
-          "name": "第3週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-4",
-          "number": 4,
-          "name": "第4週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-5",
-          "number": 5,
-          "name": "第5週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-6",
-          "number": 6,
-          "name": "第6週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-7",
-          "number": 7,
-          "name": "第7週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-8",
-          "number": 8,
-          "name": "第8週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-9",
-          "number": 9,
-          "name": "第9週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-10",
-          "number": 10,
-          "name": "第10週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-11",
-          "number": 11,
-          "name": "第11週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-12",
-          "number": 12,
-          "name": "第12週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-13",
-          "number": 13,
-          "name": "第13週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-14",
-          "number": 14,
-          "name": "第14週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-15",
-          "number": 15,
-          "name": "第15週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-16",
-          "number": 16,
-          "name": "第16週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-17",
-          "number": 17,
-          "name": "第17週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-18",
-          "number": 18,
-          "name": "第18週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-19",
-          "number": 19,
-          "name": "第19週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-20",
-          "number": 20,
-          "name": "第20週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-21",
-          "number": 21,
-          "name": "第21週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-22",
-          "number": 22,
-          "name": "第22週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-23",
-          "number": 23,
-          "name": "第23週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-24",
-          "number": 24,
-          "name": "第24週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-25",
-          "number": 25,
-          "name": "第25週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-26",
-          "number": 26,
-          "name": "第26週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-27",
-          "number": 27,
-          "name": "第27週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-28",
-          "number": 28,
-          "name": "第28週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-29",
-          "number": 29,
-          "name": "第29週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-30",
-          "number": 30,
-          "name": "第30週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": [
-                {
-                  "title": "常年期第30週星期三道理：竭力由窄門而入",
-                  "content": "在祈禱當中，禮儀本身就是祈禱，宣認信仰的適當場所就是在舉行敬天禮儀中，即彌撒聖事，這是不可取代的最高超的祈禱。任何祈禱都沒有在彌撒中所得到的恩寵與效果更大。\n\n所以對於基督徒的操守是不可替代的條件就如參與教會的禮儀要求信德一樣，如果信的不表現在行為上，就是死的，這樣的信德也不能結出永生的果實。\n\n今天福音中:\n\n有一個人問他說：「主！得救的人果然不多嗎？」耶穌對眾人說：你們竭力由窄門而入吧！\n\n窄門也代表聖者們的辛勞與苦難。因為有怎樣的工作就可以證實有怎樣的能力，所以怎樣的忍受勞苦和試探他就是怎樣的人。\n\n可是，主耶穌在其他地方所說的 \"我的軛是柔和的，我的擔子是輕省的 \"又是什麼意思呢？怎麼跟這裡講要很痛苦有點不一樣。其實這部矛盾。\n\n其實前面所說的是正在接受試探的情況而說，而後面是因戰勝試探的人而說的。在人來說，凡是麻煩、困難的事，但只要用心去做，一切困難也可變得簡單。\n\n所以，雖然救恩的路，起初是狹窄的，但通過它便可進入一個光明的彼岸，相反，寬闊的路會導致傷亡。\n\n這裡我們要想耶穌對那些人為什麼這樣說，不直接說明多或少。因為主的回答，不只是聽那些人要問甚麼，而更是考慮到對他的聽眾是否能得到益處。所以知道得救的人是多還是少，對他的聽眾有什麼益處呢?當然沒有甚麼益處。\n\n但如果回答使人知道人得救的途徑，那主自然便是這樣回答。因此，他故意不回答這個沒意思的問題，而是把他的話語轉向一個更重要的話題。\n\n願聖母使我們了解天主的心意，使我們的祈禱時時得到主的悅納。",
-                  "uploaded_at": "2026-11-11T19:44:59+08:00"
-                }
-              ]
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-31",
-          "number": 31,
-          "name": "第31週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-32",
-          "number": 32,
-          "name": "第32週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-33",
-          "number": 33,
-          "name": "第33週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        },
-        {
-          "id": "week-34",
-          "number": 34,
-          "name": "第34週資料夾",
-          "days": [
-            {
-              "id": "monday",
-              "label": "星期一",
-              "homilies": []
-            },
-            {
-              "id": "tuesday",
-              "label": "星期二",
-              "homilies": []
-            },
-            {
-              "id": "wednesday",
-              "label": "星期三",
-              "homilies": []
-            },
-            {
-              "id": "thursday",
-              "label": "星期四",
-              "homilies": []
-            },
-            {
-              "id": "friday",
-              "label": "星期五",
-              "homilies": []
-            },
-            {
-              "id": "saturday",
-              "label": "星期六",
-              "homilies": []
-            }
-          ]
-        }
-      ]
-    }
+    "label": "平日",
+    "weeks": [
+      {
+        "id": "week-1",
+        "number": 1,
+        "name": "第1週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-2",
+        "number": 2,
+        "name": "第2週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-3",
+        "number": 3,
+        "name": "第3週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-4",
+        "number": 4,
+        "name": "第4週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-5",
+        "number": 5,
+        "name": "第5週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-6",
+        "number": 6,
+        "name": "第6週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-7",
+        "number": 7,
+        "name": "第7週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-8",
+        "number": 8,
+        "name": "第8週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-9",
+        "number": 9,
+        "name": "第9週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-10",
+        "number": 10,
+        "name": "第10週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-11",
+        "number": 11,
+        "name": "第11週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-12",
+        "number": 12,
+        "name": "第12週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-13",
+        "number": 13,
+        "name": "第13週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-14",
+        "number": 14,
+        "name": "第14週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-15",
+        "number": 15,
+        "name": "第15週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-16",
+        "number": 16,
+        "name": "第16週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-17",
+        "number": 17,
+        "name": "第17週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-18",
+        "number": 18,
+        "name": "第18週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-19",
+        "number": 19,
+        "name": "第19週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-20",
+        "number": 20,
+        "name": "第20週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-21",
+        "number": 21,
+        "name": "第21週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-22",
+        "number": 22,
+        "name": "第22週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-23",
+        "number": 23,
+        "name": "第23週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-24",
+        "number": 24,
+        "name": "第24週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-25",
+        "number": 25,
+        "name": "第25週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-26",
+        "number": 26,
+        "name": "第26週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-27",
+        "number": 27,
+        "name": "第27週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-28",
+        "number": 28,
+        "name": "第28週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-29",
+        "number": 29,
+        "name": "第29週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-30",
+        "number": 30,
+        "name": "第30週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": [
+              {
+                "title": "單／雙-常年期第30週星期三道理：竭力由窄門而入",
+                "content": "在祈禱當中，禮儀本身就是祈禱，宣認信仰的適當場所就是在舉行敬天禮儀中，即彌撒聖事，這是不可取代的最高超的祈禱。任何祈禱都沒有在彌撒中所得到的恩寵與效果更大。\n\n所以對於基督徒的操守是不可替代的條件就如參與教會的禮儀要求信德一樣，如果信的不表現在行為上，就是死的，這樣的信德也不能結出永生的果實。\n\n今天福音中:\n\n有一個人問他說：「主！得救的人果然不多嗎？」耶穌對眾人說：你們竭力由窄門而入吧！\n\n窄門也代表聖者們的辛勞與苦難。因為有怎樣的工作就可以證實有怎樣的能力，所以怎樣的忍受勞苦和試探他就是怎樣的人。\n\n可是，主耶穌在其他地方所說的 \"我的軛是柔和的，我的擔子是輕省的 \"又是什麼意思呢？怎麼跟這裡講要很痛苦有點不一樣。其實這部矛盾。\n\n其實前面所說的是正在接受試探的情況而說，而後面是因戰勝試探的人而說的。在人來說，凡是麻煩、困難的事，但只要用心去做，一切困難也可變得簡單。\n\n所以，雖然救恩的路，起初是狹窄的，但通過它便可進入一個光明的彼岸，相反，寬闊的路會導致傷亡。\n\n這裡我們要想耶穌對那些人為什麼這樣說，不直接說明多或少。因為主的回答，不只是聽那些人要問甚麼，而更是考慮到對他的聽眾是否能得到益處。所以知道得救的人是多還是少，對他的聽眾有什麼益處呢?當然沒有甚麼益處。\n\n但如果回答使人知道人得救的途徑，那主自然便是這樣回答。因此，他故意不回答這個沒意思的問題，而是把他的話語轉向一個更重要的話題。\n\n願聖母使我們了解天主的心意，使我們的祈禱時時得到主的悅納。",
+                "uploaded_at": "2026-11-11T19:44:59+08:00",
+                "liturgical_parity": "both"
+              }
+            ]
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-31",
+        "number": 31,
+        "name": "第31週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-32",
+        "number": 32,
+        "name": "第32週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-33",
+        "number": 33,
+        "name": "第33週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      },
+      {
+        "id": "week-34",
+        "number": 34,
+        "name": "第34週資料夾",
+        "days": [
+          {
+            "id": "monday",
+            "label": "星期一",
+            "homilies": []
+          },
+          {
+            "id": "tuesday",
+            "label": "星期二",
+            "homilies": []
+          },
+          {
+            "id": "wednesday",
+            "label": "星期三",
+            "homilies": []
+          },
+          {
+            "id": "thursday",
+            "label": "星期四",
+            "homilies": []
+          },
+          {
+            "id": "friday",
+            "label": "星期五",
+            "homilies": []
+          },
+          {
+            "id": "saturday",
+            "label": "星期六",
+            "homilies": []
+          }
+        ]
+      }
+    ]
   },
   "other": [
     {

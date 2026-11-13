@@ -91,19 +91,12 @@
       類別
       <select id="sectionSelect">
         <option value="sundays">主日</option>
-        <option value="weekdays">平日</option>
+        <option value="weekdays">常年期平日</option>
         <option value="advent-weekdays">將臨期平日</option>
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
         <option value="marian">聖母其他節日（獨立分類）</option>
         <option value="theology">其他神學與生活道理（獨立分類）</option>
-      </select>
-    </label>
-    <label id="parityLabel" class="hidden">
-      平日週期
-      <select id="paritySelect">
-        <option value="odd">單數年</option>
-        <option value="even">雙數年</option>
       </select>
     </label>
     <label class="search">
@@ -115,13 +108,12 @@
   <main id="list"><div class="message">載入中…</div></main>
 
   <div id="backupTools"></div>
+  <script src="data-model.js"></script>
   <script src="backup.js"></script>
 
   <script>
     const cycleSelect = document.getElementById('cycleSelect');
     const sectionSelect = document.getElementById('sectionSelect');
-    const paritySelect = document.getElementById('paritySelect');
-    const parityLabel = document.getElementById('parityLabel');
     const searchInput = document.getElementById('searchInput');
     const currentCycle = document.getElementById('currentCycle');
     const listEl = document.getElementById('list');
@@ -227,13 +219,12 @@
       if (sectionSelect.value === 'advent-weekdays') return cycleData.advent_weekdays?.weeks || [];
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
-      return cycleData.weekdays[paritySelect.value].weeks;
+      return cycleData.weekdays.weeks;
     }
 
     function render() {
       document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
-      parityLabel.classList.toggle('hidden', sectionSelect.value !== 'weekdays');
       const query = searchInput.value.trim().toLowerCase();
       const items = selectedItems().filter(item => {
         const days = item.days || [];
@@ -309,15 +300,12 @@
       button.addEventListener('click', () => setReadingSize(button.dataset.size));
     });
     cycleSelect.value = detected.sunday;
-    paritySelect.value = detected.weekday;
     const sundayLabel = { a: '甲年', b: '乙年', c: '丙年' }[detected.sunday];
-    const weekdayLabel = detected.weekday === 'odd' ? '單數年' : '雙數年';
-    currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日 · ${weekdayLabel}平日`;
+    currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日`;
 
     window.addEventListener('homily-data-changed', loadData);
     cycleSelect.addEventListener('change', loadData);
     sectionSelect.addEventListener('change', loadData);
-    paritySelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
 
     loadData();

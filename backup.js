@@ -9,12 +9,10 @@
       return object(item) && Array.isArray(item.homilies) && item.homilies.every(h => object(h) && text(h.title) && text(h.content) && (h.uploaded_at === undefined || text(h.uploaded_at)) && (h.translations === undefined || (object(h.translations) && Object.values(h.translations).every(t => object(t) && text(t.title) && text(t.content)))));
     }
     function folder(item) { return notes(item) && text(item.id) && text(item.name) && text(item.display_name); }
+    if (object(data)) for (const c of cycles) if (object(data[c])) data[c] = window.HomilyDataModel.normalizeCycle(data[c]);
     if (!object(data) || !cycles.every(c => {
       const d = data[c];
-      return object(d) && d.cycle === c && text(d.label) && Array.isArray(d.sundays) && d.sundays.every(folder) && Array.isArray(d.other) && d.other.every(folder) && object(d.weekdays) && ['odd', 'even'].every(p => {
-        const parity = d.weekdays[p];
-        return object(parity) && text(parity.label) && Array.isArray(parity.weeks) && parity.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
-      });
+      return object(d) && d.cycle === c && text(d.label) && Array.isArray(d.sundays) && d.sundays.every(folder) && Array.isArray(d.other) && d.other.every(folder) && object(d.weekdays) && text(d.weekdays.label) && Array.isArray(d.weekdays.weeks) && d.weekdays.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
     })) throw new Error('備份內容不完整或格式不正確，必須包含甲、乙、丙年資料。');
     for (const c of cycles) {
       const season = data[c].advent_weekdays;
@@ -56,7 +54,7 @@
     if (saved) return saved[c];
     const r = await fetch(['apostles', 'marian', 'theology'].includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
     if (!r.ok) throw new Error('找不到禮儀年資料');
-    return r.json();
+    return window.HomilyDataModel.normalizeCycle(await r.json());
   }};
   const panel = document.createElement('section');
   panel.className = 'backup-panel';
@@ -91,7 +89,7 @@
   }
   document.getElementById('backupDownload').onclick = () => run(async () => {
     const data = await all();
-    download(JSON.stringify({format:'homily-notes-backup', version:1, exported_at:new Date().toISOString(), data}, null, 2), 'application/json;charset=utf-8', `講道完整備份-${new Date().toISOString().slice(0,10)}.json`);
+    download(JSON.stringify({format:'homily-notes-backup', version:2, exported_at:new Date().toISOString(), data}, null, 2), 'application/json;charset=utf-8', `講道完整備份-${new Date().toISOString().slice(0,10)}.json`);
     message.textContent = '已產生完整備份，請確認檔案已下載並妥善保存。';
   });
   const file = document.getElementById('backupFile');
@@ -100,7 +98,7 @@
     const selected = file.files[0]; if (!selected) return;
     if (selected.size > 20 * 1024 * 1024) throw new Error('檔案超過 20 MB');
     const backup = JSON.parse(await selected.text());
-    if (backup.format !== 'homily-notes-backup' || backup.version !== 1) throw new Error('不支援的備份格式或版本');
+    if (backup.format !== 'homily-notes-backup' || ![1,2].includes(backup.version)) throw new Error('不支援的備份格式或版本');
     const data = validate(backup.data);
     if (!confirm('確定以這份備份取代此裝置的全部講道資料？建議先下載目前的完整備份。線上網站不受影響。')) return;
     localStorage.setItem(KEY, JSON.stringify(data));
@@ -119,7 +117,7 @@
     }
     for (const c of cycles) {
       const d = data[c]; body += `<h2>${escape(d.label)} · 主日</h2>` + d.sundays.map(x => entry(x, x.display_name)).join('');
-      for (const p of ['odd','even']) body += `<h2>${escape(d.label)} · ${escape(d.weekdays[p].label)}</h2>` + d.weekdays[p].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
+      body += `<h2>${escape(d.label)} · ${escape(d.weekdays.label)}</h2>` + d.weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       if (d.advent_weekdays) body += `<h2>${escape(d.label)} · ${escape(d.advent_weekdays.label)}</h2>` + d.advent_weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }

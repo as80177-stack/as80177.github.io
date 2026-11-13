@@ -40,6 +40,8 @@ collections:
                 required: false
                 fields:
                   - { label: 版本名稱, name: title, widget: string, hint: "例如：諸聖節道理 1、兒童版、青年版。" }
+                  - { label: 道理適用年別, name: liturgical_parity, widget: select, required: false, options: [{ label: 單數年, value: odd }, { label: 雙數年, value: even }, { label: 單雙數皆適用, value: both }], hint: "請依原稿年份選擇；不要用上傳年份推定。標題會顯示單-、雙-或單／雙-。" }
+                  - { label: 原稿年份, name: composition_year, widget: number, value_type: int, required: false, hint: "例如2023為單數，2022為雙數。不確定可留空。" }
                   - { label: 上傳時間, name: uploaded_at, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ", hint: "新增版本時請保留目前的日期與時間。" }
                   - { label: 道理正文, name: content, widget: text, hint: "支援長篇內容，可輸入至少 1200 個中文字；可直接分段換行。" }
                   - label: 翻譯（選填）
@@ -59,37 +61,27 @@ collections:
             widget: object
             collapsed: true
             fields:
-              - label: 單數年平日
-                name: odd
-                widget: object
+              - { label: 名稱, name: label, widget: hidden }
+              - label: 第1週至第34週
+                name: weeks
+                widget: list
+                label_singular: 一週
+                summary: "{{fields.name}}"
                 collapsed: true
-                fields: &parity_fields
-                  - { label: 名稱, name: label, widget: hidden }
-                  - label: 第1週至第34週
-                    name: weeks
+                fields: &week_folder_fields
+                  - { label: 識別碼, name: id, widget: hidden }
+                  - { label: 週次, name: number, widget: number, value_type: int }
+                  - { label: 資料夾名稱, name: name, widget: string }
+                  - label: 星期一至星期六
+                    name: days
                     widget: list
-                    label_singular: 一週
-                    summary: "{{fields.name}}"
+                    label_singular: 一天
+                    summary: "{{fields.label}}"
                     collapsed: true
-                    fields: &week_folder_fields
-                      - { label: 識別碼, name: id, widget: hidden }
-                      - { label: 週次, name: number, widget: number, value_type: int }
-                      - { label: 資料夾名稱, name: name, widget: string }
-                      - label: 星期一至星期六
-                        name: days
-                        widget: list
-                        label_singular: 一天
-                        summary: "{{fields.label}}"
-                        collapsed: true
-                        fields:
-                          - { label: 日期代碼, name: id, widget: hidden }
-                          - { label: 星期, name: label, widget: string }
-                          - *homily_list
-              - label: 雙數年平日
-                name: even
-                widget: object
-                collapsed: true
-                fields: *parity_fields
+                    fields:
+                      - { label: 日期代碼, name: id, widget: hidden }
+                      - { label: 星期, name: label, widget: string }
+                      - *homily_list
           - label: 將臨期平日
             name: advent_weekdays
             widget: object
