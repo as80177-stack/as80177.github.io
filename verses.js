@@ -26,11 +26,19 @@
       lastReference = verse.reference;
     }
     button.addEventListener('click', show);
-    show();
+    // Keep the visible verse stable if a slow fetch completes after entry.
+    // The loaded collection is available as soon as the reader taps Next.
+    const page = document.getElementById('versePage');
+    if (!page || page.hidden) show();
     button.disabled = false;
   } catch (_) {
     text.textContent = '你們醒寤祈禱罷！免陷於誘惑。';
     reference.textContent = '瑪竇福音 26:41 · 思高聖經（經文節錄）';
-    document.getElementById('verseHelp').textContent = '其餘金句暫時無法載入，請連線後按「檢查更新」。';
+    const errorMessage = '其餘金句暫時無法載入，請連線後按「檢查更新」。';
+    if (document.getElementById('versePage')?.hidden !== false) {
+      document.getElementById('verseHelp').textContent = errorMessage;
+    } else {
+      button.title = errorMessage;
+    }
   }
 })();

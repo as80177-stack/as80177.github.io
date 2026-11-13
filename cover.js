@@ -22,10 +22,12 @@
   let entryToken = 0;
   let animations = [];
   function finishEntry() {
+    // Keep the compositor transparent before cancelling transforms, so the
+    // closed doors cannot flash back during animation cleanup.
+    door.style.opacity = '0';
+    door.hidden = true;
     animations.forEach(animation => animation.cancel());
     animations = [];
-    door.hidden = true;
-    door.style.opacity = '';
     document.body.classList.remove('is-entering');
     Object.values(pages).forEach(page => { page.inert = false; });
     enter.disabled = false;
@@ -54,6 +56,7 @@
     enter.setAttribute('aria-busy', 'true');
     Object.values(pages).forEach(page => { page.inert = true; });
     document.body.classList.add('is-entering');
+    door.style.opacity = '0';
     door.hidden = false;
     try {
       await animate(door, [{opacity: 0}, {opacity: 1}], {duration: 160, easing: 'ease-out'});
@@ -70,6 +73,8 @@
         animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 4100, easing}),
         animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 3850, delay: 200, easing: 'ease-in-out'})
       ]);
+      if (token !== entryToken) return;
+      await animate(door, [{opacity: 1}, {opacity: 0}], {duration: 180, easing: 'ease-out'});
       if (token !== entryToken) return;
       finishEntry();
       document.getElementById('versePageHeading').focus({preventScroll: true});
@@ -106,6 +111,13 @@
       event.preventDefault();
       showPage('home', true);
     }
+  });
+  // Block gestures on the overlay without hiding the document scrollbar or
+  // changing the underlying page width at the end of the transition.
+  door.addEventListener('wheel', event => event.preventDefault(), {passive: false});
+  document.addEventListener('keydown', event => {
+    if (entering && !event.altKey && !event.metaKey && !event.ctrlKey &&
+        ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key)) event.preventDefault();
   });
   window.addEventListener('popstate', () => {
     entryToken++;
