@@ -94,6 +94,9 @@
     const soundEnd = start + Math.max(...chords.map(chord => chord.offset + chord.duration)) + reverbSeconds;
     setTimeout(() => { if (active.state !== 'closed') active.close().catch(() => {}); }, Math.ceil((soundEnd - audio.currentTime + 0.25) * 1000));
   }
+  window.addEventListener('christmas-organ-start', () => {
+    if (audio && audio.state !== 'closed') audio.close().catch(() => {});
+  });
   enter.addEventListener('click', () => {
     if (document.getElementById('welcomeSound').checked) {
       playOrgan().catch(() => {

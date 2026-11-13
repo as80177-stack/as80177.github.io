@@ -65,6 +65,12 @@
     .scripture-card h2 { font-size: 1.25rem; margin-top: 0; }
     #verseText { margin: 1rem 0; font-size: 1.2rem; line-height: 1.9; }
     #verseReference { color: #665434; font-size: .9rem; }
+    .christmas-card { background: linear-gradient(135deg,#f7efe0,#fffaf0); border: 1px solid #dac59a; }
+    .christmas-card h2 { font-family: Georgia,"Noto Serif TC",serif; color: #604723; margin: .3rem 0; }
+    .christmas-kicker { color: #806943; font-size: .8rem; letter-spacing: .16em; margin: 0; }
+    .organ-volume { display: flex; align-items: center; gap: .8rem; margin-top: 1rem; color: #665434; }
+    .organ-volume input { accent-color: #72551f; width: min(220px,65%); min-height: 44px; }
+    #christmasOrganStatus:empty { display: none; }
     .install-help { color: #666; font-size: 0.9rem; }
   </style>
 </head>
@@ -105,6 +111,19 @@
 
   <h1 id="homeHeading" tabindex="-1">天主教講道筆記</h1>
   <p class="subtitle">Catholic Homily Recorder · 甲乙丙年講道與彌撒流程</p>
+
+  <section class="card christmas-card" aria-labelledby="christmasHeading">
+    <p class="christmas-kicker">CHRISTMAS · 聖誕平安</p>
+    <h2 id="christmasHeading">O Holy Night · 聖善夜</h2>
+    <p>讓莊嚴溫柔的管風琴，陪你安靜片刻。</p>
+    <button id="christmasOrgan" class="button" type="button" aria-pressed="false">♫ 播放聖誕管風琴</button>
+    <label class="organ-volume" for="christmasOrganVolume">音量
+      <input id="christmasOrganVolume" type="range" min="0" max="1" step="0.05" value="0.65">
+    </label>
+    <p class="install-help">古典教堂風格 · 旋律與管風琴和弦節選 · 可離線播放</p>
+    <p id="christmasOrganStatus" role="status" aria-live="polite"></p>
+  </section>
+  <script src="christmas-organ.js"></script>
 
   <section class="card scripture-card" aria-labelledby="verseHeading">
     <h2 id="verseHeading">聖經金句 · 在主內得安慰</h2>
