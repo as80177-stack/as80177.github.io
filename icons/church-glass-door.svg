@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#24729c"/><stop offset=".5" stop-color="#69bbd0"/><stop offset="1" stop-color="#254d8a"/></linearGradient>
+    <linearGradient id="green" x2="1" y2="1"><stop stop-color="#267a72"/><stop offset=".5" stop-color="#7ab999"/><stop offset="1" stop-color="#275e69"/></linearGradient>
+    <linearGradient id="ruby" x2="1" y2="1"><stop stop-color="#9e4b67"/><stop offset=".5" stop-color="#dc9a93"/><stop offset="1" stop-color="#8b486a"/></linearGradient>
+    <linearGradient id="gold" x2=".6" y2="1"><stop stop-color="#f5dfa0"/><stop offset=".55" stop-color="#dcb56b"/><stop offset="1" stop-color="#a77942"/></linearGradient>
+    <linearGradient id="ivory" x2=".8" y2="1"><stop stop-color="#fff9df"/><stop offset=".55" stop-color="#e7e9cc"/><stop offset="1" stop-color="#adc9c4"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#fff9d4" stop-opacity=".26"/><stop offset="1" stop-color="#fff9d4" stop-opacity="0"/></radialGradient>
+    <pattern id="mosaic" width="80" height="100" patternUnits="userSpaceOnUse">
+      <path d="M0 0H80V100H0Z" fill="url(#blue)" stroke="#35474c" stroke-width="3"/>
+      <path d="M40 0 80 50 40 100 0 50Z" fill="url(#green)" stroke="#35474c" stroke-width="3"/>
+      <path d="M40 24 62 50 40 76 18 50Z" fill="url(#gold)" stroke="#35474c" stroke-width="2.5"/>
+    </pattern>
+  </defs>
+  <path fill="#35454a" d="M0 0h240v900H0z"/>
+  <path fill="url(#mosaic)" stroke="#b29562" stroke-width="5" d="M10 10h220v880H10z"/>
+  <path d="M24 872V145Q24 44 120 24q96 20 96 121v727Z" fill="url(#blue)" stroke="#37484b" stroke-width="7"/>
+  <path d="M28 147Q28 54 120 33q92 21 92 114" fill="none" stroke="#e0be77" stroke-width="4"/>
+  <!-- Praying angel in the upper stained-glass lancet. -->
+  <svg x="24" y="62" width="192" height="257" viewBox="0 0 192 257" preserveAspectRatio="xMidYMid meet">
+    <g stroke="#48565a" stroke-width="2.6" stroke-linejoin="round">
+      <path d="M81 115Q39 49 7 50q-3 70 52 127l29 8Z" fill="url(#ivory)"/>
+      <path d="M111 115q42-66 74-65 3 70-52 127l-29 8Z" fill="url(#ivory)"/>
+      <g fill="none" stroke="#91adaf" stroke-width="2">
+        <path d="M12 61q16 60 57 94M15 84q19 54 52 83M24 113q16 34 40 55M180 61q-16 60-57 94M177 84q-19 54-52 83M168 113q-16 34-40 55"/>
+      </g>
+      <ellipse cx="96" cy="60" rx="31" ry="34" fill="url(#gold)" stroke="#f2dda1"/>
+      <path d="M79 97q17-12 34 0l20 98-37 38-37-38Z" fill="url(#ivory)"/>
+      <path d="m79 98 17 41 17-41M96 140v91M67 174l29 29 29-29" fill="none" stroke="#adbcaa"/>
+      <path d="M78 67q-3-25 18-25t18 25v13q-3 20-18 20T78 80Z" fill="#f1d5b3"/>
+      <path d="M78 68q-4-28 18-28t18 28q-14-4-24-17-3 14-12 17Z" fill="#b39261"/>
+      <path d="m84 78 5 1m14 0 5-1m-16 11q4 3 8 0" fill="none" stroke="#8a725c" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="m77 116 17 24 2-21 2 21 17-24 7 9-26 32-26-32Z" fill="#f1d5b3"/>
+      <path d="M45 230q51-25 102 0l-12 12H57Z" fill="url(#gold)"/>
+    </g>
+  </svg>
+  <!-- Central cross and jewel-like glass pieces. -->
+  <g stroke="#35474c" stroke-width="4" stroke-linejoin="round">
+    <path d="m120 318 85 93-85 111-85-111Z" fill="url(#ruby)"/>
+    <path d="m120 334 65 78-65 91-65-91Z" fill="url(#blue)"/>
+    <path d="M110 352h20v45h34v19h-34v65h-20v-65H76v-19h34Z" fill="url(#gold)"/>
+    <path d="M27 319h66l-58 67H27ZM147 319h66v67h-8ZM27 436h8l62 86H27ZM205 436h8v86h-70Z" fill="url(#green)"/>
+    <path d="M26 533h188v13H26Z" fill="url(#gold)"/>
+    <path d="M26 550h188v322H26Z" fill="url(#green)"/>
+    <path d="m120 560 83 140-83 152-83-152Z" fill="url(#blue)"/>
+    <path d="m120 595 58 105-58 112-58-112Z" fill="url(#ruby)"/>
+    <path d="m120 629 16 49 43 22-43 21-16 54-16-54-43-21 43-22Z" fill="url(#gold)"/>
+    <circle cx="120" cy="700" r="17" fill="url(#ivory)"/>
+    <path d="M27 550 65 602 27 667ZM213 550l-38 52 38 65ZM27 744l38 59-38 69ZM213 744l-38 59 38 69Z" fill="url(#gold)"/>
+  </g>
+  <g opacity=".15" fill="#fff9e0"><path d="M36 150 91 77 47 348Z"/><path d="m146 352 38 57-30 39Z"/><path d="m69 641 35-49-16 129Z"/></g>
+  <ellipse cx="120" cy="380" rx="140" ry="400" fill="url(#light)"/>
+</svg>
