@@ -43,8 +43,19 @@
       // short felt-beater transient that remains audible on phone speakers.
       const impactAt = context.currentTime + .025;
       const drum = context.createGain();
-      drum.gain.value = standalone ? 1 : 2.4;
+      drum.gain.value = standalone ? 2.2 : 5.5;
       drum.connect(gain);
+      // Finite, damped room reflections: a clear echo without a feedback loop.
+      for (const [seconds, strength, pan] of [[.16,.42,-.28],[.31,.24,.28],[.49,.14,-.18],[.72,.07,.18]]) {
+        const delay = context.createDelay(1);
+        delay.delayTime.value = seconds;
+        const damping = context.createBiquadFilter();
+        damping.type = 'lowpass'; damping.frequency.value = 1400;
+        const reflection = context.createGain(); reflection.gain.value = strength;
+        const space = context.createStereoPanner(); space.pan.value = pan;
+        drum.connect(delay); delay.connect(damping); damping.connect(reflection);
+        reflection.connect(space); space.connect(gain);
+      }
       for (const [from, to, peak, decay] of [[82,48,1.35,.85],[134,96,.52,.52],[202,156,.2,.28]]) {
         const impact = context.createOscillator();
         const pulse = context.createGain();
