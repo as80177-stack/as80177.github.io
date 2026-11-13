@@ -39,7 +39,23 @@
       lightSound = sound;
       await context.resume();
       if (lightSound !== sound) return;
-      const start = context.currentTime + .18;
+      // A rounded game-door impact: low resonance with a little wooden body,
+      // without a sharp transient or hardware vibration.
+      const impactAt = context.currentTime + .025;
+      for (const [from, to, peak] of [[130.81,65.41,1.05],[261.63,130.81,.24]]) {
+        const impact = context.createOscillator();
+        const pulse = context.createGain();
+        impact.frequency.setValueAtTime(from, impactAt);
+        impact.frequency.exponentialRampToValueAtTime(to, impactAt + .18);
+        pulse.gain.setValueAtTime(0, impactAt);
+        pulse.gain.linearRampToValueAtTime(peak, impactAt + .012);
+        pulse.gain.exponentialRampToValueAtTime(.0001, impactAt + .43);
+        pulse.gain.linearRampToValueAtTime(0, impactAt + .48);
+        impact.connect(pulse); pulse.connect(gain);
+        impact.start(impactAt); impact.stop(impactAt + .49);
+      }
+      // The music blooms after the initial impact as the doors start opening.
+      const start = context.currentTime + .32;
       // The standalone Cmaj9 pad gently brightens as the doors open.
       const color = context.createBiquadFilter();
       color.type = 'lowpass';
@@ -72,7 +88,7 @@
       sound.timer = setTimeout(() => {
         if (lightSound === sound) lightSound = null;
         context.close().catch(() => {});
-      }, standalone ? 2500 : 1700);
+      }, standalone ? 2700 : 1900);
     } catch (_) {
       if (lightSound === sound) lightSound = null;
       if (context && context.state !== 'closed') context.close().catch(() => {});
