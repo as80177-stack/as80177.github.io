@@ -501,7 +501,22 @@
           {
             "id": "friday",
             "label": "星期五",
-            "homilies": []
+            "homilies": [
+              {
+                "title": "單-常年期第4週星期五道理：復活的盼望與面見天主",
+                "content": "今天的福音說：有人說：「洗者若翰從死者中復活了，因此才有這些奇能在他身上運行。」\n\n我們信仰的基礎是復活，但我們對復活究竟認識多少呢？\n\n有些人可能以為，復活就是享有極大的肉身快樂，或過著無憂無慮的生活。然而，最大的幸福並不在這些事上。正如聖經告訴我們：天主的國不在於吃喝；到了復活的時候，男女也不娶不嫁。\n\n最大的幸福是面對面看見天主。有人可能會問，為什麼面對面看見天主就是最大的幸福呢？我們都有不明白事情的經驗，也都希望知道更多，好能做得更多，或解決更多問題。面對面看見天主，就是使我們無限的求知渴望得到滿足。藉著瞻仰無限的天主，我們彷彿能對萬事有無限更深的認識，也彷彿能把更多事情做得正確。\n\n聖巴拉斯在被祝聖為主教之前，是一位具有奇妙醫治能力的醫師。許多奇蹟被歸於他的代禱，其中包括他在避難期間治癒患病野獸的事蹟，因此他也成為野生動物的主保。到了第六世紀，東方已尊他為喉疾患者的主保；在西方，這項敬禮則見於第九世紀。\n\n自第十六世紀開始，聖巴拉斯的祝福禮至今仍在許多地方於他的慶日舉行。兩支蠟燭經祝福後，在會眾面前交叉放置；或以在油中祝聖的燈芯，觸碰信友的喉嚨。\n\n願聖母堅固我們對復活的信德！",
+                "original_language": "en",
+                "composition_year": 2023,
+                "liturgical_parity": "odd",
+                "uploaded_at": "2026-11-13T17:31:18+08:00",
+                "translations": {
+                  "en": {
+                    "title": "Odd-Friday of the Fourth Week in Ordinary Time: The Hope of Resurrection and Seeing God Face to Face",
+                    "content": "In today’s Gospel:Some were saying, ‘John the Baptist has risen from the dead, and that is why miraculous powers are at work in him.\n\nThe foundation of our faith is the resurrection, but how much do we know about it?\n\nSome may think that it is about the great sense of physical pleasure. Or a life free from worry. But the greatest happiness is not in these things, as the Bible tells us: because the kingdom of God does not mean eating or drinking, for at the resurrection men and women do not marry.\n\nThe greatest happiness is to see God face to face. Some may wonder why seeing God face to face is the greatest happiness. We all have the experience of ignorance, of wanting to know more, so we can do more or solve more. To see God face to face is to satisfy our infinite desire to know. By seeing the infinite God, we can become as if we know infinitely more about everything, and we can also become as if we can do infinitely more right.\n\nbefore Blaise was made bishop, he was a physician possessed of wonderful healing power. Numerous miracles were attributedəˈtrɪbjuːtɪd  to him, including ɪnˈkluːdɪŋ the cure of diseased beasts during his refuge, thus accounting for his also being the patron saint of wild animals. He was venerated as the patron of sufferers from throat diseases in the East by the 6th century and in the West by the 9th century.\n\nBegun in the 16th century, the blessing of St. Blaise is a ceremonyˈserəməni still practiced and celebrated on his feast day in many places. Two candles are consecrated and crossed before the congregation; or a wick, consecrated in oil, is touched to the throats of the faithful.\n\nMay Our Lady strengthen our faith in the Resurrection!"
+                  }
+                }
+              }
+            ]
           },
           {
             "id": "saturday",
