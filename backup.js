@@ -68,6 +68,14 @@
     <p id="backupSource"></p><button type="button" id="backupReset" hidden>改回網站資料</button>
     <p id="backupMessage" role="status" aria-live="polite"></p>`;
   document.getElementById('backupTools').append(panel);
+  if (document.getElementById('backupTools').dataset.compact === 'true') {
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = '備份與還原說明';
+    details.append(summary);
+    panel.querySelectorAll(':scope > p:not([id])').forEach(p => details.append(p));
+    panel.append(details);
+  }
   const style = document.createElement('style');
   style.textContent = '.backup-panel{padding:1rem;margin:1rem 0;border:1px solid #ded7cc;border-radius:12px;background:#fff;color:#24211d;font-size:1rem}.backup-panel h2{font-size:1.25rem}.backup-actions{display:flex;flex-wrap:wrap;gap:.6rem}.backup-panel button{padding:.65rem .8rem;border:1px solid #72551f;border-radius:8px;background:#fff8e8;color:#403a32;cursor:pointer;font:inherit}.backup-panel p{line-height:1.7}';
   document.head.append(style);

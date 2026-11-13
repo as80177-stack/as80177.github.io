@@ -153,7 +153,7 @@
     active.master.gain.cancelScheduledValues(active.context.currentTime);
     active.master.gain.setTargetAtTime(Number(volume.value), active.context.currentTime, .04);
   });
-  document.getElementById('showCover').addEventListener('click', stop);
+  window.addEventListener('home-page-change', event => { if (event.detail.page === 'cover') stop(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
   window.addEventListener('pagehide', stop);
 })();
