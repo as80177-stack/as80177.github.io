@@ -60,9 +60,9 @@
       showPage('verse', true);
       const easing = 'cubic-bezier(.25,.65,.25,1)';
       await Promise.all([
-        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 1100, easing}),
-        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 1100, easing}),
-        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 950, delay: 100, easing: 'ease-in-out'})
+        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 1450, easing}),
+        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 1450, easing}),
+        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 1250, delay: 150, easing: 'ease-in-out'})
       ]);
       if (token !== entryToken) return;
       finishEntry();
