@@ -10,6 +10,62 @@
   if (!button) return;
   let active = null;
   let generation = 0;
+  let lightSound = null;
+  function stopLightSound() {
+    if (!lightSound) return;
+    const previous = lightSound;
+    lightSound = null;
+    clearTimeout(previous.timer);
+    if (previous.context.state === 'closed') return;
+    previous.gain.gain.setTargetAtTime(0, previous.context.currentTime, .035);
+    setTimeout(() => previous.context.close().catch(() => {}), 160);
+  }
+  async function playLightSound() {
+    // A separate, very quiet layer leaves the music's transport and gain intact.
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    stopLightSound();
+    let context;
+    let sound;
+    try {
+      context = new Audio();
+      const gain = context.createGain();
+      gain.gain.value = Number(volume.value) * .035;
+      gain.connect(context.destination);
+      sound = {context, gain};
+      lightSound = sound;
+      await context.resume();
+      if (lightSound !== sound) return;
+      const start = context.currentTime + .18;
+      // Open C6/9 colors (no major/minor third) blend with both Christmas songs.
+      [72,79,81,86].forEach((note, index) => {
+        const at = start + index * .055;
+        const envelope = context.createGain();
+        envelope.gain.setValueAtTime(0, at);
+        envelope.gain.linearRampToValueAtTime(.5 - index * .06, at + .16);
+        envelope.gain.exponentialRampToValueAtTime(.0001, at + 1.05);
+        envelope.gain.linearRampToValueAtTime(0, at + 1.12);
+        envelope.connect(gain);
+        const oscillator = context.createOscillator();
+        oscillator.frequency.value = 440 * 2 ** ((note - 69) / 12);
+        oscillator.connect(envelope);
+        oscillator.start(at);
+        oscillator.stop(at + 1.13);
+      });
+      sound.timer = setTimeout(() => {
+        if (lightSound === sound) lightSound = null;
+        context.close().catch(() => {});
+      }, 1700);
+    } catch (_) {
+      if (lightSound === sound) lightSound = null;
+      if (context && context.state !== 'closed') context.close().catch(() => {});
+    }
+  }
+  window.addEventListener('entrance-light-sound', playLightSound);
+  window.addEventListener('home-page-change', event => { if (event.detail.page === 'cover') stopLightSound(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopLightSound(); });
+  window.addEventListener('pagehide', stopLightSound);
+
 
   function reset(message = '') {
     button.textContent = '♫ 試聽聖誕管風琴';
@@ -149,6 +205,7 @@
   window.addEventListener('welcome-music-play', play);
   song.addEventListener('change', stop);
   volume.addEventListener('input', () => {
+    if (lightSound) lightSound.gain.gain.setTargetAtTime(Number(volume.value) * .035, lightSound.context.currentTime, .04);
     if (!active) return;
     active.master.gain.cancelScheduledValues(active.context.currentTime);
     active.master.gain.setTargetAtTime(Number(volume.value), active.context.currentTime, .04);

@@ -39,7 +39,10 @@
   }
   enter.addEventListener('click', async () => {
     if (entering) return;
-    if (document.getElementById('welcomeSound').checked) window.dispatchEvent(new Event('welcome-music-play'));
+    if (document.getElementById('welcomeSound').checked) {
+      window.dispatchEvent(new Event('welcome-music-play'));
+      window.dispatchEvent(new Event('entrance-light-sound'));
+    }
     // Honor reduced-motion preferences and older browsers without Web Animations.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !door.animate) {
       showPage('verse', true);
@@ -58,11 +61,11 @@
       // The doors conceal the layout change. The second page is already in
       // place before they open, avoiding a white frame between the two pages.
       showPage('verse', true);
-      const easing = 'cubic-bezier(.25,.65,.25,1)';
+      const easing = 'cubic-bezier(.42,0,.22,1)';
       await Promise.all([
-        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 1450, easing}),
-        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 1450, easing}),
-        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 1250, delay: 150, easing: 'ease-in-out'})
+        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 2100, easing}),
+        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 2100, easing}),
+        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 1850, delay: 200, easing: 'ease-in-out'})
       ]);
       if (token !== entryToken) return;
       finishEntry();
