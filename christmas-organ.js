@@ -55,7 +55,7 @@
         impact.start(impactAt); impact.stop(impactAt + .49);
       }
       // The music blooms after the initial impact as the doors start opening.
-      const start = context.currentTime + .32;
+      const start = context.currentTime + .46;
       // The standalone Cmaj9 pad gently brightens as the doors open.
       const color = context.createBiquadFilter();
       color.type = 'lowpass';
@@ -88,7 +88,7 @@
       sound.timer = setTimeout(() => {
         if (lightSound === sound) lightSound = null;
         context.close().catch(() => {});
-      }, standalone ? 2700 : 1900);
+      }, standalone ? 2900 : 2100);
     } catch (_) {
       if (lightSound === sound) lightSound = null;
       if (context && context.state !== 'closed') context.close().catch(() => {});

@@ -58,6 +58,9 @@
     try {
       await animate(door, [{opacity: 0}, {opacity: 1}], {duration: 160, easing: 'ease-out'});
       if (token !== entryToken) return;
+      // Let the opening drum strike land before either door begins to move.
+      await animate(door, [{opacity: 1}, {opacity: 1}], {duration: 240});
+      if (token !== entryToken) return;
       // The doors conceal the layout change. The second page is already in
       // place before they open, avoiding a white frame between the two pages.
       showPage('verse', true);
