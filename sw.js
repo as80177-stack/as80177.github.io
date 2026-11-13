@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homily-notes-v74';
+const CACHE_NAME = 'homily-notes-v75';
 const APP_SHELL = [
   './',
   './index.html',
