@@ -1,13 +1,18 @@
 (() => {
   const button = document.getElementById('christmasOrgan');
   const status = document.getElementById('christmasOrganStatus');
+  const song = document.getElementById('christmasSong');
+  const songs = {
+    'holy-night': { title: 'O Holy Night', melody: [[64,1],[64,.5],[64,.5],[67,2],[67,1],[69,1.5],[69,.5],[65,1],[69,1],[72,1.5],[71,.5],[69,1],[67,5]], harmony: [[0,5,[36,48,52,55]],[5,4,[41,48,53,57]],[9,3,[36,48,52,55]],[12,5,[36,48,52,55]]] },
+    'silent-night': { title: 'Silent Night · 平安夜', melody: [[67,1.5],[69,.5],[67,1],[64,3],[67,1.5],[69,.5],[67,1],[64,3],[74,2],[74,1],[71,3],[72,2],[72,1],[67,3]], harmony: [[0,6,[36,48,52,55]],[6,6,[36,48,52,55]],[12,6,[43,50,55,59]],[18,6,[36,48,52,55]]] }
+  };
   const volume = document.getElementById('christmasOrganVolume');
   if (!button) return;
   let active = null;
   let generation = 0;
 
   function reset(message = '') {
-    button.textContent = '♫ 播放聖誕管風琴';
+    button.textContent = '♫ 試聽聖誕管風琴';
     button.setAttribute('aria-pressed', 'false');
     status.textContent = message;
   }
@@ -32,7 +37,7 @@
     compressor.attack.value = 0.012;
     compressor.release.value = 0.3;
     const filter = context.createBiquadFilter();
-    filter.type = 'lowpass'; filter.frequency.value = 6500;
+    filter.type = 'lowpass'; filter.frequency.value = 3800;
     const bus = context.createGain();
     bus.gain.value = 0.14;
     bus.connect(filter); filter.connect(compressor);
@@ -56,20 +61,20 @@
     filter.connect(reverb); reverb.connect(wet); wet.connect(compressor);
 
     const start = context.currentTime + .06;
-    const beat = 60 / 72;
+    const beat = 60 / 66;
     function pipe(midi, at, beats, strength, lead = false) {
       const envelope = context.createGain();
       const time = start + at * beat;
       const length = beats * beat;
       const release = Math.min(.3, length * .25);
       envelope.gain.setValueAtTime(0, time);
-      envelope.gain.linearRampToValueAtTime(strength, time + .07);
+      envelope.gain.linearRampToValueAtTime(strength, time + .13);
       envelope.gain.setValueAtTime(strength, time + length - release);
       envelope.gain.linearRampToValueAtTime(0, time + length);
       envelope.connect(bus);
       // Principal 8′ + octave 4′ + 2′ and restrained mixture ranks.
-      const ranks = lead ? [[1,.7],[2,.46],[3,.1],[4,.25],[6,.07],[8,.04]]
-                         : [[1,.65],[2,.25],[3,.07],[4,.12],[6,.025]];
+      const ranks = lead ? [[1,.9],[2,.26],[3,.055],[4,.065],[6,.012]]
+                         : [[1,.75],[2,.16],[3,.035],[4,.035]];
       for (const [harmonic, level] of ranks) {
         const oscillator = context.createOscillator();
         const rank = context.createGain();
@@ -79,21 +84,15 @@
         oscillator.start(time); oscillator.stop(time + length + .01);
       }
     }
-    // Adolphe Adam, 1847: opening of O Holy Night, in C major (6/8).
-    const melody = [[64,1.5],[64,.5],[64,1],[67,2],[67,1],
-      [69,1.5],[69,.5],[65,1],[69,1],[72,1],[71,1],
-      [69,1.5],[67,.5],[64,1],[67,1.5],[65,.5],[62,1],[60,3]];
+    const selection = songs[song.value] || songs['holy-night'];
+    const melody = selection.melody;
     let cursor = 0;
     for (const [note, length] of melody) {
-      pipe(note, cursor, length * .98, .7, true);
+      pipe(note, cursor, length * 1.015, .8, true);
       cursor += length;
     }
     // Sustained four-part harmony and a separate, gentle 16′ pedal bass.
-    const harmony = [
-      [0,6,[36,48,55,60]], [6,3,[41,48,53,57]],
-      [9,3,[36,48,52,55]], [12,3,[36,48,52,55]],
-      [15,3,[43,50,53,59]], [18,3,[36,48,52,55]]
-    ];
+    const harmony = selection.harmony;
     for (const [at, length, notes] of harmony) {
       notes.forEach((note, i) => pipe(note, at, length + .12, i ? .3 : .36));
     }
@@ -103,8 +102,8 @@
     ending.gain.linearRampToValueAtTime(0, end + 2.8);
     return (end + 3 - context.currentTime) * 1000;
   }
-  button.addEventListener('click', async () => {
-    if (active) { stop(); return; }
+  async function play() {
+    if (active) return;
     const Audio = window.AudioContext || window.webkitAudioContext;
     if (!Audio) { reset('此瀏覽器無法播放，請使用 Chrome 或三星瀏覽器。'); return; }
     window.dispatchEvent(new Event('christmas-organ-start'));
@@ -120,7 +119,7 @@
       await context.resume();
       if (token !== generation) return;
       const duration = schedule(context, master);
-      status.textContent = '正在播放《O Holy Night》· 古典教堂管風琴';
+      status.textContent = `正在播放《${songs[song.value].title}》· 溫柔教堂管風琴`;
       active.timer = setTimeout(() => {
         if (token !== generation) return;
         active = null;
@@ -133,7 +132,10 @@
       if (context && context.state !== 'closed') context.close().catch(() => {});
       reset('暫時無法播放，請再點一次播放。');
     }
-  });
+  }
+  button.addEventListener('click', () => { if (active) stop(); else play(); });
+  window.addEventListener('welcome-music-play', play);
+  song.addEventListener('change', stop);
   volume.addEventListener('input', () => {
     if (!active) return;
     active.master.gain.cancelScheduledValues(active.context.currentTime);
