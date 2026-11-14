@@ -112,11 +112,11 @@
           {opacity: .34, offset: .35}, {opacity: .08, offset: .65}, {opacity: 0, offset: 1}
         ], {duration: 4100, easing}),
         animate(door.querySelector('.door-sunlight'), [
-          {opacity: 0, transform: 'scale(.4)', offset: 0},
-          {opacity: .38, transform: 'scale(.75)', offset: .12},
-          {opacity: .6, transform: 'scale(1)', offset: .3},
-          {opacity: .3, transform: 'scale(1.3)', offset: .6},
-          {opacity: 0, transform: 'scale(1.5)', offset: 1}
+          {opacity: 0, transform: 'scale(.08)', offset: 0},
+          {opacity: .45, transform: 'scale(.36)', offset: .12},
+          {opacity: .8, transform: 'scale(1.05)', offset: .38},
+          {opacity: .34, transform: 'scale(1.4)', offset: .7},
+          {opacity: 0, transform: 'scale(1.65)', offset: 1}
         ], {duration: 4100, easing}),
         animate(pages.verse, [
           {opacity: 0, offset: 0}, {opacity: .3, offset: .12},
