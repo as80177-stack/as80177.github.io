@@ -17,14 +17,19 @@
 .door-transition{position:fixed;inset:0;z-index:1000;perspective:1400px;overflow:hidden;pointer-events:auto;isolation:isolate;touch-action:none;overscroll-behavior:contain}
 .door-transition[hidden]{display:none!important}
 .door-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center,#fff6dd,#f7eee2);opacity:1}
-.church-door{position:absolute;top:0;bottom:0;width:50.1%;box-sizing:border-box;background:#35464a;backface-visibility:hidden;will-change:transform;border:4px solid #35464a;box-shadow:inset 0 0 0 2px #c9ad75,0 0 10px #193c4355}
+.church-door{position:absolute;top:0;bottom:0;width:50.1%;box-sizing:border-box;background:#35464a;backface-visibility:hidden;will-change:transform;border:5px solid #55432f;box-shadow:inset 0 0 0 2px #c9ad75,0 0 10px #193c4355}
 .door-art{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .church-door:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 15%,#fff9e713 35%,transparent 52%,#fff9e70c 72%,transparent 87%)}
 .door-left{left:0;transform-origin:left center}
 .door-right{right:0;transform-origin:right center}
 .door-panel{display:none}
-.door-handle{position:absolute;top:54%;width:16px;height:29px;border:4px solid #c3a569;border-radius:45%;box-shadow:1px 3px 4px #172a3299,inset 0 0 2px #f8dfa277;background:#35464a77;z-index:1}
-.door-left .door-handle{right:5%}.door-right .door-handle{left:5%}
+.door-frame{--frame-width:clamp(14px,3.5vw,26px);position:absolute;inset:0;z-index:3;box-sizing:border-box;border:var(--frame-width) solid #72502e;border-image:linear-gradient(120deg,#372719,#b48c54 18%,#795633 44%,#d1ad70 74%,#422e1d) 1;box-shadow:inset 0 0 0 2px #e3c58c,inset 0 0 15px #21160999;pointer-events:none}
+.door-frame:before{content:'';position:absolute;inset:calc(5px - var(--frame-width));border:2px solid #d6b37a88;pointer-events:none}
+.door-frame:after{content:'';position:absolute;inset:-4px;border:2px solid #332316aa;box-shadow:0 0 0 1px #edcb8b77;pointer-events:none}
+.door-handle{position:absolute;top:53%;box-sizing:border-box;width:30px;height:106px;border:2px solid #9b773d;border-radius:15px;background:linear-gradient(100deg,#67502b,#d6b872 34%,#aa8546 65%,#5e4626);box-shadow:2px 4px 6px #11222e99,inset 0 0 0 2px #f1d49266;z-index:2}
+.door-handle:before{content:'';position:absolute;left:11px;top:7px;width:4px;height:4px;border-radius:50%;background:#5b452c;box-shadow:0 84px #5b452c,inset 0 1px 1px #f8e2a6}
+.door-handle:after{content:'';position:absolute;left:7px;top:23px;width:11px;height:56px;box-sizing:border-box;border:1px solid #e6c37d;border-radius:7px;background:linear-gradient(90deg,#7d592c,#fff0b2 35%,#d3ab62 65%,#694b29);box-shadow:3px 3px 3px #2c251b88,-1px 0 1px #fff2c6aa}
+.door-left .door-handle{right:7%}.door-right .door-handle{left:7%}
 .door-hinge{position:absolute;left:0;top:27%;width:14%;height:8px;border-radius:1px 7px 7px 1px;background:linear-gradient(#9a917b,#394546 45%,#535e58);box-shadow:0 2px 3px #172b3377}
 .door-hinge:after{content:'';position:absolute;left:18%;top:2px;width:3px;height:3px;border-radius:50%;background:#d0b47b;box-shadow:10px 0 #d0b47b}
 .door-hinge.lower{top:79%}

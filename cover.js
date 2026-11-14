@@ -105,7 +105,8 @@
       await Promise.all([
         animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 4100, easing}),
         animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 4100, easing}),
-        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 3850, delay: 200, easing: 'ease-in-out'})
+        animate(door.querySelector('.door-glow'), [{opacity: 1}, {opacity: 0}], {duration: 3850, delay: 200, easing: 'ease-in-out'}),
+        animate(door.querySelector('.door-frame'), [{opacity: 1, offset: 0}, {opacity: 1, offset: .7}, {opacity: 0, offset: 1}], {duration: 4100, easing: 'linear'})
       ]);
       if (token !== entryToken) return;
       await animate(door, [{opacity: 1}, {opacity: 0}], {duration: 180, easing: 'ease-out'});
