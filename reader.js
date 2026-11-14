@@ -4,7 +4,7 @@
   dialog.className = 'homily-reader';
   dialog.setAttribute('aria-labelledby', 'readerTitle');
   dialog.innerHTML = `<div class="reader-toolbar">
-    <button type="button" id="readerBack">← 返回道理</button>
+    <button type="button" id="readerBack">← 返回列表</button>
     <button type="button" id="readerCopy">複製全文</button>
     <label>轉場 <select id="readerTransition"><option value="fade">柔和淡入</option><option value="slide">輕柔滑入</option><option value="none">無轉場</option></select></label>
     <label id="readerLanguageLabel" hidden>語言 / Language <select id="readerLanguage"><option value="zh">中文原文</option><option value="en">English</option></select></label>
@@ -24,6 +24,8 @@
   let closing = false;
   let ownsHistory = false;
   let previousOverflow = '';
+  let returnY = 0;
+  let returnFocus = null;
   try {
     const saved = localStorage.getItem('homily-reader-transition');
     if (['fade','slide','none'].includes(saved)) transition.value = saved;
@@ -60,6 +62,8 @@
     if (dialog.open || closing) return;
     window.HomilyNarration.hide();
     resetReturnTap();
+    returnY = window.scrollY;
+    returnFocus = card.contains(document.activeElement) ? document.activeElement : card.querySelector('.homily-toggle');
     current = readCard(card); source = card;
     syncLanguage();
     previousOverflow = document.body.style.overflow;
@@ -86,9 +90,8 @@
     setTimeout(() => {
       dialog.close(); document.body.style.overflow = previousOverflow;
       if (source?.isConnected) {
-        source.classList.add('open');
-        const toggle = source.querySelector('.homily-toggle'); toggle.setAttribute('aria-expanded','true');
-        source.querySelector('.reader-open').focus({preventScroll:true});
+        (returnFocus?.isConnected ? returnFocus : source.querySelector('.homily-toggle')).focus({preventScroll:true});
+        window.scrollTo({top: returnY, left: 0, behavior: 'instant'});
       }
       closing = false;
     }, delay);
@@ -170,7 +173,7 @@
       const data = readCard(card);
       window.HomilyNarration.start(`${data.title}\n\n${data.text}`, card);
     }
-    const open = event.target.closest('.reader-open');
+    const open = event.target.closest('.reader-open,.homily-toggle');
     if (open) openReader(open.closest('.homily-card'));
     const copyButton = event.target.closest('.homily-copy');
     if (copyButton) {

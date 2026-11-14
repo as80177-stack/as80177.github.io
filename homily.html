@@ -206,7 +206,7 @@
                   <div class="homily-translation-source" hidden data-language="en" data-title="${escapeHtml(homily.translations.en.title)}">${escapeHtml(homily.translations.en.content)}</div>
                 ` : ''}
                 <div class="homily-actions"><button type="button" class="reader-open">全螢幕閱讀</button><button type="button" class="homily-copy">複製全文</button><button type="button" class="homily-listen">朗讀道理</button></div>
-                <p class="reading-hint">雙擊道理標題或正文進入全螢幕；全螢幕內再雙擊道理，即可返回。</p>
+                <p class="reading-hint">點選道理標題即可閱讀；上方「返回」隨時可用，也可雙擊內文返回。</p>
                 <p class="copy-status" role="status" aria-live="polite"></p>
                 <p class="notes">${escapeHtml(homily.content)}</p>
                 <button class="homily-collapse" type="button">↑ 收合這篇道理</button>
@@ -278,13 +278,6 @@
         button.addEventListener('click', () => {
           const folder = button.closest('.folder');
           const open = folder.classList.toggle('open');
-          button.setAttribute('aria-expanded', String(open));
-        });
-      });
-      listEl.querySelectorAll('.homily-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-          const card = button.closest('.homily-card');
-          const open = card.classList.toggle('open');
           button.setAttribute('aria-expanded', String(open));
         });
       });
