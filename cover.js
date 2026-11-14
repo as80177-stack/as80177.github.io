@@ -31,6 +31,7 @@
   let entryToken = 0;
   let animations = [];
   let artworkReady = false;
+  let doveArtworkReady = false;
   let artworkLoading = true;
   const enterLabel = enter.textContent;
   enter.disabled = true;
@@ -39,14 +40,18 @@
   // Decode the actual visible image elements, not just the resource URL.
   // A cold/slow first load must never reveal a plain door before its angels.
   const artwork = [...door.querySelectorAll('.door-art')];
-  Promise.all(artwork.map(image => {
+  function decodeArtwork(image) {
     if (image.decode) return image.decode();
     if (image.complete) return image.naturalWidth ? Promise.resolve() : Promise.reject(new Error('door image'));
     return new Promise((resolve, reject) => {
       image.addEventListener('load', resolve, {once: true});
       image.addEventListener('error', reject, {once: true});
     });
-  })).then(() => { artworkReady = artwork.length === 2; }).catch(() => {
+  }
+  const dovePreparation = Promise.all([...door.querySelectorAll('.dove-art')].map(decodeArtwork))
+    .then(() => true, () => false);
+  Promise.all([Promise.all(artwork.map(decodeArtwork)), dovePreparation])
+    .then(([, dovesReady]) => { artworkReady = artwork.length === 2; doveArtworkReady = dovesReady; }).catch(() => {
     // If the image cannot load, allow entry directly instead of a half-drawn door.
     enter.title = '開門圖案暫時無法載入，仍可進入聖經金句。';
   }).finally(() => {
@@ -103,25 +108,25 @@
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
       const flights = [
-        {delay: 750, x: '-78vw', y: '-65vh', midX: '-24vw', midY: '-24vh', tilt: 18},
-        {delay: 1250, x: '78vw', y: '-58vh', midX: '23vw', midY: '-22vh', tilt: -16},
-        {delay: 1750, x: '14vw', y: '-80vh', midX: '5vw', midY: '-30vh', tilt: -42}
+        {delay: 650, x: '-68vw', y: '-60vh', midX: '-12vw', midY: '-12vh', nearX: '-33vw', nearY: '-31vh', tilt: 12},
+        {delay: 1150, x: '68vw', y: '-58vh', midX: '12vw', midY: '-13vh', nearX: '33vw', nearY: '-30vh', tilt: -12},
+        {delay: 1650, x: '14vw', y: '-80vh', midX: '4vw', midY: '-18vh', nearX: '9vw', nearY: '-46vh', tilt: -22}
       ];
-      const doveFlights = [...door.querySelectorAll('.entry-dove')].map((dove, index) => {
+      const doveFlights = (doveArtworkReady ? [...door.querySelectorAll('.entry-dove')] : []).map((dove, index) => {
         const path = flights[index];
-        dove.querySelectorAll('.dove-wing').forEach((wing, wingIndex) => {
-          animate(wing, [
-            {transform: `rotate(${wingIndex ? -8 : 8}deg) scaleY(.68)`},
-            {transform: `rotate(${wingIndex ? 12 : -12}deg) scaleY(1)`, offset: .5},
-            {transform: `rotate(${wingIndex ? -8 : 8}deg) scaleY(.68)`}
-          ], {duration: 380, iterations: 6, delay: path.delay, easing: 'ease-in-out', fill: 'both'}).catch(() => {});
-        });
+        // Subtle soaring keeps the photographic feather silhouette natural.
+        animate(dove.querySelector('.dove-soar'), [
+          {transform: 'rotate(-3deg) scaleY(.97)'},
+          {transform: 'rotate(3deg) scaleY(1)', offset: .5},
+          {transform: 'rotate(-3deg) scaleY(.97)'}
+        ], {duration: 580, iterations: 4, delay: path.delay, easing: 'ease-in-out', fill: 'both'}).catch(() => {});
         return animate(dove, [
-          {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.08) rotate(${path.tilt}deg)`, offset: 0},
-          {opacity: 1, transform: `translate(-50%,-50%) translate(0,-4vh) scale(.35) rotate(${path.tilt}deg)`, offset: .15},
-          {opacity: 1, transform: `translate(-50%,-50%) translate(${path.midX},${path.midY}) scale(.9) rotate(${path.tilt}deg)`, offset: .55},
-          {opacity: 0, transform: `translate(-50%,-50%) translate(${path.x},${path.y}) scale(1.2) rotate(${path.tilt}deg)`, offset: 1}
-        ], {duration: 2250, delay: path.delay, easing: 'linear', fill: 'both'});
+          {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.04) rotate(${path.tilt}deg)`, offset: 0},
+          {opacity: .85, transform: `translate(-50%,-50%) translate(0,-3vh) scale(.16) rotate(${path.tilt}deg)`, offset: .18},
+          {opacity: 1, transform: `translate(-50%,-50%) translate(${path.midX},${path.midY}) scale(.42) rotate(${path.tilt}deg)`, offset: .5},
+          {opacity: .9, transform: `translate(-50%,-50%) translate(${path.nearX},${path.nearY}) scale(.78) rotate(${path.tilt}deg)`, offset: .82},
+          {opacity: 0, transform: `translate(-50%,-50%) translate(${path.x},${path.y}) scale(.95) rotate(${path.tilt}deg)`, offset: 1}
+        ], {duration: 2400, delay: path.delay, easing: 'linear', fill: 'both'});
       });
       await Promise.all([
         ...doveFlights,
