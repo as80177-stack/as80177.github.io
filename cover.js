@@ -114,12 +114,17 @@
       ];
       const doveFlights = (doveArtworkReady ? [...door.querySelectorAll('.entry-dove')] : []).map((dove, index) => {
         const path = flights[index];
-        // Subtle soaring keeps the photographic feather silhouette natural.
-        animate(dove.querySelector('.dove-soar'), [
-          {transform: 'rotate(-3deg) scaleY(.97)'},
-          {transform: 'rotate(3deg) scaleY(1)', offset: .5},
-          {transform: 'rotate(-3deg) scaleY(.97)'}
-        ], {duration: 580, iterations: 4, delay: path.delay, easing: 'ease-in-out', fill: 'both'}).catch(() => {});
+        // Six real wing poses form a complete upstroke/downstroke cycle.
+        // The body stays fixed in each cell; this is not whole-photo wobbling.
+        const wingBeat = [280,265,295][index];
+        const wingFrames = Array.from({length: 6}, (_, frame) => ({
+          transform: `translateX(${-frame * 100 / 6}%)`, offset: frame / 6, easing: 'steps(1, end)'
+        }));
+        wingFrames.push({transform: 'translateX(-83.3333333333%)', offset: 1});
+        animate(dove.querySelector('.dove-art'), wingFrames, {
+          duration: wingBeat, iterations: Math.ceil(2400 / wingBeat),
+          delay: path.delay, easing: 'linear', fill: 'both'
+        }).catch(() => {});
         return animate(dove, [
           {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.04) rotate(${path.tilt}deg)`, offset: 0},
           {opacity: .85, transform: `translate(-50%,-50%) translate(0,-3vh) scale(.16) rotate(${path.tilt}deg)`, offset: .18},
