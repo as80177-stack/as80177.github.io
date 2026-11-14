@@ -16,7 +16,10 @@
 /* Warm double doors cover the page swap; only transform/opacity are animated. */
 .door-transition{position:fixed;inset:0;z-index:1000;perspective:1400px;overflow:hidden;pointer-events:auto;isolation:isolate;touch-action:none;overscroll-behavior:contain}
 .door-transition[hidden]{display:none!important}
-.door-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center,#fff6dd,#f7eee2);opacity:1}
+.door-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,#fffdf1 0%,#fff3c9 24%,#e1eff8 55%,#f7f2e8 88%);opacity:1}
+.door-sunlight{position:absolute;inset:-18%;opacity:0;pointer-events:none;transform-origin:50% 42%;will-change:transform,opacity;background:radial-gradient(ellipse at 50% 42%,#fffef5d9 0%,#fff7c65c 21%,#cceaff52 42%,transparent 68%)}
+.door-sunlight:before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(from -8deg at 50% 42%,#fff8d126 0deg,#fffdf680 5deg,#cbeaff59 10deg,transparent 17deg,transparent 29deg);mask-image:radial-gradient(ellipse at 50% 42%,#000 4%,#000b 34%,transparent 71%);-webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 4%,#000b 34%,transparent 71%);filter:blur(3px)}
+.door-sunlight:after{content:'';position:absolute;inset:12%;background:radial-gradient(ellipse at 50% 40%,#fffef4bd 0%,#fff6bb4d 25%,#d5edff33 47%,transparent 70%)}
 .church-door{position:absolute;top:0;bottom:0;width:50.1%;box-sizing:border-box;background:#35464a;backface-visibility:hidden;will-change:transform;border:5px solid #55432f;box-shadow:inset 0 0 0 2px #c9ad75,0 0 10px #193c4355}
 .door-art{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .church-door:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 15%,#fff9e713 35%,transparent 52%,#fff9e70c 72%,transparent 87%)}
