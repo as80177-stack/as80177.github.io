@@ -105,15 +105,23 @@
       await Promise.all([
         animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 4100, easing}),
         animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 4100, easing}),
-        animate(door.querySelector('.door-glow'), [{opacity: 1, offset: 0}, {opacity: 1, offset: .5}, {opacity: .7, offset: .7}, {opacity: 0, offset: 1}], {duration: 4100, easing: 'ease-in-out'}),
+        // Doors, dispersing light and the verse share one timeline and easing.
+        // Start revealing text through the light immediately: no gold-only hold.
+        animate(door.querySelector('.door-glow'), [
+          {opacity: 1, offset: 0}, {opacity: .72, offset: .12},
+          {opacity: .34, offset: .35}, {opacity: .08, offset: .65}, {opacity: 0, offset: 1}
+        ], {duration: 4100, easing}),
         animate(door.querySelector('.door-sunlight'), [
           {opacity: 0, transform: 'scale(.4)', offset: 0},
-          {opacity: .55, transform: 'scale(.9)', offset: .35},
-          {opacity: .7, transform: 'scale(1.12)', offset: .57},
-          {opacity: .25, transform: 'scale(1.35)', offset: .8},
+          {opacity: .38, transform: 'scale(.75)', offset: .12},
+          {opacity: .6, transform: 'scale(1)', offset: .3},
+          {opacity: .3, transform: 'scale(1.3)', offset: .6},
           {opacity: 0, transform: 'scale(1.5)', offset: 1}
-        ], {duration: 4100, easing: 'ease-in-out'}),
-        animate(pages.verse, [{opacity: 0}, {opacity: 1}], {duration: 1600, delay: 2300, easing: 'ease-in-out', fill: 'both'}),
+        ], {duration: 4100, easing}),
+        animate(pages.verse, [
+          {opacity: 0, offset: 0}, {opacity: .3, offset: .12},
+          {opacity: .7, offset: .35}, {opacity: .94, offset: .65}, {opacity: 1, offset: 1}
+        ], {duration: 4100, easing, fill: 'both'}),
         animate(door.querySelector('.door-frame'), [{opacity: 1, offset: 0}, {opacity: 1, offset: .7}, {opacity: 0, offset: 1}], {duration: 4100, easing: 'linear'})
       ]);
       if (token !== entryToken) return;
