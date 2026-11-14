@@ -23,8 +23,10 @@
 .door-doves{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
 .entry-dove{position:absolute;left:50%;top:49%;width:clamp(168px,51vw,252px);aspect-ratio:1;opacity:0;transform:translate(-50%,-50%) scale(.04);will-change:transform,opacity;filter:drop-shadow(0 2px 2px #30607b26)}
 .dove-soar{width:100%;height:100%;transform-origin:50% 60%}
-.dove-sprite{width:100%;height:100%;overflow:hidden}
-.dove-art{display:block;width:600%;max-width:none;height:100%;object-fit:fill;pointer-events:none;will-change:transform}
+.dove-sprite{position:relative;width:100%;height:100%;isolation:isolate}
+.dove-pose{position:absolute;inset:0;overflow:hidden;opacity:0;mix-blend-mode:plus-lighter;will-change:opacity}
+.dove-pose:first-child{opacity:1}
+.dove-art{display:block;width:600%;max-width:none;height:100%;object-fit:fill;pointer-events:none}
 .dove-1 .dove-soar{transform:scaleX(-1)}
 .door-gateway{position:absolute;inset:0;perspective:1400px;transform-origin:50% 50%;will-change:transform}
 .door-threshold-light{position:absolute;top:6%;bottom:6%;left:50%;width:12px;opacity:0;transform:translateX(-50%);pointer-events:none;background:linear-gradient(90deg,#bae9ff55,#fffef4,#fffef4,#d6edff66);box-shadow:0 0 18px 5px #d0efff99,0 0 38px 12px #fff3ba66;filter:blur(1px);border-radius:50%}

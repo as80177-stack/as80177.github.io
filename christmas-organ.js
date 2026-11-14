@@ -187,7 +187,7 @@
     const birds = event.detail?.birds || [];
     const start = context.currentTime;
     // Short band-limited air/feather strokes, not chirps or continuous hiss.
-    const buffer = context.createBuffer(1, Math.ceil(context.sampleRate * .3), context.sampleRate);
+    const buffer = context.createBuffer(1, Math.ceil(context.sampleRate * .38), context.sampleRate);
     const samples = buffer.getChannelData(0);
     let seed = 8217;
     for (let i = 0; i < samples.length; i++) {
@@ -207,25 +207,25 @@
       position.connect(mix);
       for (let beat = 0; ; beat++) {
         const offset = (beat + bird.strokePhase) * period;
-        if (offset + .24 > duration) break;
+        if (offset + .3 > duration) break;
         const progress = offset / duration;
         const distance = (.35 + 1.5 * progress) * Math.min(1, (1 - progress) / .12);
         const at = start + delay + offset;
         const source = context.createBufferSource(); source.buffer = buffer;
         const body = context.createBiquadFilter();
-        body.type = 'bandpass'; body.frequency.value = 600 + progress * 280; body.Q.value = .55;
+        body.type = 'bandpass'; body.frequency.value = 500 + progress * 220; body.Q.value = .55;
         const feather = context.createBiquadFilter();
-        feather.type = 'lowpass'; feather.frequency.value = 2400; feather.Q.value = .5;
+        feather.type = 'lowpass'; feather.frequency.value = 2100; feather.Q.value = .5;
         const envelope = context.createGain();
-        const peak = distance * 1.3;
+        const peak = distance * 1.15;
         envelope.gain.setValueAtTime(0, at);
-        envelope.gain.linearRampToValueAtTime(peak * .65, at + .018);
-        envelope.gain.linearRampToValueAtTime(peak, at + .045);
-        envelope.gain.exponentialRampToValueAtTime(.0001, at + .215);
-        envelope.gain.linearRampToValueAtTime(0, at + .24);
+        envelope.gain.linearRampToValueAtTime(peak * .6, at + .055);
+        envelope.gain.linearRampToValueAtTime(peak, at + .1);
+        envelope.gain.exponentialRampToValueAtTime(.0001, at + .27);
+        envelope.gain.linearRampToValueAtTime(0, at + .3);
         source.connect(body); body.connect(feather); feather.connect(envelope); envelope.connect(position);
-        source.start(at, (beat % 3) * .015, .24);
-        source.stop(at + .245);
+        source.start(at, (beat % 3) * .015, .3);
+        source.stop(at + .305);
       }
     });
   }

@@ -108,28 +108,28 @@
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
       const flights = [
-        {delay: 650, wingBeat: 980, pan: -.8, x: '-68vw', y: '-60vh', midX: '-12vw', midY: '-12vh', nearX: '-33vw', nearY: '-31vh', tilt: 12},
-        {delay: 1150, wingBeat: 1080, pan: .8, x: '68vw', y: '-58vh', midX: '12vw', midY: '-13vh', nearX: '33vw', nearY: '-30vh', tilt: -12},
-        {delay: 1650, wingBeat: 1020, pan: .2, x: '14vw', y: '-80vh', midX: '4vw', midY: '-18vh', nearX: '9vw', nearY: '-46vh', tilt: -22}
+        {delay: 650, wingBeat: 1450, pan: -.8, x: '-68vw', y: '-60vh', midX: '-12vw', midY: '-12vh', nearX: '-33vw', nearY: '-31vh', tilt: 12},
+        {delay: 1150, wingBeat: 1550, pan: .8, x: '68vw', y: '-58vh', midX: '12vw', midY: '-13vh', nearX: '33vw', nearY: '-30vh', tilt: -12},
+        {delay: 1650, wingBeat: 1500, pan: .2, x: '14vw', y: '-80vh', midX: '4vw', midY: '-18vh', nearX: '9vw', nearY: '-46vh', tilt: -22}
       ];
       if (doveArtworkReady && document.getElementById('entranceSound').checked) {
         window.dispatchEvent(new CustomEvent('dove-wing-sound', {detail: {
-          birds: flights.map(path => ({delay: path.delay, period: path.wingBeat, duration: 2400, pan: path.pan, strokePhase: .2}))
+          birds: flights.map(path => ({delay: path.delay, period: path.wingBeat, duration: 2400, pan: path.pan, strokePhase: .35}))
         }}));
       }
       const doveFlights = (doveArtworkReady ? [...door.querySelectorAll('.entry-dove')] : []).map((dove, index) => {
         const path = flights[index];
-        // One deliberate downstroke followed by a longer horizontal glide.
-        // Sound uses the same period and downstroke phase as these poses.
-        const wingBeat = path.wingBeat;
-        const poses = [[0,0],[1,.1],[2,.18],[3,.28],[4,.44],[2,.58],[2,.83],[5,.91],[0,1]];
-        const wingFrames = poses.map(([frame, offset]) => ({
-          transform: `translateX(${-frame * 100 / 6}%)`, offset, easing: 'steps(1, end)'
-        }));
-        animate(dove.querySelector('.dove-art'), wingFrames, {
-          duration: wingBeat, iterations: Math.ceil(2400 / wingBeat),
-          delay: path.delay, easing: 'linear', fill: 'both'
-        }).catch(() => {});
+        // Blend adjacent anatomical poses instead of stepping/cutting frames.
+        // One slow continuous stroke and recovery; no skipped reverse poses.
+        const poses = [[0,0],[1,.18],[2,.36],[3,.54],[4,.72],[5,.87],[0,1]];
+        dove.querySelectorAll('.dove-pose').forEach((layer, pose) => {
+          animate(layer, poses.map(([frame, offset]) => ({
+            opacity: frame === pose ? 1 : 0, offset, easing: 'ease-in-out'
+          })), {
+            duration: path.wingBeat, iterations: Math.ceil(2400 / path.wingBeat),
+            delay: path.delay, easing: 'linear', fill: 'both'
+          }).catch(() => {});
+        });
         return animate(dove, [
           {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.04) rotate(${path.tilt}deg)`, offset: 0},
           {opacity: .85, transform: `translate(-50%,-50%) translate(0,-3vh) scale(.16) rotate(${path.tilt}deg)`, offset: .18},
