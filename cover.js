@@ -102,7 +102,29 @@
       // place before they open, avoiding a white frame between the two pages.
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
+      const flights = [
+        {delay: 750, x: '-78vw', y: '-65vh', midX: '-24vw', midY: '-24vh', tilt: 18},
+        {delay: 1250, x: '78vw', y: '-58vh', midX: '23vw', midY: '-22vh', tilt: -16},
+        {delay: 1750, x: '14vw', y: '-80vh', midX: '5vw', midY: '-30vh', tilt: -42}
+      ];
+      const doveFlights = [...door.querySelectorAll('.entry-dove')].map((dove, index) => {
+        const path = flights[index];
+        dove.querySelectorAll('.dove-wing').forEach((wing, wingIndex) => {
+          animate(wing, [
+            {transform: `rotate(${wingIndex ? -8 : 8}deg) scaleY(.68)`},
+            {transform: `rotate(${wingIndex ? 12 : -12}deg) scaleY(1)`, offset: .5},
+            {transform: `rotate(${wingIndex ? -8 : 8}deg) scaleY(.68)`}
+          ], {duration: 380, iterations: 6, delay: path.delay, easing: 'ease-in-out', fill: 'both'}).catch(() => {});
+        });
+        return animate(dove, [
+          {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.08) rotate(${path.tilt}deg)`, offset: 0},
+          {opacity: 1, transform: `translate(-50%,-50%) translate(0,-4vh) scale(.35) rotate(${path.tilt}deg)`, offset: .15},
+          {opacity: 1, transform: `translate(-50%,-50%) translate(${path.midX},${path.midY}) scale(.9) rotate(${path.tilt}deg)`, offset: .55},
+          {opacity: 0, transform: `translate(-50%,-50%) translate(${path.x},${path.y}) scale(1.2) rotate(${path.tilt}deg)`, offset: 1}
+        ], {duration: 2250, delay: path.delay, easing: 'linear', fill: 'both'});
+      });
       await Promise.all([
+        ...doveFlights,
         animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-90deg)'}], {duration: 4100, easing}),
         animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(90deg)'}], {duration: 4100, easing}),
         animate(door.querySelector('.door-gateway'), [{transform: 'scale(1)'}, {transform: 'scale(1.08)'}], {duration: 4100, easing}),
