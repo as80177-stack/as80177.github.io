@@ -101,10 +101,15 @@
       // The doors conceal the layout change. The second page is already in
       // place before they open, avoiding a white frame between the two pages.
       showPage('verse', true, false);
-      const easing = 'cubic-bezier(.42,0,.22,1)';
+      const easing = 'cubic-bezier(.42,0,.58,1)';
       await Promise.all([
-        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-102deg)'}], {duration: 4100, easing}),
-        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(102deg)'}], {duration: 4100, easing}),
+        animate(door.querySelector('.door-left'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-90deg)'}], {duration: 4100, easing}),
+        animate(door.querySelector('.door-right'), [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(90deg)'}], {duration: 4100, easing}),
+        animate(door.querySelector('.door-gateway'), [{transform: 'scale(1)'}, {transform: 'scale(1.08)'}], {duration: 4100, easing}),
+        animate(door.querySelector('.door-threshold-light'), [
+          {opacity: 0, offset: 0}, {opacity: .8, offset: .16},
+          {opacity: .65, offset: .36}, {opacity: 0, offset: .7}, {opacity: 0, offset: 1}
+        ], {duration: 4100, easing}),
         // Doors, dispersing light and the verse share one timeline and easing.
         // Start revealing text through the light immediately: no gold-only hold.
         animate(door.querySelector('.door-glow'), [
