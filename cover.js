@@ -125,9 +125,9 @@
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
       const flights = [
-        {delay: 650, wingBeat: 1450, pan: -.8, points: [[0,0,10],[-4,-8,15],[-12,-14,5],[-20,-9,-8],[-35,-20,12],[-75,-55,22]]},
-        {delay: 1150, wingBeat: 1550, pan: .8, points: [[0,1,-5],[4,6,8],[12,-3,-12],[21,2,6],[36,-10,-14],[75,-40,-22]]},
-        {delay: 1650, wingBeat: 1500, pan: .2, points: [[0,0,-2],[-5,-5,10],[-3,-15,-6],[5,-10,-14],[12,-31,-8],[5,-80,-18]]}
+        {delay: 650, wingBeat: 1450, pan: -.8, points: [[0,0,6],[-4,-4,8],[-12,-9,10],[-20,-15,9],[-33,-25,11],[-65,-48,14]]},
+        {delay: 1150, wingBeat: 1550, pan: .8, points: [[0,1,-3],[4,3,0],[12,2,-3],[21,-4,-6],[34,-14,-9],[65,-34,-12]]},
+        {delay: 1650, wingBeat: 1500, pan: .2, points: [[0,0,0],[-3,-3,3],[-2,-8,2],[2,-16,-2],[8,-33,-5],[5,-74,-8]]}
       ];
       // Vary each route slightly per entry, but only once before interpolation;
       // never add per-frame randomness that would make the birds tremble.
@@ -136,12 +136,12 @@
           if (point === 0) return [x,y,bank];
           const end = point === flight.points.length - 1;
           const jitter = range => (Math.random() * 2 - 1) * range;
-          return [x + jitter(end ? (bird === 2 ? 14 : 5) : 1.8), y + jitter(end ? 3 : 1.4), bank + jitter(1.8)];
+          return [x + jitter(end ? (bird === 2 ? 7 : 3) : .7), y + jitter(end ? 2 : .4), bank + jitter(.8)];
         });
       });
       if (doveArtworkReady && document.getElementById('entranceSound').checked) {
         window.dispatchEvent(new CustomEvent('dove-wing-sound', {detail: {
-          birds: flights.map(path => ({delay: path.delay, period: path.wingBeat, duration: 2400, pan: path.pan, strokePhase: .35}))
+          birds: flights.map(path => ({delay: path.delay, period: path.wingBeat, duration: 2700, pan: path.pan, strokePhase: .35}))
         }}));
       }
       const doveFlights = (doveArtworkReady ? [...door.querySelectorAll('.entry-dove')] : []).map((dove, index) => {
@@ -153,7 +153,7 @@
           animate(layer, poses.map(([frame, offset]) => ({
             opacity: frame === pose ? 1 : 0, offset, easing: 'ease-in-out'
           })), {
-            duration: path.wingBeat, iterations: Math.ceil(2400 / path.wingBeat),
+            duration: path.wingBeat, iterations: Math.ceil(2700 / path.wingBeat),
             delay: path.delay, easing: 'linear', fill: 'both'
           }).catch(() => {});
         });
@@ -167,7 +167,7 @@
             transform: `translate(-50%,-50%) translate(${x.toFixed(4)}vw,${y.toFixed(4)}vh) scale(${scale.toFixed(5)}) rotate(${bank.toFixed(3)}deg)`
           };
         });
-        return animate(dove, route, {duration: 2400, delay: path.delay, easing: 'linear', fill: 'both'});
+        return animate(dove, route, {duration: 2700, delay: path.delay, easing: 'linear', fill: 'both'});
       });
       await Promise.all([
         ...doveFlights,
