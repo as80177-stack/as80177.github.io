@@ -197,7 +197,7 @@
     const mix = context.createGain();
     mix.gain.value = level < .1 ? 3.4 : 1.25;
     mix.connect(gain);
-    birds.forEach(bird => {
+    birds.forEach((bird, index) => {
       const delay = bird.delay / 1000;
       const period = bird.period / 1000;
       const duration = bird.duration / 1000;
@@ -205,7 +205,10 @@
       position.pan.setValueAtTime(0, start + delay);
       position.pan.linearRampToValueAtTime(bird.pan, start + delay + duration);
       position.connect(mix);
-      for (let beat = 0; ; beat++) {
+      // Four strokes across the entrance: two from the first bird, one each
+      // from the other two. Keep every stroke aligned with an actual downbeat.
+      const strokeCount = [2,1,1][index] || 0;
+      for (let beat = 0; beat < strokeCount; beat++) {
         const offset = (beat + bird.strokePhase) * period;
         if (offset + .3 > duration) break;
         const progress = offset / duration;
