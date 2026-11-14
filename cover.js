@@ -77,6 +77,23 @@
     animations.push(animation);
     return animation.finished;
   }
+  function flightPoint(points, progress) {
+    // Catmull–Rom interpolation gives continuous bends through each waypoint.
+    const position = progress * (points.length - 1);
+    const segment = Math.min(points.length - 2, Math.floor(position));
+    const t = position - segment;
+    return [0,1,2].map(axis => {
+      const a = points[Math.max(0, segment - 1)][axis];
+      const b = points[segment][axis];
+      const c = points[segment + 1][axis];
+      const d = points[Math.min(points.length - 1, segment + 2)][axis];
+      return .5 * (2*b + (-a+c)*t + (2*a-5*b+4*c-d)*t*t + (-a+3*b-3*c+d)*t*t*t);
+    });
+  }
+  function smoothStep(value) {
+    const t = Math.max(0, Math.min(1, value));
+    return t*t*(3-2*t);
+  }
   enter.addEventListener('click', async event => {
     if (entering || artworkLoading) return;
     const keyboardEntry = event.detail === 0;
@@ -108,10 +125,20 @@
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
       const flights = [
-        {delay: 650, wingBeat: 1450, pan: -.8, x: '-68vw', y: '-60vh', midX: '-12vw', midY: '-12vh', nearX: '-33vw', nearY: '-31vh', tilt: 12},
-        {delay: 1150, wingBeat: 1550, pan: .8, x: '68vw', y: '-58vh', midX: '12vw', midY: '-13vh', nearX: '33vw', nearY: '-30vh', tilt: -12},
-        {delay: 1650, wingBeat: 1500, pan: .2, x: '14vw', y: '-80vh', midX: '4vw', midY: '-18vh', nearX: '9vw', nearY: '-46vh', tilt: -22}
+        {delay: 650, wingBeat: 1450, pan: -.8, points: [[0,0,10],[-4,-8,15],[-12,-14,5],[-20,-9,-8],[-35,-20,12],[-75,-55,22]]},
+        {delay: 1150, wingBeat: 1550, pan: .8, points: [[0,1,-5],[4,6,8],[12,-3,-12],[21,2,6],[36,-10,-14],[75,-40,-22]]},
+        {delay: 1650, wingBeat: 1500, pan: .2, points: [[0,0,-2],[-5,-5,10],[-3,-15,-6],[5,-10,-14],[12,-31,-8],[5,-80,-18]]}
       ];
+      // Vary each route slightly per entry, but only once before interpolation;
+      // never add per-frame randomness that would make the birds tremble.
+      flights.forEach((flight, bird) => {
+        flight.points = flight.points.map(([x,y,bank], point) => {
+          if (point === 0) return [x,y,bank];
+          const end = point === flight.points.length - 1;
+          const jitter = range => (Math.random() * 2 - 1) * range;
+          return [x + jitter(end ? (bird === 2 ? 14 : 5) : 1.8), y + jitter(end ? 3 : 1.4), bank + jitter(1.8)];
+        });
+      });
       if (doveArtworkReady && document.getElementById('entranceSound').checked) {
         window.dispatchEvent(new CustomEvent('dove-wing-sound', {detail: {
           birds: flights.map(path => ({delay: path.delay, period: path.wingBeat, duration: 2400, pan: path.pan, strokePhase: .35}))
@@ -130,13 +157,17 @@
             delay: path.delay, easing: 'linear', fill: 'both'
           }).catch(() => {});
         });
-        return animate(dove, [
-          {opacity: 0, transform: `translate(-50%,-50%) translate(0,0) scale(.04) rotate(${path.tilt}deg)`, offset: 0},
-          {opacity: .85, transform: `translate(-50%,-50%) translate(0,-3vh) scale(.16) rotate(${path.tilt}deg)`, offset: .18},
-          {opacity: 1, transform: `translate(-50%,-50%) translate(${path.midX},${path.midY}) scale(.42) rotate(${path.tilt}deg)`, offset: .5},
-          {opacity: .9, transform: `translate(-50%,-50%) translate(${path.nearX},${path.nearY}) scale(.78) rotate(${path.tilt}deg)`, offset: .82},
-          {opacity: 0, transform: `translate(-50%,-50%) translate(${path.x},${path.y}) scale(.95) rotate(${path.tilt}deg)`, offset: 1}
-        ], {duration: 2400, delay: path.delay, easing: 'linear', fill: 'both'});
+        const route = Array.from({length: 65}, (_, frame) => {
+          const progress = frame / 64;
+          const [x,y,bank] = flightPoint(path.points, progress);
+          const scale = .04 + .91 * progress ** 1.3;
+          const opacity = smoothStep(progress / .14) * (1 - smoothStep((progress - .82) / .18));
+          return {
+            opacity, offset: progress,
+            transform: `translate(-50%,-50%) translate(${x.toFixed(4)}vw,${y.toFixed(4)}vh) scale(${scale.toFixed(5)}) rotate(${bank.toFixed(3)}deg)`
+          };
+        });
+        return animate(dove, route, {duration: 2400, delay: path.delay, easing: 'linear', fill: 'both'});
       });
       await Promise.all([
         ...doveFlights,
