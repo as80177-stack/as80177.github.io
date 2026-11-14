@@ -18,7 +18,7 @@
 .door-transition[hidden]{display:none!important}
 .door-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center,#fff6dd,#f7eee2);opacity:1}
 .church-door{position:absolute;top:0;bottom:0;width:50.1%;box-sizing:border-box;background:#35464a;backface-visibility:hidden;will-change:transform;border:4px solid #35464a;box-shadow:inset 0 0 0 2px #c9ad75,0 0 10px #193c4355}
-.door-art{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.door-art{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .church-door:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 15%,#fff9e713 35%,transparent 52%,#fff9e70c 72%,transparent 87%)}
 .door-left{left:0;transform-origin:left center}
 .door-right{right:0;transform-origin:right center}
