@@ -28,8 +28,7 @@
 .dove-pose{position:absolute;inset:0;overflow:hidden;opacity:0;mix-blend-mode:plus-lighter;will-change:opacity}
 .dove-pose:first-child{opacity:1}
 .dove-art{display:block;width:600%;max-width:none;height:100%;object-fit:fill;pointer-events:none}
-.dove-1 .dove-1{z-index:3}.dove-2{z-index:2}.dove-3{z-index:1}
-.dove-soar{transform:scaleX(-1)}
+.dove-1 .dove-soar{transform:scaleX(-1)}
 .door-gateway{position:absolute;inset:0;perspective:1400px;transform-origin:50% 50%;will-change:transform}
 .door-threshold-light{position:absolute;top:6%;bottom:6%;left:50%;width:12px;opacity:0;transform:translateX(-50%);pointer-events:none;background:linear-gradient(90deg,#bae9ff55,#fffef4,#fffef4,#d6edff66);box-shadow:0 0 18px 5px #d0efff99,0 0 38px 12px #fff3ba66;filter:blur(1px);border-radius:50%}
 .church-door{position:absolute;top:0;bottom:0;width:50.1%;box-sizing:border-box;background:#35464a;backface-visibility:hidden;will-change:transform;border:5px solid #55432f;box-shadow:inset 0 0 0 2px #c9ad75,0 0 10px #193c4355}

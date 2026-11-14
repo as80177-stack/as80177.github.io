@@ -277,7 +277,13 @@
       listEl.querySelectorAll('.folder-button').forEach(button => {
         button.addEventListener('click', () => {
           const folder = button.closest('.folder');
-          const open = folder.classList.toggle('open');
+          const willOpen = !folder.classList.contains('open');
+          if (willOpen) listEl.querySelectorAll('.folder.open').forEach(other => {
+            if (other === folder) return;
+            other.classList.remove('open');
+            other.querySelector('.folder-button').setAttribute('aria-expanded', 'false');
+          });
+          const open = folder.classList.toggle('open', willOpen);
           button.setAttribute('aria-expanded', String(open));
         });
       });

@@ -160,12 +160,18 @@
         const route = Array.from({length: 65}, (_, frame) => {
           const progress = frame / 64;
           const [x,y,bank] = flightPoint(path.points, progress);
+          const before = flightPoint(path.points, Math.max(0, progress - .01));
+          const after = flightPoint(path.points, Math.min(1, progress + .01));
+          const heading = Math.atan2((after[1]-before[1])*window.innerHeight, (after[0]-before[0])*window.innerWidth) * 180 / Math.PI;
+          const naturalHeading = index === 0 ? -105 : -75;
+          let facing = ((heading - naturalHeading + 540) % 360) - 180;
+          facing = Math.max(-65, Math.min(65, facing)) + bank * .1;
           // Perspective approach: each unit of forward travel grows more visible.
           const scale = .1 / (1 - .895 * progress);
           const opacity = smoothStep(progress / .14) * (1 - smoothStep((progress - .82) / .18));
           return {
             opacity, offset: progress,
-            transform: `translate(-50%,-50%) translate(${x.toFixed(4)}vw,${y.toFixed(4)}vh) scale(${scale.toFixed(5)}) rotate(${bank.toFixed(3)}deg)`
+            transform: `translate(-50%,-50%) translate(${x.toFixed(4)}vw,${y.toFixed(4)}vh) scale(${scale.toFixed(5)}) rotate(${facing.toFixed(3)}deg)`
           };
         });
         return animate(dove, route, {duration: 2700, delay: path.delay, easing: 'linear', fill: 'both'});
