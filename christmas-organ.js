@@ -180,6 +180,56 @@
       if (context && context.state !== 'closed') context.close().catch(() => {});
     }
   }
+  function playWingSounds(event) {
+    const sound = lightSound;
+    if (!sound || sound.context.state !== 'running') return;
+    const {context, gain, level} = sound;
+    const birds = event.detail?.birds || [];
+    const start = context.currentTime;
+    // Short band-limited air/feather strokes, not chirps or continuous hiss.
+    const buffer = context.createBuffer(1, Math.ceil(context.sampleRate * .3), context.sampleRate);
+    const samples = buffer.getChannelData(0);
+    let seed = 8217;
+    for (let i = 0; i < samples.length; i++) {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      samples[i] = seed / 2147483648 - 1;
+    }
+    const mix = context.createGain();
+    mix.gain.value = level < .1 ? 3.4 : 1.25;
+    mix.connect(gain);
+    birds.forEach(bird => {
+      const delay = bird.delay / 1000;
+      const period = bird.period / 1000;
+      const duration = bird.duration / 1000;
+      const position = context.createStereoPanner();
+      position.pan.setValueAtTime(0, start + delay);
+      position.pan.linearRampToValueAtTime(bird.pan, start + delay + duration);
+      position.connect(mix);
+      for (let beat = 0; ; beat++) {
+        const offset = (beat + bird.strokePhase) * period;
+        if (offset + .24 > duration) break;
+        const progress = offset / duration;
+        const distance = (.35 + 1.5 * progress) * Math.min(1, (1 - progress) / .12);
+        const at = start + delay + offset;
+        const source = context.createBufferSource(); source.buffer = buffer;
+        const body = context.createBiquadFilter();
+        body.type = 'bandpass'; body.frequency.value = 600 + progress * 280; body.Q.value = .55;
+        const feather = context.createBiquadFilter();
+        feather.type = 'lowpass'; feather.frequency.value = 2400; feather.Q.value = .5;
+        const envelope = context.createGain();
+        const peak = distance * 1.3;
+        envelope.gain.setValueAtTime(0, at);
+        envelope.gain.linearRampToValueAtTime(peak * .65, at + .018);
+        envelope.gain.linearRampToValueAtTime(peak, at + .045);
+        envelope.gain.exponentialRampToValueAtTime(.0001, at + .215);
+        envelope.gain.linearRampToValueAtTime(0, at + .24);
+        source.connect(body); body.connect(feather); feather.connect(envelope); envelope.connect(position);
+        source.start(at, (beat % 3) * .015, .24);
+        source.stop(at + .245);
+      }
+    });
+  }
+  window.addEventListener('dove-wing-sound', playWingSounds);
   window.addEventListener('entrance-light-sound', playLightSound);
   window.addEventListener('home-page-change', event => { if (event.detail.page === 'cover') stopLightSound(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopLightSound(); });
