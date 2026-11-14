@@ -125,9 +125,9 @@
       showPage('verse', true, false);
       const easing = 'cubic-bezier(.42,0,.58,1)';
       const flights = [
-        {delay: 650, wingBeat: 1450, pan: -.8, points: [[0,0,6],[-4,-4,8],[-12,-9,10],[-20,-15,9],[-33,-25,11],[-65,-48,14]]},
-        {delay: 1150, wingBeat: 1550, pan: .8, points: [[0,1,-3],[4,3,0],[12,2,-3],[21,-4,-6],[34,-14,-9],[65,-34,-12]]},
-        {delay: 1650, wingBeat: 1500, pan: .2, points: [[0,0,0],[-3,-3,3],[-2,-8,2],[2,-16,-2],[8,-33,-5],[5,-74,-8]]}
+        {delay: 650, wingBeat: 1450, pan: -.8, points: [[0,0,3],[-1,-1,4],[-4,-3,5],[-10,-7,6],[-23,-16,8],[-65,-45,10]]},
+        {delay: 1150, wingBeat: 1550, pan: .8, points: [[0,0,-3],[1,-1,-4],[4,-2,-5],[11,-6,-6],[24,-13,-8],[65,-35,-10]]},
+        {delay: 1650, wingBeat: 1500, pan: .2, points: [[0,0,0],[0,-1,-1],[1,-5,-2],[2,-13,-3],[4,-32,-4],[7,-76,-5]]}
       ];
       // Vary each route slightly per entry, but only once before interpolation;
       // never add per-frame randomness that would make the birds tremble.
@@ -136,7 +136,7 @@
           if (point === 0) return [x,y,bank];
           const end = point === flight.points.length - 1;
           const jitter = range => (Math.random() * 2 - 1) * range;
-          return [x + jitter(end ? (bird === 2 ? 7 : 3) : .7), y + jitter(end ? 2 : .4), bank + jitter(.8)];
+          return [x + jitter(end ? (bird === 2 ? 2 : 2) : .2), y + jitter(end ? 1 : .15), bank + jitter(.3)];
         });
       });
       if (doveArtworkReady && document.getElementById('entranceSound').checked) {
@@ -160,7 +160,8 @@
         const route = Array.from({length: 65}, (_, frame) => {
           const progress = frame / 64;
           const [x,y,bank] = flightPoint(path.points, progress);
-          const scale = .04 + .91 * progress ** 1.3;
+          // Perspective approach: each unit of forward travel grows more visible.
+          const scale = .1 / (1 - .895 * progress);
           const opacity = smoothStep(progress / .14) * (1 - smoothStep((progress - .82) / .18));
           return {
             opacity, offset: progress,
