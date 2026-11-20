@@ -40,6 +40,21 @@ test('incomplete legacy structure is left for the backup validator to reject', (
   assert.deepEqual(normalizeCycle(clone(bad)),bad);
 });
 
+test('Advent Sunday folders are restored in order across all cycles without losing notes', () => {
+  for (const cycle of ['a', 'b', 'c']) {
+    const existing = {id:'advent-4', name:'將臨期第四主日', homilies:[clone(note)]};
+    const input = {...legacy(), cycle, sundays:[existing, ...legacy().sundays]};
+    const data = normalizeCycle(input);
+    assert.deepEqual(data.sundays.slice(0, 4).map(folder => folder.id),
+      ['advent-1', 'advent-2', 'advent-3', 'advent-4']);
+    assert.deepEqual(data.sundays[2], {
+      id:'advent-3', name:'將臨期第三主日', display_name:'將臨期第三主日資料夾', homilies:[]
+    });
+    assert.deepEqual(data.sundays[3], existing);
+    assert.deepEqual(normalizeCycle(clone(data)), data);
+  }
+});
+
 test('Lent and Holy Week folders are repeatable and preserve legacy Holy Thursday notes', () => {
   const input = legacy(); input.other.push({id:'holy-thursday',name:'聖週四',homilies:[clone(note)]});
   const data = normalizeCycle(input);

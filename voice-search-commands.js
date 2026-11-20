@@ -60,6 +60,15 @@
       text = text.replace(/將臨期|四旬期|常年期/g,'');
       if (sunday) text = text.replace(sunday[0],'');
       if (week) text = text.replace(week[0],'');
+    } else if (/聖人紀念日|聖博[弟德](?:主教)?/.test(text)) {
+      command.section = 'saints';
+      command.location.push('聖人紀念日');
+      const patrick = /聖博[弟德](?:主教)?/;
+      if (patrick.test(text)) {
+        command.folderId = 'saint-patrick';
+        command.location.push('聖博弟主教');
+      }
+      text = text.replace(patrick, '').replace('聖人紀念日', '');
     } else if (/12宗徒|十二宗徒|宗徒|保祿歸化|保禄归化|聖路加|聖達陡|聖西滿/.test(text)) {
       command.section = 'apostles'; command.location.push('12宗徒'); text = text.replace(/12宗徒|十二宗徒|宗徒/g,'');
     } else if (/聖母/.test(text)) {

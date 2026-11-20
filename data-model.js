@@ -59,6 +59,19 @@
       days:ids.map((id,index) => ({id,label:prefix === 'holy' ? ['聖週一','聖週二','聖週三','聖週四','聖週五','聖週六'][index] : names[index],homilies:[]}))
     }))};
   }
+  function ensureAdventSundays(data) {
+    if (!Array.isArray(data.sundays) || !Array.isArray(data.other)) return;
+    const adventIds = ['advent-1', 'advent-2', 'advent-3', 'advent-4'];
+    const ordinals = ['一', '二', '三', '四'];
+    // Older backups may lack some or all Advent Sunday folders.
+    const adventFolders = adventIds.map((id, index) => {
+      const name = `將臨期第${ordinals[index]}主日`;
+      return data.sundays.find(folder => folder?.id === id) ||
+        {id, name, display_name: `${name}資料夾`, homilies: []};
+    });
+    const otherSundays = data.sundays.filter(folder => !adventFolders.includes(folder));
+    data.sundays = [...adventFolders, ...otherSundays];
+  }
   function ensureLentAndHolyWeek(data) {
     if (!Array.isArray(data.sundays) || !Array.isArray(data.other)) return;
     const ordinals = ['一','二','三','四','五'];
@@ -82,6 +95,7 @@
   }
   function normalizeCycle(data) {
     if (!data || !['a','b','c'].includes(data.cycle)) return data;
+    ensureAdventSundays(data);
     ensureLentAndHolyWeek(data);
     const weekdays = data.weekdays;
     if (weekdays && !Array.isArray(weekdays.weeks) && validWeeks(weekdays.odd?.weeks) && validWeeks(weekdays.even?.weeks)) {

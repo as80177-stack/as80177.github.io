@@ -23,7 +23,7 @@
   }
   async function checkReady() {
     const cache = await caches.open('homily-notes-v98');
-    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data-model.js', 'verses.js', 'cover.js', 'home-settings.js', 'icons/sacred-heart.webp', 'christmas-organ.js', 'cover.css', 'icons/church-glass-door-left.webp', 'icons/church-glass-door-right.webp', 'icons/entry-dove-flight.webp', 'install.html', 'install.js', 'reader.js', 'voice-search.js', 'search-matching.js', 'voice-search-commands.js', 'translations.js', 'narration.js', 'reader.css', 'data/verses.json', 'data/apostles.json', 'data/marian.json', 'data/theology.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
+    const paths = ['index.html', 'homily.html', 'offline.js', 'backup.js', 'data-model.js', 'verses.js', 'cover.js', 'home-settings.js', 'icons/sacred-heart.webp', 'christmas-organ.js', 'cover.css', 'icons/church-glass-door-left.webp', 'icons/church-glass-door-right.webp', 'icons/entry-dove-flight.webp', 'install.html', 'install.js', 'reader.js', 'voice-search.js', 'search-matching.js', 'voice-search-commands.js', 'translations.js', 'narration.js', 'reader.css', 'data/verses.json', 'data/apostles.json', 'data/marian.json', 'data/saints.json', 'data/theology.json', 'data/year-a.json', 'data/year-b.json', 'data/year-c.json'];
     ready = (await Promise.all(paths.map(path => cache.match(new URL(path, location.href))))).every(Boolean);
     render();
   }

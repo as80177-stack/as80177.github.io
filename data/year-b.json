@@ -3,6 +3,30 @@
   "label": "乙年",
   "sundays": [
     {
+      "id": "advent-1",
+      "name": "將臨期第一主日",
+      "display_name": "將臨期第一主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "advent-2",
+      "name": "將臨期第二主日",
+      "display_name": "將臨期第二主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "advent-3",
+      "name": "將臨期第三主日",
+      "display_name": "將臨期第三主日資料夾",
+      "homilies": []
+    },
+    {
+      "id": "advent-4",
+      "name": "將臨期第四主日",
+      "display_name": "將臨期第四主日資料夾",
+      "homilies": []
+    },
+    {
       "id": "lent-1",
       "name": "四旬期第一主日",
       "display_name": "四旬期第一主日資料夾",
