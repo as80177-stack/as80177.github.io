@@ -17,7 +17,7 @@ test('sustained discussion is searchable even with a generic title',()=>{
   assert.equal(m.rank([{note:{title:'今日道理',content:'祈禱是我們每天的需要。\n\n祈禱使我們親近天主。\n\n我們應當持之以恆。'}}],{query:'禱告'}).length,1);
 });
 test('actual corpus keeps main cross homily and excludes incidental cross mentions',()=>{
-  const docs=['a','b','c','apostles','marian','theology'].flatMap(key=>m.catalog(require('../data/'+(['a','b','c'].includes(key)?'year-':'')+key+'.json'),key));
+  const docs=['a','b','c','apostles','marian','theology','weekdays'].flatMap(key=>m.catalog(require('../data/'+(['a','b','c'].includes(key)?'year-':'')+key+'.json'),key));
   const hits=m.rank(docs,{query:'十字架'});
   assert.equal(hits.length,1);assert(hits[0].note.title.includes('背起十字架'));
   assert(m.rank(docs,{query:'婚姻'}).every(d=>!d.note.title.includes('第32主日')));

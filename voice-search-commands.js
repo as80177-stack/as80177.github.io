@@ -33,7 +33,7 @@
       [/(?:基督普世|耶穌|基督)?君王(?:節)?/,'christ-the-king','基督普世君王節'], [/聖枝主日/,'palm-sunday','聖枝主日'],
       [/復活(?:節)?前夕/,'easter-vigil','復活節前夕'],
       [/(?:復活節?)?八日慶期(?:平日)?/,'easter-octave-weekdays','八日慶期平日'],
-      [/復活主日|復活節/,'easter-sunday','復活主日'], [/聖母蒙召升天(?:節)?/,'assumption','聖母蒙召升天節']
+      [/復活主日|復活節|復活期/,'easter-sunday','復活主日'], [/聖母蒙召升天(?:節)?/,'assumption','聖母蒙召升天節']
     ];
     const festival = festivals.find(([regex]) => regex.test(text));
     if (holy) {
@@ -52,6 +52,8 @@
       const n = number((week || sunday || [null,''])[1]);
       if (command.day || (week && !sunday)) {
         command.section = ({advent:'advent-weekdays',lent:'lent-weekdays',ordinary:'weekdays'})[season];
+        command.cycle = null;
+        command.location = [];
         if (Number.isInteger(n)) {
           const max = season === 'advent' ? 4 : season === 'lent' ? 5 : 34;
           if (n<1 || n>max) throw new Error(`這個季節沒有第${n}週，請重新說明週次。`);
@@ -67,6 +69,12 @@
       text = text.replace(/將臨期|四旬期|常年期/g,'');
       if (sunday) text = text.replace(sunday[0],'');
       if (week) text = text.replace(week[0],'');
+    } else if (/常年期平日|將臨期|四旬期/.test(text)) {
+      const name = text.match(/常年期平日|將臨期(?:平日)?|四旬期(?:平日)?/)[0];
+      command.section = ({常年期平日:'weekdays', 將臨期:'advent-weekdays', 四旬期:'lent-weekdays'})[name === '常年期平日' ? name : name.replace('平日', '')];
+      command.cycle = null;
+      command.location = [name];
+      text = text.replace(name, '');
     } else if (/聖人紀念日|聖博[弟德](?:主教)?/.test(text)) {
       command.section = 'saints';
       command.location.push('聖人紀念日');

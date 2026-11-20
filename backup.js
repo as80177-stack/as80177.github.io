@@ -1,7 +1,13 @@
 (() => {
   const KEY = 'homily-backup-v1';
   const cycles = ['a', 'b', 'c'];
-  const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter'];
+  const weekdaySections = [
+    ['weekdays', 'weekdays', '常年期平日'],
+    ['advent-weekdays', 'advent_weekdays', '將臨期'],
+    ['lent-weekdays', 'lent_weekdays', '四旬期']
+  ];
+  const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter', ...weekdaySections.map(([key]) => key)];
+  const normalizeYear = data => window.HomilyDataModel.normalizeCycle(data, {includeLegacyLentWeekdays: false});
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
   function validate(data) {
     const object = x => x && typeof x === 'object' && !Array.isArray(x);
@@ -9,15 +15,30 @@
     function notes(item) {
       return object(item) && Array.isArray(item.homilies) && item.homilies.every(h => object(h) && text(h.title) && text(h.content) && (h.uploaded_at === undefined || text(h.uploaded_at)) && (h.translations === undefined || (object(h.translations) && Object.values(h.translations).every(t => object(t) && text(t.title) && text(t.content)))));
     }
+    function weekdaySection(item) {
+      return object(item) && text(item.label) && Array.isArray(item.weeks) && item.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
+    }
     function folder(item) { return notes(item) && text(item.id) && text(item.name) && text(item.display_name); }
-    if (object(data)) for (const c of cycles) if (object(data[c])) data[c] = window.HomilyDataModel.normalizeCycle(data[c]);
+    if (object(data)) for (const c of cycles) if (object(data[c])) data[c] = normalizeYear(data[c]);
     if (!object(data) || !cycles.every(c => {
       const d = data[c];
-      return object(d) && d.cycle === c && text(d.label) && Array.isArray(d.sundays) && d.sundays.every(folder) && Array.isArray(d.other) && d.other.every(folder) && object(d.weekdays) && text(d.weekdays.label) && Array.isArray(d.weekdays.weeks) && d.weekdays.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
+      return object(d) && d.cycle === c && text(d.label) && Array.isArray(d.sundays) && d.sundays.every(folder) && Array.isArray(d.other) && d.other.every(folder);
     })) throw new Error('備份內容不完整或格式不正確，必須包含甲、乙、丙年資料。');
-    for (const c of cycles) for (const key of ['advent_weekdays','lent_weekdays','holy_week']) {
-      const season = data[c][key];
-      if (season !== undefined && (!object(season) || !text(season.label) || !Array.isArray(season.weeks) || !season.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label))))) throw new Error('禮儀季節平日資料格式不正確');
+    for (const [key, legacyKey, label] of weekdaySections) {
+      const legacy = cycles.map(c => data[c][legacyKey]);
+      const existing = legacy.filter(section => section !== undefined);
+      if ((data[key] !== undefined && !weekdaySection(data[key])) || !existing.every(weekdaySection) ||
+          (key === 'weekdays' && data[key] === undefined && existing.length !== cycles.length)) {
+        throw new Error(`${label}資料格式不正確`);
+      }
+      if (existing.length) {
+        const sources = data[key] === undefined ? existing : [data[key], ...existing];
+        data[key] = window.HomilyDataModel.mergeWeekdays(sources, label);
+        for (const c of cycles) delete data[c][legacyKey];
+      }
+    }
+    for (const c of cycles) {
+      if (data[c].holy_week !== undefined && !weekdaySection(data[c].holy_week)) throw new Error('聖週資料格式不正確');
     }
     if (data.apostles !== undefined && (!object(data.apostles) || !text(data.apostles.label) || !Array.isArray(data.apostles.folders) || !data.apostles.folders.every(folder))) throw new Error('12宗徒資料格式不正確');
     // Migrate old backups without discarding any previously saved apostle notes.
@@ -37,6 +58,7 @@
     if (data.saints !== undefined && (!object(data.saints) || !text(data.saints.label) || !Array.isArray(data.saints.folders) || !data.saints.folders.every(folder))) throw new Error('聖人紀念日資料格式不正確');
     if (data.easter !== undefined) {
       if (!object(data.easter) || !text(data.easter.label) || !Array.isArray(data.easter.folders) || !data.easter.folders.every(item => folder(item) && (item.days === undefined || (Array.isArray(item.days) && item.days.every(day => notes(day) && text(day.id) && text(day.label)))))) throw new Error('復活節資料格式不正確');
+      if (data.easter.label === '復活節') data.easter.label = '復活期';
       for (const c of cycles) {
         for (const item of data[c].other.filter(x => x.id === 'easter-sunday' && x.homilies.length)) {
           let target = data.easter.folders.find(x => x.id === item.id);
@@ -55,7 +77,7 @@
   async function loadWebsite(c) {
     const r = await fetch(independentSections.includes(c) ? `data/${c}.json` : `data/year-${c}.json`);
     if (!r.ok) throw new Error('無法讀取講道，請連線後再試。');
-    return window.HomilyDataModel.normalizeCycle(await r.json());
+    return normalizeYear(await r.json());
   }
   async function all() {
     const saved = local();
@@ -77,7 +99,7 @@
   const panel = document.createElement('section');
   panel.className = 'backup-panel';
   panel.innerHTML = `<h2>講道備份與還原</h2>
-    <p>完整備份包含三個年度、獨立的12宗徒、聖母其他節日、聖人紀念日、復活節及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
+    <p>完整備份包含三個年度、常年期平日、將臨期、四旬期、獨立的12宗徒、聖母其他節日、聖人紀念日、復活期及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
     <div class="backup-actions"><button type="button" id="backupDownload">下載完整備份</button>
     <button type="button" id="backupRestore">從備份還原</button>
     <button type="button" id="readingExport">匯出閱讀文件</button></div>
@@ -137,17 +159,16 @@
     message.textContent = '已改回網站資料。';
   });
   document.getElementById('readingExport').onclick = () => run(async () => {
-    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒、聖母其他節日、聖人紀念日、復活節與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
+    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、常年期平日、將臨期、四旬期、12宗徒、聖母其他節日、聖人紀念日、復活期與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
       return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }
     for (const c of cycles) {
       const d = data[c]; body += `<h2>${escape(d.label)} · 主日</h2>` + d.sundays.map(x => entry(x, x.display_name)).join('');
-      body += `<h2>${escape(d.label)} · ${escape(d.weekdays.label)}</h2>` + d.weekdays.weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
-      for (const key of ['advent_weekdays','lent_weekdays','holy_week']) if (d[key]) body += `<h2>${escape(d.label)} · ${escape(d[key].label)}</h2>` + d[key].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
+      for (const key of ['holy_week']) if (d[key]) body += `<h2>${escape(d.label)} · ${escape(d[key].label)}</h2>` + d[key].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }
-    for (const key of independentSections) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => Array.isArray(x.days) ? `<h3>${escape(x.display_name)}</h3>` + x.days.map(day => entry(day, day.label)).join('') : entry(x, x.display_name)).join('');
+    for (const key of independentSections) body += `<h2>${escape(data[key].label)}</h2>` + (data[key].folders ?? data[key].weeks).map(x => Array.isArray(x.days) ? `<h3>${escape(x.display_name ?? x.name)}</h3>` + x.days.map(day => entry(day, day.label)).join('') : entry(x, x.display_name)).join('');
     download(`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>講道閱讀文件</title><style>body{max-width:850px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.8}.content{white-space:pre-wrap}h2{border-bottom:1px solid #aaa}article{margin-bottom:2rem}@media print{h2,h3,h4{break-after:avoid}}</style><body>${body}</body></html>`, 'text/html;charset=utf-8', '講道閱讀文件.html');
     message.textContent = '已產生閱讀文件，下載後可離線開啟，或使用列印功能存為 PDF。';
   });

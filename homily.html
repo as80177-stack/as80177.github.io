@@ -92,12 +92,12 @@
       <select id="sectionSelect">
         <option value="sundays">主日</option>
         <option value="weekdays">常年期平日</option>
-        <option value="advent-weekdays">將臨期平日</option>
-        <option value="lent-weekdays">四旬期平日</option>
+        <option value="advent-weekdays">將臨期</option>
+        <option value="lent-weekdays">四旬期</option>
         <option value="holy-week">聖週</option>
         <option value="other">其他（各種節日）</option>
         <option value="apostles">12宗徒（獨立分類）</option>
-        <option value="easter">復活節</option>
+        <option value="easter">復活期</option>
         <option value="saints">聖人紀念日</option>
         <option value="marian">聖母其他節日（獨立分類）</option>
         <option value="theology">其他神學與生活道理（獨立分類）</option>
@@ -237,16 +237,15 @@
       `;
     }
 
-    const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter'];
+    const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter', 'weekdays', 'advent-weekdays', 'lent-weekdays'];
 
     function selectedItems() {
       if (!cycleData) return [];
-      if (independentSections.includes(sectionSelect.value)) return cycleData.folders;
-      const seasons = {'advent-weekdays':'advent_weekdays','lent-weekdays':'lent_weekdays','holy-week':'holy_week'};
-      if (seasons[sectionSelect.value]) return cycleData[seasons[sectionSelect.value]]?.weeks || [];
+      if (independentSections.includes(sectionSelect.value)) return cycleData.weeks ?? cycleData.folders;
+      if (sectionSelect.value === 'holy-week') return cycleData.holy_week?.weeks || [];
       if (sectionSelect.value === 'sundays') return cycleData.sundays;
       if (sectionSelect.value === 'other') return cycleData.other;
-      return cycleData.weekdays.weeks;
+      return [];
     }
 
     function render() {

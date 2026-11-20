@@ -59,18 +59,17 @@ collections:
                         fields:
                           - { label: 英文標題, name: title, widget: string }
                           - { label: 英文全文, name: content, widget: text }
-          - label: 平日資料夾
-            name: weekdays
+          - label: 聖週
+            name: holy_week
             widget: object
+            required: false
             collapsed: true
             fields:
-              - { label: 名稱, name: label, widget: hidden }
-              - label: 第1週至第34週
+              - { label: 分類名稱, name: label, widget: string }
+              - label: 聖週資料夾
                 name: weeks
                 widget: list
-                label_singular: 一週
                 summary: "{{fields.name}}"
-                collapsed: true
                 fields: &week_folder_fields
                   - { label: 識別碼, name: id, widget: hidden }
                   - { label: 週次, name: number, widget: number, value_type: int }
@@ -85,42 +84,6 @@ collections:
                       - { label: 日期代碼, name: id, widget: hidden }
                       - { label: 星期, name: label, widget: string }
                       - *homily_list
-          - label: 將臨期平日
-            name: advent_weekdays
-            widget: object
-            required: false
-            collapsed: true
-            fields:
-              - { label: 分類名稱, name: label, widget: string }
-              - label: 第一至第四週
-                name: weeks
-                widget: list
-                summary: "{{fields.name}}"
-                fields: *week_folder_fields
-          - label: 四旬期平日
-            name: lent_weekdays
-            widget: object
-            required: false
-            collapsed: true
-            fields:
-              - { label: 分類名稱, name: label, widget: string }
-              - label: 第一至第五週
-                name: weeks
-                widget: list
-                summary: "{{fields.name}}"
-                fields: *week_folder_fields
-          - label: 聖週
-            name: holy_week
-            widget: object
-            required: false
-            collapsed: true
-            fields:
-              - { label: 分類名稱, name: label, widget: string }
-              - label: 聖週資料夾
-                name: weeks
-                widget: list
-                summary: "{{fields.name}}"
-                fields: *week_folder_fields
           - label: 其他（各種節日）
             name: other
             widget: list
@@ -176,7 +139,7 @@ collections:
             widget: list
             summary: "{{fields.display_name}}"
             fields: *note_folder_fields
-      - label: 復活節
+      - label: 復活期
         name: easter
         file: data/easter.json
         fields:
@@ -196,3 +159,35 @@ collections:
                 required: false
                 summary: "{{fields.label}}"
                 fields: *day_folder_fields
+      - label: 常年期平日
+        name: weekdays
+        file: data/weekdays.json
+        fields:
+          - { label: 分類名稱, name: label, widget: string }
+          - label: 第1週至第34週
+            name: weeks
+            widget: list
+            label_singular: 一週
+            summary: "{{fields.name}}"
+            collapsed: true
+            fields: *week_folder_fields
+      - label: 將臨期
+        name: advent-weekdays
+        file: data/advent-weekdays.json
+        fields:
+          - { label: 分類名稱, name: label, widget: string }
+          - label: 週次
+            name: weeks
+            widget: list
+            summary: "{{fields.name}}"
+            fields: *week_folder_fields
+      - label: 四旬期
+        name: lent-weekdays
+        file: data/lent-weekdays.json
+        fields:
+          - { label: 分類名稱, name: label, widget: string }
+          - label: 週次
+            name: weeks
+            widget: list
+            summary: "{{fields.name}}"
+            fields: *week_folder_fields

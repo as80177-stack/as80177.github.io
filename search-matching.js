@@ -124,7 +124,7 @@
     if(['a','b','c'].includes(key)){
       add(data.sundays,'sundays','主日',key);add(data.weekdays?.weeks,'weekdays','常年期平日',key);add(data.other,'other','其他節日',key);
       for(const [field,section,label] of [['advent_weekdays','advent-weekdays','將臨期平日'],['lent_weekdays','lent-weekdays','四旬期平日'],['holy_week','holy-week','聖週']])add(data[field]?.weeks,section,label,key);
-    }else add(data.folders,key,data.label,null);
+    }else add(data.folders ?? data.weeks,key,data.label,null);
     return result;
   }
   function keywordScore(query, note) {

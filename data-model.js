@@ -72,7 +72,7 @@
     const otherSundays = data.sundays.filter(folder => !adventFolders.includes(folder));
     data.sundays = [...adventFolders, ...otherSundays];
   }
-  function ensureLentAndHolyWeek(data) {
+  function ensureLentAndHolyWeek(data, includeLegacyLentWeekdays) {
     if (!Array.isArray(data.sundays) || !Array.isArray(data.other)) return;
     const ordinals = ['一','二','三','四','五'];
     for (let i=1;i<=5;i++) if (!data.sundays.some(f => f.id === `lent-${i}`)) {
@@ -80,7 +80,7 @@
       const position = data.sundays.findIndex(f => typeof f.id === 'string' && f.id.startsWith('ordinary-'));
       data.sundays.splice(position < 0 ? data.sundays.length : position,0,folder);
     }
-    if (data.lent_weekdays === undefined) data.lent_weekdays = seasonalWeeks('lent','四旬期',5);
+    if (includeLegacyLentWeekdays && data.lent_weekdays === undefined) data.lent_weekdays = seasonalWeeks('lent','四旬期',5);
     if (data.holy_week === undefined) data.holy_week = seasonalWeeks('holy','聖週',1);
     const thursday = data.holy_week?.weeks?.[0]?.days?.find(day => day.id === 'thursday');
     if (!thursday || !Array.isArray(thursday.homilies)) return;
@@ -93,10 +93,10 @@
       return false;
     });
   }
-  function normalizeCycle(data) {
+  function normalizeCycle(data, {includeLegacyLentWeekdays = true} = {}) {
     if (!data || !['a','b','c'].includes(data.cycle)) return data;
     ensureAdventSundays(data);
-    ensureLentAndHolyWeek(data);
+    ensureLentAndHolyWeek(data, includeLegacyLentWeekdays);
     const vigil = Array.isArray(data.other) && data.other.find(folder => folder?.id === 'easter-vigil');
     if (vigil?.name === '復活前夕' && vigil.display_name === '復活前夕資料夾') {
       const year = {a:'甲年', b:'乙年', c:'丙年'}[data.cycle];
@@ -131,5 +131,30 @@
     }
     return data;
   }
-  return {normalizeCycle};
+  function mergeWeekdays(sources, label) {
+    const weeks = [];
+    for (const source of sources) for (const incomingWeek of source.weeks) {
+      let week = weeks.find(item => item.id === incomingWeek.id);
+      if (!week) {
+        week = {...incomingWeek, days: []};
+        weeks.push(week);
+      }
+      for (const incomingDay of incomingWeek.days) {
+        let day = week.days.find(item => item.id === incomingDay.id);
+        if (!day) {
+          day = {...incomingDay, homilies: []};
+          week.days.push(day);
+        }
+        for (const note of incomingDay.homilies) {
+          if (!day.homilies.some(existing => stable(existing) === stable(note))) day.homilies.push(note);
+        }
+      }
+    }
+    const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    for (const week of weeks) week.days.sort((a, b) => dayOrder.indexOf(a.id) - dayOrder.indexOf(b.id));
+    const weekNumber = week => Number(week.number ?? week.id.split('-').at(-1));
+    weeks.sort((a, b) => weekNumber(a) - weekNumber(b));
+    return {label, weeks};
+  }
+  return {normalizeCycle, mergeWeekdays};
 });
