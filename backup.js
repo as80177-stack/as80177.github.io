@@ -1,7 +1,7 @@
 (() => {
   const KEY = 'homily-backup-v1';
   const cycles = ['a', 'b', 'c'];
-  const independentSections = ['apostles', 'marian', 'theology', 'saints'];
+  const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter'];
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
   function validate(data) {
     const object = x => x && typeof x === 'object' && !Array.isArray(x);
@@ -35,6 +35,17 @@
     if (data.theology !== undefined && (!object(data.theology) || !text(data.theology.label) || !Array.isArray(data.theology.folders) || !data.theology.folders.every(folder))) throw new Error('其他神學與生活道理資料格式不正確');
     if (!data.theology) data.theology = {label:'其他神學與生活道理', folders:[{id:'theology-life',name:'其他神學與生活道理',display_name:'其他神學與生活道理資料夾',homilies:[]}]};
     if (data.saints !== undefined && (!object(data.saints) || !text(data.saints.label) || !Array.isArray(data.saints.folders) || !data.saints.folders.every(folder))) throw new Error('聖人紀念日資料格式不正確');
+    if (data.easter !== undefined) {
+      if (!object(data.easter) || !text(data.easter.label) || !Array.isArray(data.easter.folders) || !data.easter.folders.every(item => folder(item) && (item.days === undefined || (Array.isArray(item.days) && item.days.every(day => notes(day) && text(day.id) && text(day.label)))))) throw new Error('復活節資料格式不正確');
+      for (const c of cycles) {
+        for (const item of data[c].other.filter(x => x.id === 'easter-sunday' && x.homilies.length)) {
+          let target = data.easter.folders.find(x => x.id === item.id);
+          if (!target) { target = {...item, homilies:[]}; data.easter.folders.push(target); }
+          for (const note of item.homilies) if (!target.homilies.some(h => JSON.stringify(h) === JSON.stringify(note))) target.homilies.push(note);
+        }
+        data[c].other = data[c].other.filter(x => x.id !== 'easter-sunday');
+      }
+    }
     return data;
   }
   function local() {
@@ -48,18 +59,25 @@
   }
   async function all() {
     const saved = local();
-    if (saved) return saved.saints ? saved : validate({...saved, saints: await loadWebsite('saints')});
+    if (saved) {
+      const missing = independentSections.filter(key => saved[key] === undefined);
+      const defaults = await Promise.all(missing.map(async key => [key, await loadWebsite(key)]));
+      return validate({...saved, ...Object.fromEntries(defaults)});
+    }
     const entries = await Promise.all([...cycles, ...independentSections].map(async c => [c, await loadWebsite(c)]));
     return validate(Object.fromEntries(entries));
   }
   window.HomilyData = { async load(c) {
     const saved = local();
+    if (saved && c === 'easter' && !saved.easter) {
+      return validate({...saved, easter: await loadWebsite('easter')}).easter;
+    }
     return saved?.[c] ?? loadWebsite(c);
   }};
   const panel = document.createElement('section');
   panel.className = 'backup-panel';
   panel.innerHTML = `<h2>講道備份與還原</h2>
-    <p>完整備份包含三個年度、獨立的12宗徒、聖母其他節日、聖人紀念日及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
+    <p>完整備份包含三個年度、獨立的12宗徒、聖母其他節日、聖人紀念日、復活節及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
     <div class="backup-actions"><button type="button" id="backupDownload">下載完整備份</button>
     <button type="button" id="backupRestore">從備份還原</button>
     <button type="button" id="readingExport">匯出閱讀文件</button></div>
@@ -119,7 +137,7 @@
     message.textContent = '已改回網站資料。';
   });
   document.getElementById('readingExport').onclick = () => run(async () => {
-    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒、聖母其他節日與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
+    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、12宗徒、聖母其他節日、聖人紀念日、復活節與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
       return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }
@@ -129,7 +147,7 @@
       for (const key of ['advent_weekdays','lent_weekdays','holy_week']) if (d[key]) body += `<h2>${escape(d.label)} · ${escape(d[key].label)}</h2>` + d[key].weeks.map(w => `<h3>${escape(w.name)}</h3>` + w.days.map(day => entry(day, day.label)).join('')).join('');
       body += `<h2>${escape(d.label)} · 其他節日</h2>` + d.other.map(x => entry(x, x.display_name)).join('');
     }
-    for (const key of independentSections) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => entry(x, x.display_name)).join('');
+    for (const key of independentSections) body += `<h2>${escape(data[key].label)}</h2>` + data[key].folders.map(x => Array.isArray(x.days) ? `<h3>${escape(x.display_name)}</h3>` + x.days.map(day => entry(day, day.label)).join('') : entry(x, x.display_name)).join('');
     download(`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>講道閱讀文件</title><style>body{max-width:850px;margin:2rem auto;padding:1rem;font-family:system-ui,sans-serif;line-height:1.8}.content{white-space:pre-wrap}h2{border-bottom:1px solid #aaa}article{margin-bottom:2rem}@media print{h2,h3,h4{break-after:avoid}}</style><body>${body}</body></html>`, 'text/html;charset=utf-8', '講道閱讀文件.html');
     message.textContent = '已產生閱讀文件，下載後可離線開啟，或使用列印功能存為 PDF。';
   });

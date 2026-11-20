@@ -97,6 +97,12 @@
     if (!data || !['a','b','c'].includes(data.cycle)) return data;
     ensureAdventSundays(data);
     ensureLentAndHolyWeek(data);
+    const vigil = Array.isArray(data.other) && data.other.find(folder => folder?.id === 'easter-vigil');
+    if (vigil?.name === '復活前夕' && vigil.display_name === '復活前夕資料夾') {
+      const year = {a:'甲年', b:'乙年', c:'丙年'}[data.cycle];
+      vigil.name = `${year}復活節前夕`;
+      vigil.display_name = `${vigil.name}資料夾`;
+    }
     const weekdays = data.weekdays;
     if (weekdays && !Array.isArray(weekdays.weeks) && validWeeks(weekdays.odd?.weeks) && validWeeks(weekdays.even?.weeks)) {
       const merged = {label:'平日',weeks:[]};

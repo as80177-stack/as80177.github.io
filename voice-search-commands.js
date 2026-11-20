@@ -31,6 +31,8 @@
       [/聖誕(?:節)?/,'christmas','聖誕節'], [/追思(?:已亡)?(?:節)?|諸靈(?:節)?/,'all-souls','追思已亡節'],
       [/諸聖(?:節)?/,'all-saints','諸聖節'], [/傳教(?:節|主日)?/,'world-mission-sunday','傳教節'],
       [/(?:基督普世|耶穌|基督)?君王(?:節)?/,'christ-the-king','基督普世君王節'], [/聖枝主日/,'palm-sunday','聖枝主日'],
+      [/復活(?:節)?前夕/,'easter-vigil','復活節前夕'],
+      [/(?:復活節?)?八日慶期(?:平日)?/,'easter-octave-weekdays','八日慶期平日'],
       [/復活主日|復活節/,'easter-sunday','復活主日'], [/聖母蒙召升天(?:節)?/,'assumption','聖母蒙召升天節']
     ];
     const festival = festivals.find(([regex]) => regex.test(text));
@@ -39,7 +41,12 @@
       if (holy[1]) { const n = /[日天]/.test(holy[1]) ? 7 : number(holy[1]); command.day = dayIds[n-1]; }
       command.location.push('聖週'); text = text.replace(holy[0],'');
     } else if (festival) {
-      command.section = 'other'; command.folderId = festival[1]; command.location.push(festival[2]); text = text.replace(festival[0],'');
+      command.section = ['easter-sunday', 'easter-octave-weekdays'].includes(festival[1]) ? 'easter' : 'other';
+      if (command.section === 'easter') {
+        command.cycle = null;
+        command.location = [];
+      }
+      command.folderId = festival[1]; command.location.push(festival[2]); text = text.replace(festival[0],'');
     } else if (sunday || week || command.day) {
       const season = /將臨期/.test(text) ? 'advent' : /四旬期/.test(text) ? 'lent' : 'ordinary';
       const n = number((week || sunday || [null,''])[1]);

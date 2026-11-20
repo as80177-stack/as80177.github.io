@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homily-notes-v100';
+const CACHE_NAME = 'homily-notes-v101';
 const APP_SHELL = [
   './',
   './index.html',
@@ -34,6 +34,7 @@ const APP_SHELL = [
   './data/apostles.json',
   './data/marian.json',
   './data/saints.json',
+  './data/easter.json',
   './data/theology.json',
   './data/year-c.json'
 ];

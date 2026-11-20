@@ -1627,14 +1627,8 @@
     },
     {
       "id": "easter-vigil",
-      "name": "復活前夕",
-      "display_name": "復活前夕資料夾",
-      "homilies": []
-    },
-    {
-      "id": "easter-sunday",
-      "name": "復活主日",
-      "display_name": "復活主日資料夾",
+      "name": "乙年復活節前夕",
+      "display_name": "乙年復活節前夕資料夾",
       "homilies": []
     },
     {
