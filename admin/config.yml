@@ -42,6 +42,7 @@ collections:
                   - { label: 版本名稱, name: title, widget: string, hint: "例如：諸聖節道理 1、兒童版、青年版。" }
                   - { label: 道理適用年別, name: liturgical_parity, widget: select, required: false, options: [{ label: 單數年, value: odd }, { label: 雙數年, value: even }], hint: "請依原稿年份選擇；不要用上傳年份推定。標題只顯示單-或雙-。" }
                   - { label: 原稿年份, name: composition_year, widget: number, value_type: int, required: false, hint: "例如2023為單數，2022為雙數。不確定可留空。" }
+                  - { label: 禮儀年別, name: liturgical_cycle, widget: select, required: false, options: [{ label: 甲年, value: a }, { label: 乙年, value: b }, { label: 丙年, value: c }] }
                   - { label: 年份註記, name: year_annotation, widget: number, value_type: int, required: false }
                   - { label: 上傳時間, name: uploaded_at, widget: datetime, date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ", hint: "新增版本時請保留目前的日期與時間。" }
                   - { label: 原文語言, name: original_language, widget: select, required: false, options: [{ label: 中文, value: zh }, { label: English, value: en }] }
@@ -171,7 +172,7 @@ collections:
             summary: "{{fields.name}}"
             collapsed: true
             fields: *week_folder_fields
-      - label: 將臨期
+      - label: 將臨期平日
         name: advent-weekdays
         file: data/advent-weekdays.json
         fields:

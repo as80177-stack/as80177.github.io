@@ -3,7 +3,7 @@
   const cycles = ['a', 'b', 'c'];
   const weekdaySections = [
     ['weekdays', 'weekdays', '常年期平日'],
-    ['advent-weekdays', 'advent_weekdays', '將臨期'],
+    ['advent-weekdays', 'advent_weekdays', '將臨期平日'],
     ['lent-weekdays', 'lent_weekdays', '四旬期']
   ];
   const independentSections = ['apostles', 'marian', 'theology', 'saints', 'easter', ...weekdaySections.map(([key]) => key)];
@@ -36,6 +36,7 @@
         data[key] = window.HomilyDataModel.mergeWeekdays(sources, label);
         for (const c of cycles) delete data[c][legacyKey];
       }
+      if (key === 'advent-weekdays' && data[key]?.label === '將臨期') data[key].label = label;
     }
     for (const c of cycles) {
       if (data[c].holy_week !== undefined && !weekdaySection(data[c].holy_week)) throw new Error('聖週資料格式不正確');
@@ -58,6 +59,7 @@
     if (data.saints !== undefined && (!object(data.saints) || !text(data.saints.label) || !Array.isArray(data.saints.folders) || !data.saints.folders.every(folder))) throw new Error('聖人紀念日資料格式不正確');
     if (data.easter !== undefined) {
       if (!object(data.easter) || !text(data.easter.label) || !Array.isArray(data.easter.folders) || !data.easter.folders.every(item => folder(item) && (item.days === undefined || (Array.isArray(item.days) && item.days.every(day => notes(day) && text(day.id) && text(day.label)))))) throw new Error('復活節資料格式不正確');
+      data.easter = window.HomilyDataModel.normalizeEaster(data.easter);
       if (data.easter.label === '復活節') data.easter.label = '復活期';
       for (const c of cycles) {
         for (const item of data[c].other.filter(x => x.id === 'easter-sunday' && x.homilies.length)) {
@@ -99,7 +101,7 @@
   const panel = document.createElement('section');
   panel.className = 'backup-panel';
   panel.innerHTML = `<h2>講道備份與還原</h2>
-    <p>完整備份包含三個年度、常年期平日、將臨期、四旬期、獨立的12宗徒、聖母其他節日、聖人紀念日、復活期及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
+    <p>完整備份包含三個年度、常年期平日、將臨期平日、四旬期、獨立的12宗徒、聖母其他節日、聖人紀念日、復活期及其他神學與生活道理分類與所有講道全文。請另存一份到電腦或雲端硬碟；清除瀏覽器資料會刪除此裝置的還原資料。</p>
     <div class="backup-actions"><button type="button" id="backupDownload">下載完整備份</button>
     <button type="button" id="backupRestore">從備份還原</button>
     <button type="button" id="readingExport">匯出閱讀文件</button></div>
@@ -159,7 +161,7 @@
     message.textContent = '已改回網站資料。';
   });
   document.getElementById('readingExport').onclick = () => run(async () => {
-    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、常年期平日、將臨期、四旬期、12宗徒、聖母其他節日、聖人紀念日、復活期與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
+    const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、常年期平日、將臨期平日、四旬期、12宗徒、聖母其他節日、聖人紀念日、復活期與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
       return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }

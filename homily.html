@@ -92,7 +92,7 @@
       <select id="sectionSelect">
         <option value="sundays">主日</option>
         <option value="weekdays">常年期平日</option>
-        <option value="advent-weekdays">將臨期</option>
+        <option value="advent-weekdays">將臨期平日</option>
         <option value="lent-weekdays">四旬期</option>
         <option value="holy-week">聖週</option>
         <option value="other">其他（各種節日）</option>
@@ -202,7 +202,8 @@
             const bilingual = Boolean(english?.title && english.content);
             const englishOriginal = homily.original_language === 'en';
             const displayed = englishOriginal && bilingual ? english : homily;
-            const metadata = [homilyYearLabel(homily, section), formatUploadTime(homily.uploaded_at)].filter(Boolean).join(' · ');
+            const cycleLabel = {a: '甲年', b: '乙年', c: '丙年'}[homily.liturgical_cycle];
+            const metadata = [cycleLabel, homilyYearLabel(homily, section), formatUploadTime(homily.uploaded_at)].filter(Boolean).join(' · ');
             return `
             <section class="homily-card" data-homily-title="${escapeHtml(displayed.title)}" data-homily-index="${index + 1}" data-reading-language="${englishOriginal ? 'en' : 'zh'}" data-original-language="${escapeHtml(homily.original_language || 'zh')}">
               <button class="homily-toggle" type="button" aria-expanded="false">

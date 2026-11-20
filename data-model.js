@@ -156,5 +156,25 @@
     weeks.sort((a, b) => weekNumber(a) - weekNumber(b));
     return {label, weeks};
   }
-  return {normalizeCycle, mergeWeekdays};
+  function normalizeEaster(data) {
+    const folders = new Map();
+    for (const folder of data.folders) {
+      const legacy = /^(easter-sunday-\d+)-([abc])$/.exec(folder.id);
+      const current = legacy ? {
+        ...folder,
+        id: legacy[1],
+        name: folder.name.replace(/（[甲乙丙]年）$/, ''),
+        display_name: folder.display_name.replace(/（[甲乙丙]年）$/, ''),
+        homilies: folder.homilies.map(note => ({...note, liturgical_cycle: note.liturgical_cycle ?? legacy[2]}))
+      } : folder;
+      const existing = folders.get(current.id);
+      if (existing && /^easter-sunday-\d+$/.test(current.id)) {
+        folders.set(current.id, {...existing, homilies: [...existing.homilies, ...current.homilies]});
+      } else {
+        folders.set(current.id, current);
+      }
+    }
+    return {...data, folders: [...folders.values()]};
+  }
+  return {normalizeCycle, mergeWeekdays, normalizeEaster};
 });
