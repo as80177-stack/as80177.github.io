@@ -40,6 +40,14 @@
       command.section = 'holy-week'; command.folderId = 'holy-week-1';
       if (holy[1]) { const n = /[日天]/.test(holy[1]) ? 7 : number(holy[1]); command.day = dayIds[n-1]; }
       command.location.push('聖週'); text = text.replace(holy[0],'');
+    } else if (week && /復活期/.test(text)) {
+      const n = number(week[1]);
+      if (!Number.isInteger(n) || n < 1 || n > 7) throw new Error('復活期的平日週次為第1週至第7週。');
+      command.section = 'easter';
+      command.cycle = null;
+      command.folderId = n === 1 ? 'easter-octave-weekdays' : `easter-week-${n}`;
+      command.location = [n === 1 ? '八日慶期平日' : `復活期第${n}週平日`];
+      text = text.replace('復活期', '').replace(week[0], '');
     } else if (festival) {
       command.section = ['easter-sunday', 'easter-octave-weekdays'].includes(festival[1]) ? 'easter' : 'other';
       if (command.section === 'easter') {

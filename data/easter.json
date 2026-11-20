@@ -27,6 +27,21 @@
       "homilies": [],
       "days": [
         {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
           "id": "thursday",
           "label": "星期四",
           "homilies": [
@@ -53,6 +68,239 @@
               }
             }
           ]
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-2",
+      "name": "復活期第2週平日",
+      "display_name": "復活期第2週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-3",
+      "name": "復活期第3週平日",
+      "display_name": "復活期第3週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-4",
+      "name": "復活期第4週平日",
+      "display_name": "復活期第4週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-5",
+      "name": "復活期第5週平日",
+      "display_name": "復活期第5週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-6",
+      "name": "復活期第6週平日",
+      "display_name": "復活期第6週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
+        }
+      ]
+    },
+    {
+      "id": "easter-week-7",
+      "name": "復活期第7週平日",
+      "display_name": "復活期第7週平日",
+      "homilies": [],
+      "days": [
+        {
+          "id": "monday",
+          "label": "星期一",
+          "homilies": []
+        },
+        {
+          "id": "tuesday",
+          "label": "星期二",
+          "homilies": []
+        },
+        {
+          "id": "wednesday",
+          "label": "星期三",
+          "homilies": []
+        },
+        {
+          "id": "thursday",
+          "label": "星期四",
+          "homilies": []
+        },
+        {
+          "id": "friday",
+          "label": "星期五",
+          "homilies": []
+        },
+        {
+          "id": "saturday",
+          "label": "星期六",
+          "homilies": []
         }
       ]
     }
