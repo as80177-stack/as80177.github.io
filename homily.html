@@ -112,7 +112,7 @@
       </select>
     </label>
     <button id="runHomilySearch" type="button">搜尋道理</button>
-    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>顯示全部</button><p class="reading-hint">可說「找甲年第七個主日」、「找饒恕別人的道理」或「夫妻相處」。文字與語音都可跨年度、分類搜尋。「主要主題」找重點；「所有關鍵字」列出標題或中英文內文包含該詞的全部道理，不限篇數。文字輸入後按「搜尋道理」或 Enter。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
+    <div class="voice-search"><button id="voiceSearchButton" type="button" aria-pressed="false">🎙 語音找道理</button> <button id="voiceSearchClear" type="button" hidden>返回分類</button><p class="reading-hint">可說「找甲年第七個主日」、「找饒恕別人的道理」或「夫妻相處」。文字與語音都可跨年度、分類搜尋。「主要主題」找重點；「所有關鍵字」列出標題或中英文內文包含該詞的全部道理，不限篇數。文字輸入後按「搜尋道理」或 Enter。</p><p id="voiceSearchStatus" role="status" aria-live="polite"></p></div>
   </div>
 
   <main id="list"><div class="message">載入中…</div></main>
@@ -244,19 +244,20 @@
       document.getElementById('cycleLabel').hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       currentCycle.hidden = ['apostles', 'marian', 'theology'].includes(sectionSelect.value);
       if (voiceResults !== null) {
-        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">${resultMode === 'keywords' ? '所有關鍵字' : '主要主題'}搜尋：${voiceResults.length} 篇<br><small>${resultMode === 'keywords' ? '標題或中英文內文包含搜尋詞的道理全部列出，不限篇數。' : '優先顯示以此為主題的道理，略過零星提及。'}可跨年度與分類，按「顯示全部」返回目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message">沒有找到符合的道理，請換一個關鍵字或搜尋方式。</div>';
+        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">${resultMode === 'keywords' ? '所有關鍵字' : '主要主題'}搜尋：${voiceResults.length} 篇<br><small>${resultMode === 'keywords' ? '標題或中英文內文包含搜尋詞的道理全部列出，不限篇數。' : '優先顯示以此為主題的道理，略過零星提及。'}可跨年度與分類，按「返回分類」回到目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message voice-results-heading">搜尋結果：0 篇。請換一個關鍵字或搜尋方式。</div>';
         bindListEvents(); return;
       }
-      const query = searchInput.value.trim().toLowerCase();
+      const query = voiceFilter?.fuzzy ? searchInput.value.trim().toLowerCase() : '';
       const items = selectedItems().filter(item => {
         if (voiceFilter?.folderId && item.id !== voiceFilter.folderId) return false;
+        if (!query) return true;
         const days = (item.days || []).filter(day => !voiceFilter?.day || day.id === voiceFilter.day);
         const homilyText = entry => (entry.homilies || []).flatMap(homily => [
           homily.title, homily.uploaded_at, homily.content,
           ...Object.values(homily.translations || {}).flatMap(translation => [translation.title, translation.content])
         ]);
         const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
-        return !query || (voiceFilter?.fuzzy ? window.HomilySearchMatching.score(query,item.name + " " + (item.display_name || ""),text)>0 : text.includes(query));
+        return window.HomilySearchMatching.score(query, item.name + " " + (item.display_name || ""), text) > 0;
       });
 
       if (!items.length) {
@@ -329,20 +330,27 @@
     currentCycle.textContent = `目前禮儀年度：${detected.liturgicalYear} 年 · ${sundayLabel}主日`;
 
     window.addEventListener('homily-data-changed', () => { clearVoiceFilter(); loadData(); });
-    function clearVoiceFilter() { searchRequest++; lastSearch = null; voiceResults = null; voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; }
+    function clearVoiceFilter() { searchRequest++; lastSearch = null; voiceResults = null; voiceFilter = null; document.getElementById('voiceSearchClear').hidden = true; document.getElementById('voiceSearchStatus').textContent = ''; }
     cycleSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
     sectionSelect.addEventListener('change', () => { clearVoiceFilter(); loadData(); });
-    searchInput.addEventListener('input', () => { clearVoiceFilter(); render(); });
+    searchInput.addEventListener('input', () => {
+      if (!searchInput.value.trim()) window.HomilySearch.reset();
+    });
 
     async function runTextSearch() {
       const query = searchInput.value.trim();
       if (!query) { window.HomilySearch.reset(); return; }
       const status = document.getElementById('voiceSearchStatus');
+      let request;
       try {
         status.textContent = '搜尋中…';
-        const found = await window.HomilySearch.navigate({query});
-        status.textContent = found ? '已完成搜尋，可切換搜尋方式比較結果。' : '沒有找到符合的道理。';
-      } catch (error) { status.textContent = error.message || '搜尋失敗，請重試。'; }
+        const search = window.HomilySearch.navigate({query});
+        request = searchRequest;
+        await search;
+        if (request === searchRequest) status.textContent = `搜尋結果：${voiceResults.length} 篇。`;
+      } catch (error) {
+        if (request === searchRequest) status.textContent = error.message || '搜尋失敗，請重試。';
+      }
     }
     document.getElementById('runHomilySearch').addEventListener('click', runTextSearch);
     searchInput.addEventListener('keydown', event => {
