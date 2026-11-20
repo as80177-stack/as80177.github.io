@@ -32,6 +32,7 @@
       [/諸聖(?:節)?/,'all-saints','諸聖節'], [/傳教(?:節|主日)?/,'world-mission-sunday','傳教節'],
       [/(?:基督普世|耶穌|基督)?君王(?:節)?/,'christ-the-king','基督普世君王節'], [/聖枝主日/,'palm-sunday','聖枝主日'],
       [/復活(?:節)?前夕/,'easter-vigil','復活節前夕'],
+      [/(?:復活期?第?[二2]主日(?:天主)?慈悲主日|復活期?第?[二2]主日|(?:天主)?慈悲主日)/,'easter-sunday-2','復活期第二主日（慈悲主日）'],
       [/(?:復活節?)?八日慶期(?:平日)?/,'easter-octave-weekdays','八日慶期平日'],
       [/復活主日|復活節|復活期/,'easter-sunday','復活主日'], [/聖母蒙召升天(?:節)?/,'assumption','聖母蒙召升天節']
     ];
@@ -49,7 +50,7 @@
       command.location = [n === 1 ? '八日慶期平日' : `復活期第${n}週平日`];
       text = text.replace('復活期', '').replace(week[0], '');
     } else if (festival) {
-      command.section = ['easter-sunday', 'easter-octave-weekdays'].includes(festival[1]) ? 'easter' : 'other';
+      command.section = ['easter-sunday', 'easter-sunday-2', 'easter-octave-weekdays'].includes(festival[1]) ? 'easter' : 'other';
       if (command.section === 'easter') {
         command.cycle = null;
         command.location = [];
