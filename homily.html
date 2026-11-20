@@ -183,7 +183,16 @@
       }).format(date);
     }
 
-    function homilyBlock(item, title, cssClass = '') {
+    function homilyYearLabel(homily, section) {
+      const annotation = Number.isInteger(homily.year_annotation) ? homily.year_annotation : null;
+      const original = Number.isInteger(homily.composition_year) ? homily.composition_year : null;
+      if (annotation && original && annotation !== original) return `年份註記 ${annotation} · 原稿年份 ${original}`;
+      if (annotation) return `年份註記 ${annotation}`;
+      if (original) return `原稿年份 ${original}`;
+      return ['sundays', 'weekdays', 'advent-weekdays', 'lent-weekdays', 'holy-week', 'easter'].includes(section) ? '年份未記錄' : '';
+    }
+
+    function homilyBlock(item, title, section, cssClass = '') {
       const homilies = item.homilies || [];
       return `
         <article class="day ${cssClass}">
@@ -193,11 +202,12 @@
             const bilingual = Boolean(english?.title && english.content);
             const englishOriginal = homily.original_language === 'en';
             const displayed = englishOriginal && bilingual ? english : homily;
+            const metadata = [homilyYearLabel(homily, section), formatUploadTime(homily.uploaded_at)].filter(Boolean).join(' · ');
             return `
             <section class="homily-card" data-homily-title="${escapeHtml(displayed.title)}" data-homily-index="${index + 1}" data-reading-language="${englishOriginal ? 'en' : 'zh'}" data-original-language="${escapeHtml(homily.original_language || 'zh')}">
               <button class="homily-toggle" type="button" aria-expanded="false">
                 <span class="homily-title">${index + 1}. ${escapeHtml(displayed.title)}</span>
-                <span class="homily-meta">${Number.isInteger(homily.year_annotation) ? `年份註記 ${homily.year_annotation} · ` : ''}${escapeHtml(formatUploadTime(homily.uploaded_at))}</span>
+                <span class="homily-meta">${escapeHtml(metadata)}</span>
                 <span class="chevron">›</span>
               </button>
               <div class="homily-body">
@@ -252,7 +262,7 @@
       document.getElementById('cycleLabel').hidden = independentSections.includes(sectionSelect.value);
       currentCycle.hidden = independentSections.includes(sectionSelect.value);
       if (voiceResults !== null) {
-        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">${resultMode === 'keywords' ? '所有關鍵字' : '主要主題'}搜尋：${voiceResults.length} 篇<br><small>${resultMode === 'keywords' ? '標題或中英文內文包含搜尋詞的道理全部列出，不限篇數。' : '優先顯示以此為主題的道理，略過零星提及。'}可跨年度與分類，按「返回分類」回到目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]},result.note.title))).join('') : '<div class="message voice-results-heading">搜尋結果：0 篇。請換一個關鍵字或搜尋方式。</div>';
+        listEl.innerHTML = voiceResults.length ? `<p class="voice-results-heading">${resultMode === 'keywords' ? '所有關鍵字' : '主要主題'}搜尋：${voiceResults.length} 篇<br><small>${resultMode === 'keywords' ? '標題或中英文內文包含搜尋詞的道理全部列出，不限篇數。' : '優先顯示以此為主題的道理，略過零星提及。'}可跨年度與分類，按「返回分類」回到目前分類。</small></p>` + voiceResults.map(result => folderHtml(result.location,homilyBlock({homilies:[result.note]}, result.note.title, result.section))).join('') : '<div class="message voice-results-heading">搜尋結果：0 篇。請換一個關鍵字或搜尋方式。</div>';
         bindListEvents(); return;
       }
       const query = voiceFilter?.fuzzy ? searchInput.value.trim().toLowerCase() : '';
@@ -275,9 +285,9 @@
 
       listEl.innerHTML = items.map(item => {
         if (Array.isArray(item.days)) {
-          return folderHtml(item.name, item.days.filter(day => !voiceFilter?.day || day.id === voiceFilter.day).map(day => homilyBlock(day, day.label, 'weekday')).join(''));
+          return folderHtml(item.name, item.days.filter(day => !voiceFilter?.day || day.id === voiceFilter.day).map(day => homilyBlock(day, day.label, sectionSelect.value, 'weekday')).join(''));
         }
-        return folderHtml(item.display_name, homilyBlock(item, item.name));
+        return folderHtml(item.display_name, homilyBlock(item, item.name, sectionSelect.value));
       }).join('');
 
       bindListEvents();
