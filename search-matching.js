@@ -112,13 +112,15 @@
   }
   function catalog(data,key) {
     const result=[];
-    function add(folders,section,sectionLabel,cycle) {
+    function add(folders,section,sectionLabel,cycle,parents = [],rootId) {
       for(const folder of folders || []){
+        const path = [...parents, folder.display_name || folder.name];
         const days=folder.days || [null];
         for(const day of days)for(const note of (day||folder).homilies || []){
           if(!note.content?.trim() || note.content.trim()==='待補')continue;
-          result.push({cycle,section,location:[cycle?data.label:null,sectionLabel,folder.display_name||folder.name,day?.label].filter(Boolean).join(' → '),folderId:folder.id,day:day?.id,note});
+          result.push({cycle,section,location:[cycle?data.label:null,sectionLabel,...path,day?.label].filter(Boolean).join(' → '),folderId:rootId ?? folder.id,day:day?.id,note});
         }
+        if (folder.folders?.length) add(folder.folders,section,sectionLabel,cycle,path,rootId ?? folder.id);
       }
     }
     if(['a','b','c'].includes(key)){

@@ -18,7 +18,11 @@
     function weekdaySection(item) {
       return object(item) && text(item.label) && Array.isArray(item.weeks) && item.weeks.every(w => object(w) && text(w.id) && text(w.name) && Array.isArray(w.days) && w.days.every(day => notes(day) && text(day.id) && text(day.label)));
     }
-    function folder(item) { return notes(item) && text(item.id) && text(item.name) && text(item.display_name); }
+    function folder(item) {
+      return notes(item) && text(item.id) && text(item.name) && text(item.display_name) &&
+        (item.description === undefined || text(item.description)) &&
+        (item.folders === undefined || (Array.isArray(item.folders) && item.folders.every(folder)));
+    }
     if (object(data)) for (const c of cycles) if (object(data[c])) data[c] = normalizeYear(data[c]);
     if (!object(data) || !cycles.every(c => {
       const d = data[c];
@@ -163,6 +167,11 @@
   document.getElementById('readingExport').onclick = () => run(async () => {
     const data = await all(); let body = '<h1>天主教講道筆記</h1><p>此文件包含三個年度、常年期平日、將臨期平日、四旬期、12宗徒、聖母其他節日、聖人紀念日、復活期與其他神學及生活道理的全文，可離線閱讀，或使用瀏覽器列印功能存為 PDF。</p>';
     function entry(item, title) {
+      if (item.folders?.length) {
+        const description = item.description ? `<p>${escape(item.description)}</p>` : '';
+        const notes = item.homilies.length ? entry({homilies: item.homilies}, title) : '';
+        return `<section><h3>${escape(title)}</h3>${description}${notes}${item.folders.map(folder => entry(folder, folder.display_name)).join('')}</section>`;
+      }
       return `<section><h3>${escape(title)}</h3>${item.homilies.length ? item.homilies.map(h => `<article><h4>${escape(h.title)}</h4><p>${escape(h.uploaded_at || '')}</p><div class="content">${escape(h.content)}</div>${h.translations?.en ? `<section lang="en"><h4>${escape(h.translations.en.title)} · English</h4><div class="content">${escape(h.translations.en.content)}</div></section>` : ''}</article>`).join('') : '<p>尚未加入道理</p>'}</section>`;
     }
     for (const c of cycles) {

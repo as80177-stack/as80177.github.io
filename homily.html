@@ -40,9 +40,9 @@
     .folder-icon { font-size: 1.3rem; }
     .folder-title { flex: 1; font-weight: 750; }
     .chevron { transition: transform .18s; }
-    .folder.open .chevron { transform: rotate(90deg); }
+    .folder.open > .folder-button .chevron { transform: rotate(90deg); }
     .folder-content { display: none; padding: 0 1rem 1rem; }
-    .folder.open .folder-content { display: grid; gap: .6rem; }
+    .folder.open > .folder-content { display: grid; gap: .6rem; }
     .day { padding: .85rem 1rem; border-left: 4px solid #c4a45c; border-radius: 7px; background: #faf8f4; }
     .weekday { border-left-color: #7d9a83; }
     .day h3 { margin: 0 0 .35rem; font-size: 1rem; }
@@ -259,6 +259,16 @@
       return [];
     }
 
+    function renderFolder(item) {
+      if (Array.isArray(item.days)) {
+        const days = item.days.filter(day => !voiceFilter?.day || day.id === voiceFilter.day);
+        return folderHtml(item.name, days.map(day => homilyBlock(day, day.label, sectionSelect.value, 'weekday')).join(''));
+      }
+      const description = item.description ? `<p>${escapeHtml(item.description)}</p>` : '';
+      const notes = item.homilies.length || !item.folders?.length ? homilyBlock(item, item.name, sectionSelect.value) : '';
+      return folderHtml(item.display_name, description + notes + (item.folders || []).map(renderFolder).join(''));
+    }
+
     function render() {
       document.getElementById('cycleLabel').hidden = independentSections.includes(sectionSelect.value);
       currentCycle.hidden = independentSections.includes(sectionSelect.value);
@@ -275,7 +285,8 @@
           homily.title, homily.uploaded_at, homily.content,
           ...Object.values(homily.translations || {}).flatMap(translation => [translation.title, translation.content])
         ]);
-        const text = [item.name, item.display_name, ...homilyText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
+        const folderText = folder => [folder.name, folder.display_name, ...homilyText(folder), ...(folder.folders || []).flatMap(folderText)];
+        const text = [...folderText(item), ...days.flatMap(day => [day.label, ...homilyText(day)])].join(' ').toLowerCase();
         return window.HomilySearchMatching.score(query, item.name + " " + (item.display_name || ""), text) > 0;
       });
 
@@ -284,12 +295,7 @@
         return;
       }
 
-      listEl.innerHTML = items.map(item => {
-        if (Array.isArray(item.days)) {
-          return folderHtml(item.name, item.days.filter(day => !voiceFilter?.day || day.id === voiceFilter.day).map(day => homilyBlock(day, day.label, sectionSelect.value, 'weekday')).join(''));
-        }
-        return folderHtml(item.display_name, homilyBlock(item, item.name, sectionSelect.value));
-      }).join('');
+      listEl.innerHTML = items.map(renderFolder).join('');
 
       bindListEvents();
     }
@@ -298,7 +304,7 @@
         button.addEventListener('click', () => {
           const folder = button.closest('.folder');
           const willOpen = !folder.classList.contains('open');
-          if (willOpen) listEl.querySelectorAll('.folder.open').forEach(other => {
+          if (willOpen) folder.parentElement.querySelectorAll(':scope > .folder.open').forEach(other => {
             if (other === folder) return;
             other.classList.remove('open');
             other.querySelector('.folder-button').setAttribute('aria-expanded', 'false');
@@ -412,7 +418,7 @@
       searchInput.value = command.query;
       await loadData();
       if (!cycleData) throw new Error('資料載入失敗，請確認連線或離線資料後重試。');
-      const folders = listEl.querySelectorAll('.folder');
+      const folders = listEl.querySelectorAll(':scope > .folder');
       if (command.folderId && folders.length === 1) {
         folders[0].classList.add('open');
         folders[0].querySelector('.folder-button').setAttribute('aria-expanded','true');
