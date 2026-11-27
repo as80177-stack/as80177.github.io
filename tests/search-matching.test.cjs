@@ -19,10 +19,12 @@ test('sustained discussion is searchable even with a generic title',()=>{
 test('actual corpus keeps main cross homily and excludes incidental cross mentions',()=>{
   const docs=['a','b','c','apostles','marian','theology','weekdays'].flatMap(key=>m.catalog(require('../data/'+(['a','b','c'].includes(key)?'year-':'')+key+'.json'),key));
   const hits=m.rank(docs,{query:'十字架'});
-  assert.equal(hits.length,2);
-  assert(hits[0].note.title.includes('背起十字架'));
-  assert.equal(hits[1].note.title,'第二十二講 論痛苦');
-  assert.match(hits[1].location,/維亞納神父講道集/);
+  assert.deepEqual(hits.map(hit => hit.note.title), [
+    '背起自己的十字架跟隨主',
+    '單-常年期第6週星期五道理：背起十字架，跟隨基督',
+    '第二十二講 論痛苦'
+  ]);
+  assert.match(hits[2].location,/維亞納神父講道集/);
   assert(m.rank(docs,{query:'婚姻'}).every(d=>!d.note.title.includes('第32主日')));
   assert(m.rank(docs,{query:'聖體'}).some(d=>d.note.title==='入門聖事'));
   assert(m.rank(docs,{query:'寬恕'})[0].note.title.includes('寬恕'));
